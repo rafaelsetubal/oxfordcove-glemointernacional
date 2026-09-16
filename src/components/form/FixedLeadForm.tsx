@@ -13,7 +13,7 @@ export interface LeadFormData {
 }
 
 interface LeadFormProps {
-  mode?: 'inline' | 'drawer' | 'modal' | 'plain';
+  mode?: 'inline' | 'drawer' | 'modal' | 'plain' | 'final-cta';
   onClose?: () => void;
   className?: string;
   title?: string;
@@ -311,6 +311,16 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         <div className={`w-[320px] max-w-[340px] rounded-[24px] p-5 sm:p-6 apple-glass ${className}`}>
           {content}
         </div>
+      </div>
+    );
+  }
+
+  if (mode === 'final-cta') {
+    return (
+      <div
+        className={`w-full max-w-[440px] sm:max-w-[460px] rounded-[26px] sm:rounded-[30px] p-6 sm:p-8 bg-[#FAF9F6] border border-[#24231F]/10 shadow-[0_30px_80px_rgba(0,0,0,0.28),0_15px_35px_rgba(0,0,0,0.18)] transition-all ${className}`}
+      >
+        {content}
       </div>
     );
   }

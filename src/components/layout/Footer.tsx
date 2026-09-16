@@ -2,101 +2,156 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { GlemoLogo } from '@/components/ui/GlemoLogo';
 
 export const Footer: React.FC = () => {
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | null>(null);
 
   return (
-    <footer className="w-full bg-[#FAF9F6] text-[#24231F] border-t border-[#24231F]/10 py-16 sm:py-20 lg:py-24 select-none">
+    <footer className="w-full bg-[#FAF9F6] text-[#24231F] border-t border-[#24231F]/10 pt-16 pb-12 sm:pt-20 sm:pb-16 select-none">
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
         
         {/* ========================================================================= */}
-        {/* 01. DESKTOP / TABLET TOP ROW (LEFT: ADDRESS | CENTER: LINKS | RIGHT: DEV) */}
+        {/* 01. THREE INSTITUTIONAL LOGOS (BALANCED VISUAL PRESENCE)                  */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 items-start pb-12 sm:pb-16 border-b border-[#24231F]/10 text-center md:text-left">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-8 sm:gap-12 pb-12 sm:pb-16 border-b border-[#24231F]/10">
           
-          {/* LEFT: PROJECT IDENTITY & ADDRESS */}
-          <div className="md:col-span-5 flex flex-col items-center md:items-start space-y-2">
-            <span className="font-display font-medium text-[20px] sm:text-[22px] tracking-tight text-[#171815]">
+          {/* LOGO 1: OXFORD COVE */}
+          <div className="flex flex-col items-center sm:items-start space-y-1.5">
+            <span className="font-technical text-[9px] uppercase tracking-[0.24em] text-[#705B44] font-semibold">
+              EMPREENDIMENTO
+            </span>
+            <div className="relative h-7 w-40 sm:w-44">
+              <Image
+                src="/images/brand/logo-bronze.png"
+                alt="Oxford Cove"
+                fill
+                className="object-contain object-center sm:object-left"
+              />
+            </div>
+          </div>
+
+          {/* LOGO 2: IMAN DEVELOPERS */}
+          <div className="flex flex-col items-center space-y-1.5">
+            <span className="font-technical text-[9px] uppercase tracking-[0.24em] text-[#705B44] font-semibold">
+              DESENVOLVIMENTO
+            </span>
+            <div className="relative h-7 w-40 sm:w-44">
+              <Image
+                src="/images/brand/imandevelopers-charcoal.png"
+                alt="IMAN Developers"
+                fill
+                className="object-contain object-center"
+              />
+            </div>
+          </div>
+
+          {/* LOGO 3: GLEMO INTERNATIONAL */}
+          <div className="flex flex-col items-center sm:items-end space-y-1.5">
+            <span className="font-technical text-[9px] uppercase tracking-[0.24em] text-[#705B44] font-semibold">
+              APRESENTAÇÃO INTERNACIONAL
+            </span>
+            <div className="relative h-7 w-36 sm:w-40">
+              <Image
+                src="/images/brand/glemo-color.png"
+                alt="glemO international"
+                fill
+                className="object-contain object-center sm:object-right"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 02. FOOTER CONTEXT COLUMNS                                                */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 py-12 sm:py-14 border-b border-[#24231F]/10 text-center sm:text-left">
+          
+          {/* COL 1: OXFORD COVE LOCATION */}
+          <div className="flex flex-col space-y-2">
+            <span className="font-display font-medium text-[17px] text-[#171815] tracking-tight">
               OXFORD COVE
             </span>
-            <div className="font-body text-[13px] sm:text-[13.5px] text-[#5A544C] leading-relaxed">
+            <div className="font-body text-[13px] text-[#5A544C] leading-relaxed">
               <p>Jumeirah Village Circle</p>
               <p>District 11 · Dubai, UAE</p>
             </div>
           </div>
 
-          {/* CENTER: LEGAL LINKS */}
-          <div className="md:col-span-4 flex flex-col items-center md:items-start space-y-2.5">
-            <span className="font-technical text-[10px] uppercase tracking-[0.20em] text-[#705B44] font-semibold block mb-0.5">
+          {/* COL 2: INFORMAÇÕES LEGAIS */}
+          <div className="flex flex-col space-y-2">
+            <span className="font-technical text-[10px] uppercase tracking-[0.20em] text-[#705B44] font-semibold">
               INFORMAÇÕES LEGAIS
             </span>
-            <button
-              type="button"
-              onClick={() => setLegalModal('privacy')}
-              className="font-body text-[13px] sm:text-[13.5px] text-[#5A544C] hover:text-[#171815] transition-colors cursor-pointer"
-            >
-              Privacy Policy
-            </button>
-            <button
-              type="button"
-              onClick={() => setLegalModal('terms')}
-              className="font-body text-[13px] sm:text-[13.5px] text-[#5A544C] hover:text-[#171815] transition-colors cursor-pointer"
-            >
-              Terms & Conditions
-            </button>
+            <div className="flex flex-col space-y-1.5">
+              <button
+                type="button"
+                onClick={() => setLegalModal('privacy')}
+                className="font-body text-[13px] text-[#5A544C] hover:text-[#171815] transition-colors cursor-pointer text-center sm:text-left"
+              >
+                Privacy Policy
+              </button>
+              <button
+                type="button"
+                onClick={() => setLegalModal('terms')}
+                className="font-body text-[13px] text-[#5A544C] hover:text-[#171815] transition-colors cursor-pointer text-center sm:text-left"
+              >
+                Terms & Conditions
+              </button>
+            </div>
           </div>
 
-          {/* RIGHT: DEVELOPER SIGNATURE */}
-          <div className="md:col-span-3 flex flex-col items-center md:items-end space-y-2">
-            <span className="font-technical text-[10px] uppercase tracking-[0.20em] text-[#705B44] font-semibold block mb-0.5">
+          {/* COL 3: DESENVOLVIMENTO */}
+          <div className="flex flex-col space-y-2">
+            <span className="font-technical text-[10px] uppercase tracking-[0.20em] text-[#705B44] font-semibold">
               DESENVOLVIMENTO
             </span>
-            <span className="font-body text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-[#171815]">
-              IMAN DEVELOPERS
+            <div className="font-body text-[13px] text-[#5A544C] leading-relaxed">
+              <p className="font-semibold text-[#171815]">IMAN DEVELOPERS</p>
+              <p className="text-[12px] text-[#7A7267]">Award-Winning Boutique Developer em Dubai</p>
+            </div>
+          </div>
+
+          {/* COL 4: APRESENTAÇÃO INTERNACIONAL */}
+          <div className="flex flex-col space-y-2">
+            <span className="font-technical text-[10px] uppercase tracking-[0.20em] text-[#705B44] font-semibold">
+              APRESENTAÇÃO INTERNACIONAL
             </span>
-            <span className="font-body text-[12px] text-[#6B6358]">
-              Award-Winning Boutique Developer
-            </span>
+            <div className="font-body text-[13px] text-[#5A544C] leading-relaxed">
+              <p className="font-bold text-[#171815]">glemO international</p>
+              <p className="text-[12px] text-[#7A7267]">Atendimento consultivo e assessoria privada</p>
+            </div>
           </div>
 
         </div>
 
         {/* ========================================================================= */}
-        {/* 02. COMPLIANCE & LEGAL NOTICE (DISCRETE SINGLE LINE)                       */}
+        {/* 03. COMPLIANCE & LEGAL DISCLAIMER                                         */}
         {/* ========================================================================= */}
         <div className="py-6 text-center">
-          <p className="font-body text-[11px] sm:text-[11.5px] text-[#7A7267] font-normal leading-normal max-w-2xl mx-auto">
-            As imagens são meramente ilustrativas e sujeitas a alteração. Condições de pré-lançamento e disponibilidade sujeitas a confirmação.
+          <p className="font-body text-[11px] sm:text-[11.5px] text-[#7A7267] font-normal leading-normal max-w-3xl mx-auto">
+            As imagens são meramente ilustrativas e sujeitas a alteração. Condições de pré-lançamento, valores e disponibilidades estão sujeitos a confirmação junto à incorporadora.
           </p>
         </div>
 
         {/* ========================================================================= */}
-        {/* 03. BOTTOM ROW: COPYRIGHT & INSTITUTIONAL SIGNATURE                       */}
+        {/* 04. FOOTER BOTTOM: COPYRIGHT & SIGNATURE                                  */}
         {/* ========================================================================= */}
-        <div className="pt-6 border-t border-[#24231F]/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="pt-6 border-t border-[#24231F]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           
-          {/* COPYRIGHT */}
           <span className="font-body text-[11.5px] text-[#5A544C]">
             © 2026 Oxford Cove. All rights reserved.
           </span>
 
-          {/* INSTITUTIONAL SIGNATURE (EXACT CASING: glemO international) */}
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-[#5A544C]">
-            <span className="font-body text-[11.5px]">
-              International presentation by
-            </span>
-            <span className="font-body text-[12px] font-bold tracking-[0.06em] text-[#171815]">
-              glemO international
-            </span>
-          </div>
+          <span className="font-body text-[11.5px] text-[#5A544C]">
+            International presentation by <strong className="font-bold text-[#171815]">glemO international</strong>
+          </span>
 
         </div>
 
       </div>
 
-      {/* SIMPLE LEGAL MODAL (WHEN USER CLICKS PRIVACY POLICY OR TERMS) */}
+      {/* LEGAL MODAL (PRIVACY POLICY & TERMS) */}
       {legalModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
           <div className="w-full max-w-lg bg-[#FAF9F6] text-[#24231F] rounded-2xl p-6 sm:p-8 shadow-2xl border border-[#24231F]/15 relative">

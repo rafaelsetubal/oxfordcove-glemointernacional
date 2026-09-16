@@ -1,198 +1,73 @@
 ﻿'use client';
 
-import React, { useState, useId } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { FixedLeadForm } from '@/components/form/FixedLeadForm';
 
 export const FinalCtaSection: React.FC = () => {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [isInView, setIsInView] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
-  const nameId = useId();
-  const phoneId = useId();
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
 
-  const validate = () => {
-    const newErrors: { name?: string; phone?: string } = {};
-    if (!name.trim()) {
-      newErrors.name = 'Por favor, insira seu nome completo.';
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-    if (!phone.trim() || phone.length < 8) {
-      newErrors.phone = 'Por favor, insira seu WhatsApp com DDI.';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 450);
-  };
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="final-cta"
-      className="relative w-full bg-[#14221A] text-[#FAF8F5] py-24 sm:py-32 lg:py-36 overflow-hidden select-none"
+      className="relative w-full min-h-[100svh] flex items-center justify-center py-20 sm:py-24 lg:py-28 overflow-hidden select-none bg-[#14221A]"
     >
-      {/* 01. SUBTLE ARCHITECTURAL DEPTH TEXTURE (BALCONY ASSET WITH LOW OPACITY & VIGNETTE) */}
-      <div className="absolute inset-0 pointer-events-none opacity-10 mix-blend-luminosity overflow-hidden">
+      {/* 01. FULL-BLEED REAL ARCHITECTURAL PHOTOGRAPHY OF OXFORD COVE */}
+      <div className="absolute inset-0 z-0">
         <Image
-          src="/images/payment-plan/01-hero-balcony.webp"
-          alt=""
+          src="/images/final-cta/final-cta-balcony.png"
+          alt="Oxford Cove by IMAN Developers — Arquitetura e Terraços"
           fill
-          quality={80}
+          priority={false}
+          quality={88}
           sizes="100vw"
-          className="object-cover object-center"
-          aria-hidden="true"
+          className="object-cover object-center transition-transform duration-1000 ease-luxury hover:scale-105"
         />
+
+        {/* 02. FOREST-GREEN DIRECTIONAL OVERLAY (GRADIENT VIGNETTE ENHANCING FORM CONTRAST WHILE PRESERVING SIDES) */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, rgba(20, 34, 26, 0.72) 0%, rgba(20, 34, 26, 0.60) 45%, rgba(20, 34, 26, 0.85) 100%)',
+          }}
+        />
+
+        {/* TOP & BOTTOM SEAMLESS EDGE FADES */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#FAF8F5] via-[#FAF8F5]/30 to-transparent pointer-events-none opacity-30" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/40 to-transparent pointer-events-none" />
       </div>
 
-      {/* DIRECTIONAL VIGNETTE GRADIENT (DARK CENTER & EDGES FOR TOTAL LEGIBILITY) */}
+      {/* 03. CENTERED FORM PANEL WITH VISIBLE NATURAL DEEP SHADOW & SMOOTH ENTRY ANIMATION */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, rgba(20, 34, 26, 0.75) 0%, rgba(20, 34, 26, 0.96) 65%, #14221A 100%)',
-        }}
-      />
-
-      {/* 02. MAIN CONTAINER & HIERARCHY */}
-      <div className="relative z-10 max-w-[760px] mx-auto px-5 sm:px-8 text-center flex flex-col items-center">
-        
-        {/* OVERLINE */}
-        <span className="font-body text-[11px] sm:text-[12px] font-semibold tracking-[0.28em] uppercase text-[#B7A489] mb-4 block">
-          OXFORD COVE
-        </span>
-
-        {/* HEADLINE */}
-        <h2 className="font-display font-normal text-[38px] sm:text-[52px] lg:text-[60px] leading-[1.04] text-[#FAF8F5] tracking-tight max-w-xl">
-          Seu próximo endereço<br />em Dubai.
-        </h2>
-
-        {/* SUPPORTING COPY */}
-        <p className="font-body text-[#D1CCC3] text-[14.5px] sm:text-[16px] leading-[1.65] font-normal max-w-lg mt-4 sm:mt-5 mb-10 sm:mb-12">
-          Registre seu interesse e receba as condições de pré-lançamento, disponibilidade e próximos passos.
-        </p>
-
-        {/* 03. EMBEDDED MINIMALIST FORM (INTEGRATED DIRECTLY INTO FOREST GREEN BACKGROUND) */}
-        <div className="w-full max-w-[440px]">
-          {submitted ? (
-            <div className="py-8 px-6 rounded-2xl bg-white/[0.04] border border-white/10 flex flex-col items-center text-center animate-fadeIn">
-              <div className="w-11 h-11 rounded-full bg-white/10 text-champagne flex items-center justify-center mb-3">
-                <CheckCircle2 className="w-6 h-6 stroke-[1.5] text-[#B7A489]" />
-              </div>
-              <h3 className="font-display text-2xl text-white mb-1.5 font-normal">
-                Prioridade Registrada
-              </h3>
-              <p className="font-body text-[13px] text-[#D1CCC3] leading-relaxed max-w-[300px]">
-                Um Private Advisor da IMAN Developers & glemO international entrará em contato via WhatsApp.
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setName('');
-                  setPhone('');
-                  setSubmitted(false);
-                }}
-                className="font-body text-[11.5px] text-[#B7A489] underline font-semibold mt-4 hover:text-white cursor-pointer"
-              >
-                Registrar outro interesse
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6 text-left">
-              {/* NOME COMPLETO (FINE UNDERLINE) */}
-              <div className="flex flex-col">
-                <label htmlFor={nameId} className="sr-only">
-                  Nome completo
-                </label>
-                <input
-                  id={nameId}
-                  type="text"
-                  placeholder="Nome completo"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    if (errors.name) setErrors({ ...errors, name: undefined });
-                  }}
-                  className={`w-full bg-transparent border-0 border-b pb-2.5 pt-1 text-[14px] sm:text-[15px] font-body text-[#FAF8F5] placeholder:text-[#FAF8F5]/40 focus:outline-none transition-colors ${
-                    errors.name
-                      ? 'border-red-400 text-red-100'
-                      : 'border-[#FAF8F5]/25 focus:border-[#B7A489]'
-                  }`}
-                />
-                {errors.name && (
-                  <span className="flex items-center gap-1 font-body text-[10.5px] text-red-300 pt-1.5">
-                    <AlertCircle className="w-3 h-3 shrink-0" /> {errors.name}
-                  </span>
-                )}
-              </div>
-
-              {/* WHATSAPP / TELEFONE (FINE UNDERLINE) */}
-              <div className="flex flex-col">
-                <label htmlFor={phoneId} className="sr-only">
-                  WhatsApp / Telefone com DDI
-                </label>
-                <input
-                  id={phoneId}
-                  type="tel"
-                  placeholder="WhatsApp / Telefone com DDI (+55 ...)"
-                  value={phone}
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                    if (errors.phone) setErrors({ ...errors, phone: undefined });
-                  }}
-                  className={`w-full bg-transparent border-0 border-b pb-2.5 pt-1 text-[14px] sm:text-[15px] font-body text-[#FAF8F5] placeholder:text-[#FAF8F5]/40 focus:outline-none transition-colors ${
-                    errors.phone
-                      ? 'border-red-400 text-red-100'
-                      : 'border-[#FAF8F5]/25 focus:border-[#B7A489]'
-                  }`}
-                />
-                {errors.phone && (
-                  <span className="flex items-center gap-1 font-body text-[10.5px] text-red-300 pt-1.5">
-                    <AlertCircle className="w-3 h-3 shrink-0" /> {errors.phone}
-                  </span>
-                )}
-              </div>
-
-              {/* CTA BUTTON */}
-              <div className="pt-3">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full min-h-[48px] h-[52px] rounded-full bg-[#FAF9F6] hover:bg-white text-[#14221A] font-body text-[11px] sm:text-[11.5px] font-bold uppercase tracking-[0.16em] inline-flex items-center justify-center gap-3 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] disabled:opacity-75 disabled:cursor-not-allowed cursor-pointer group"
-                >
-                  {loading ? (
-                    <Loader2 className="w-4 h-4 animate-spin text-[#14221A]" />
-                  ) : (
-                    <>
-                      <span>REGISTER YOUR INTEREST</span>
-                      <span className="w-7 h-7 rounded-full bg-[#14221A] text-white flex items-center justify-center transition-transform group-hover:translate-x-1 shrink-0">
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* SECONDARY INFORMATION */}
-              <div className="text-center pt-1">
-                <span className="font-technical text-[11px] sm:text-[11.5px] text-[#B7A489] tracking-wider uppercase">
-                  EOI AED 50,000 · Fully refundable
-                </span>
-              </div>
-            </form>
-          )}
-        </div>
-
+        className={`relative z-10 w-full max-w-[460px] mx-auto px-4 sm:px-6 transition-all duration-700 ease-luxury ${
+          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+      >
+        <FixedLeadForm
+          mode="final-cta"
+          title="Garanta sua prioridade."
+          subtitle="ACESSO ANTECIPADO"
+        />
       </div>
     </section>
   );
