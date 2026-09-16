@@ -10,7 +10,7 @@ import {
 export interface ConnectionPathData {
   id: string;
   destinationId: string;
-  phase: number;
+  order: number;
   d: string;
   length: number;
 }
@@ -31,7 +31,7 @@ export const LocationConnections: React.FC = () => {
       // Subtle curved trajectory with control point
       const midX = (origin.x + target.x) / 2;
       const midY = (origin.y + target.y) / 2;
-      const curvature = dist * 0.14;
+      const curvature = dist * 0.12;
       const ctrlX = midX - (dy / (dist || 1)) * curvature;
       const ctrlY = midY + (dx / (dist || 1)) * curvature;
 
@@ -40,7 +40,7 @@ export const LocationConnections: React.FC = () => {
       return {
         id: `connection-${dest.id}`,
         destinationId: dest.id,
-        phase: dest.phase,
+        order: dest.order,
         d: pathString,
         length: Math.round(dist * 1.15),
       };
@@ -51,33 +51,33 @@ export const LocationConnections: React.FC = () => {
     <g className="location-connections pointer-events-none">
       <defs>
         <linearGradient id="routeLineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#E5D7B7" stopOpacity="0.85" />
-          <stop offset="60%" stopColor="#C8B89A" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#806B54" stopOpacity="0.3" />
+          <stop offset="0%" stopColor="#C8B89A" stopOpacity="0.9" />
+          <stop offset="50%" stopColor="#806B54" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#5A544C" stopOpacity="0.6" />
         </linearGradient>
       </defs>
 
       {connections.map((conn) => (
-        <g key={conn.id} className={`route-group route-phase-${conn.phase}`}>
-          {/* Subtle Outer Guide Path */}
+        <g key={conn.id} className="route-group">
+          {/* Subtle Outer Guide Line */}
           <path
             d={conn.d}
             fill="none"
             stroke="#FAF9F6"
-            strokeWidth="1"
-            strokeOpacity="0.12"
+            strokeWidth="1.2"
+            strokeOpacity="0.25"
             strokeLinecap="round"
           />
 
-          {/* Animated Route Line (GSAP Controls stroke-dashoffset) */}
+          {/* Animated Route Line (controlled via stroke-dashoffset) */}
           <path
             id={conn.id}
-            data-phase={conn.phase}
-            className="route-animated-path"
+            data-order={conn.order}
+            className={`route-path route-path-${conn.destinationId}`}
             d={conn.d}
             fill="none"
             stroke="url(#routeLineGradient)"
-            strokeWidth="1.75"
+            strokeWidth="2.5"
             strokeLinecap="round"
             style={{
               strokeDasharray: conn.length,

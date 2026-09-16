@@ -22,66 +22,67 @@ export const LocationMarkers: React.FC = () => {
 
   return (
     <g className="location-markers pointer-events-none">
-      {/* 01. OXFORD COVE PRIMARY ARCHITECTURAL BEACON (PHASE 1) */}
+      {/* 01. OXFORD COVE PRIMARY ARCHITECTURAL BEACON */}
       <g
         id="marker-oxford-cove"
         transform={`translate(${oxfordCoords.x}, ${oxfordCoords.y})`}
-        className="marker-oxford-cove"
+        className="marker-element marker-oxford-cove"
+        style={{ opacity: 0, transformOrigin: `${oxfordCoords.x}px ${oxfordCoords.y}px` }}
       >
         {/* Subtle Ambient Halo */}
         <circle
-          r="32"
-          fill="#E5D7B7"
-          fillOpacity="0.12"
+          r="26"
+          fill="#C8B89A"
+          fillOpacity="0.18"
           className="animate-pulse"
-          style={{ animationDuration: '4s' }}
+          style={{ animationDuration: '3s' }}
         />
 
         {/* Outer Precision Ring */}
         <circle
-          r="16"
+          r="14"
           fill="none"
-          stroke="#E5D7B7"
-          strokeWidth="1"
-          strokeOpacity="0.5"
-          strokeDasharray="2 4"
+          stroke="#806B54"
+          strokeWidth="1.2"
+          strokeOpacity="0.7"
+          strokeDasharray="2 3"
         />
 
         {/* Crosshairs */}
-        <line x1="-22" y1="0" x2="-8" y2="0" stroke="#E5D7B7" strokeWidth="0.75" strokeOpacity="0.6" />
-        <line x1="8" y1="0" x2="22" y2="0" stroke="#E5D7B7" strokeWidth="0.75" strokeOpacity="0.6" />
-        <line x1="0" y1="-22" x2="0" y2="-8" stroke="#E5D7B7" strokeWidth="0.75" strokeOpacity="0.6" />
-        <line x1="0" y1="8" x2="0" y2="22" stroke="#E5D7B7" strokeWidth="0.75" strokeOpacity="0.6" />
+        <line x1="-18" y1="0" x2="-6" y2="0" stroke="#806B54" strokeWidth="1" strokeOpacity="0.8" />
+        <line x1="6" y1="0" x2="18" y2="0" stroke="#806B54" strokeWidth="1" strokeOpacity="0.8" />
+        <line x1="0" y1="-18" x2="0" y2="-6" stroke="#806B54" strokeWidth="1" strokeOpacity="0.8" />
+        <line x1="0" y1="6" x2="0" y2="18" stroke="#806B54" strokeWidth="1" strokeOpacity="0.8" />
 
         {/* Center Point */}
-        <circle r="4.5" fill="#FAF9F6" stroke="#171815" strokeWidth="1.5" />
-        <circle r="1.5" fill="#171815" />
+        <circle r="4.5" fill="#171815" stroke="#FAF9F6" strokeWidth="1.5" />
+        <circle r="1.5" fill="#FAF9F6" />
       </g>
 
-      {/* 02. DESTINATION MARKERS (PHASES 2, 3, 4) */}
+      {/* 02. DESTINATION MARKERS */}
       {destinationMarkers.map((dest) => (
         <g
           key={dest.id}
           id={`marker-${dest.id}`}
-          data-phase={dest.phase}
+          data-order={dest.order}
           transform={`translate(${dest.coords.x}, ${dest.coords.y})`}
-          className={`destination-marker marker-phase-${dest.phase}`}
-          style={{ opacity: 0 }}
+          className={`marker-element marker-${dest.id}`}
+          style={{ opacity: 0, transformOrigin: `${dest.coords.x}px ${dest.coords.y}px` }}
         >
           {/* Subtle Ring */}
           <circle
-            r="10"
+            r="9"
             fill="none"
-            stroke="#FAF9F6"
-            strokeWidth="0.75"
-            strokeOpacity="0.3"
+            stroke="#171815"
+            strokeWidth="1"
+            strokeOpacity="0.4"
           />
           {/* Solid Point */}
           <circle
-            r="3.5"
-            fill="#E5D7B7"
-            stroke="#171815"
-            strokeWidth="1"
+            r="4"
+            fill="#171815"
+            stroke="#FAF9F6"
+            strokeWidth="1.25"
           />
         </g>
       ))}
