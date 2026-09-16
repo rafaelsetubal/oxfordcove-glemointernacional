@@ -22,8 +22,8 @@ const TIMELINE_STEPS: TimelineStep[] = [
   {
     number: '01',
     percentage: '20%',
-    title: 'DOWN PAYMENT',
-    subtitle: 'No booking',
+    title: 'ENTRADA',
+    subtitle: 'Na reserva',
     textureSrc: '/images/payment-plan/05-marble-dark.webp',
     textColor: 'text-white',
     borderColor: 'border-white/25',
@@ -34,8 +34,8 @@ const TIMELINE_STEPS: TimelineStep[] = [
   {
     number: '02',
     percentage: '10%',
-    title: 'WITHIN 90 DAYS',
-    subtitle: 'After booking',
+    title: 'EM ATÉ 90 DIAS',
+    subtitle: 'Após a reserva',
     textureSrc: '/images/payment-plan/04-marble-light.webp',
     textColor: 'text-[#171815]',
     borderColor: 'border-[#24231F]/20',
@@ -46,8 +46,8 @@ const TIMELINE_STEPS: TimelineStep[] = [
   {
     number: '03',
     percentage: '10%',
-    title: 'AT 40% CONSTRUCTION',
-    subtitle: 'During construction',
+    title: 'EM 40% DAS OBRAS',
+    subtitle: 'Durante a construção',
     textureSrc: '/images/payment-plan/06-stone-texture.webp',
     textColor: 'text-[#171815]',
     borderColor: 'border-[#24231F]/20',
@@ -58,8 +58,8 @@ const TIMELINE_STEPS: TimelineStep[] = [
   {
     number: '04',
     percentage: '60%',
-    title: 'ON HANDOVER',
-    subtitle: 'Upon completion',
+    title: 'NA ENTREGA DAS CHAVES',
+    subtitle: 'Na conclusão da obra',
     textureSrc: '/images/payment-plan/07-water-texture.webp',
     textColor: 'text-white',
     borderColor: 'border-[#1D3027]/30',
@@ -149,7 +149,7 @@ export const PaymentPlanSection: React.FC = () => {
             }`}
           >
             <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#806B54] mb-2.5 block">
-              PAYMENT PLAN
+              PLANO DE PAGAMENTO
             </span>
             <h2 className="font-display font-normal text-[32px] sm:text-[40px] lg:text-[46px] leading-[1.08] text-[#171815] tracking-tight max-w-xl">
               Um plano pensado<br className="hidden sm:inline" /> para acompanhar a construção.
@@ -324,14 +324,14 @@ export const PaymentPlanSection: React.FC = () => {
             {/* LEFT: EOI VALUE & TITLE (FIXED TO EXACT AED 50,000 WITHOUT CONVERSION) */}
             <div className="lg:col-span-4 lg:pr-6 lg:border-r border-white/15">
               <span className="font-technical text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-champagne block mb-1.5 font-semibold">
-                EXPRESSION OF INTEREST
+                EXPRESSÃO DE INTERESSE (EOI)
               </span>
               <div className="font-display text-[36px] sm:text-[44px] lg:text-[48px] font-medium text-white leading-none mb-2 tracking-tight">
                 AED 50,000
               </div>
               <div className="space-y-0.5 font-body text-[12.5px] sm:text-[13px] text-[#D1CCC3]">
-                <p className="font-medium text-white/90">Fully refundable</p>
-                <p className="text-[#D1CCC3]/80">Priority access during pre-launch</p>
+                <p className="font-semibold text-white/95">100% Reembolsável</p>
+                <p className="text-[#D1CCC3]/80">Acesso prioritário no pré-lançamento</p>
               </div>
             </div>
 
@@ -340,21 +340,21 @@ export const PaymentPlanSection: React.FC = () => {
               <div className="flex items-start gap-3">
                 <ShieldCheck className="w-4 h-4 text-champagne shrink-0 mt-0.5 stroke-[1.75]" />
                 <span className="font-body text-[13px] sm:text-[13.5px] text-[#FAF9F6]/95 leading-snug">
-                  Fully refundable until unit allocation
+                  100% reembolsável até a alocação da unidade
                 </span>
               </div>
 
               <div className="flex items-start gap-3">
                 <Sparkles className="w-4 h-4 text-champagne shrink-0 mt-0.5 stroke-[1.75]" />
                 <span className="font-body text-[13px] sm:text-[13.5px] text-[#FAF9F6]/95 leading-snug">
-                  Priority access to unit selection
+                  Prioridade na escolha das melhores plantas
                 </span>
               </div>
 
               <div className="flex items-start gap-3">
                 <Bell className="w-4 h-4 text-champagne shrink-0 mt-0.5 stroke-[1.75]" />
                 <span className="font-body text-[13px] sm:text-[13.5px] text-[#FAF9F6]/95 leading-snug">
-                  Project updates
+                  Atualizações e book técnico em primeira mão
                 </span>
               </div>
             </div>
@@ -362,10 +362,10 @@ export const PaymentPlanSection: React.FC = () => {
             {/* RIGHT: CTA BUTTON WITH EXPANDED CLICKABLE AREA */}
             <div className="lg:col-span-3 flex flex-col items-start lg:items-end justify-center lg:pl-4 lg:border-l border-white/15">
               <span className="font-technical text-[9.5px] sm:text-[10px] uppercase tracking-[0.20em] text-[#B7A489] block mb-0.5">
-                TAKE THE NEXT STEP
+                PRÓXIMO PASSO
               </span>
               <span className="font-body text-[12px] text-[#D1CCC3] block mb-3">
-                Register Your Interest
+                Registre seu interesse
               </span>
 
               <button
@@ -373,7 +373,7 @@ export const PaymentPlanSection: React.FC = () => {
                 onClick={openLeadDrawer}
                 className="w-full sm:w-auto min-h-[48px] h-[50px] inline-flex items-center justify-center gap-3 px-6 sm:px-7 rounded-full bg-[#FAF9F6] hover:bg-white text-[#171815] font-body text-[10.5px] sm:text-[11px] font-bold tracking-[0.14em] uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] cursor-pointer group"
               >
-                <span>SECURE YOUR PLACE AT OXFORD COVE</span>
+                <span>GARANTIR MINHA ESCOLHA DE UNIDADE</span>
                 <span className="w-7 h-7 rounded-full bg-[#171815] text-white flex items-center justify-center transition-transform group-hover:translate-x-1 shrink-0">
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
