@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import Image from 'next/image';
 import { Map } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { DESTINATIONS } from './destinations';
@@ -24,13 +25,26 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
     const map = mapInstanceRef.current;
     if (!map) return;
 
-    const newPositions: Record<string, { x: number; y: number }> = {};
-    DESTINATIONS.forEach((dest) => {
-      const point = map.project([dest.lng, dest.lat]);
-      newPositions[dest.id] = { x: Math.round(point.x), y: Math.round(point.y) };
-    });
+    try {
+      const newPositions: Record<string, { x: number; y: number }> = {};
+      let valid = true;
 
-    setPositions(newPositions);
+      DESTINATIONS.forEach((dest) => {
+        const point = map.project([dest.lng, dest.lat]);
+        if (point && typeof point.x === 'number' && typeof point.y === 'number') {
+          newPositions[dest.id] = { x: Math.round(point.x), y: Math.round(point.y) };
+        } else {
+          valid = false;
+        }
+      });
+
+      if (valid) {
+        setPositions(newPositions);
+        setIsLoaded(true);
+      }
+    } catch (err) {
+      console.warn('Error calculating screen positions:', err);
+    }
   }, []);
 
   useEffect(() => {
@@ -38,59 +52,74 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
 
     const isMobile = window.innerWidth < 768;
 
-    // Initial fixed framing encompassing Greater Dubai (from DWC in south to DXB in north, coast to inland)
-    const bounds: [number, number, number, number] = [55.10, 24.86, 55.40, 25.28]; // [sw.lng, sw.lat, ne.lng, ne.lat]
+    try {
+      const map = new Map({
+        container: mapContainerRef.current,
+        style: EDITORIAL_MAP_STYLE_URL,
+        center: [55.24, 25.08],
+        zoom: isMobile ? 9.5 : 10.4,
+        interactive: false, // 100% static map — no pan, zoom, pitch, or rotate
+        attributionControl: false,
+      });
 
-    const map = new Map({
-      container: mapContainerRef.current,
-      style: EDITORIAL_MAP_STYLE_URL,
-      bounds: bounds,
-      fitBoundsOptions: {
-        padding: isMobile
-          ? { top: 50, bottom: 50, left: 30, right: 30 }
-          : { top: 80, bottom: 80, left: 80, right: 80 },
-        duration: 0,
-      },
-      interactive: false, // 100% static map — no pan, zoom, pitch, or rotate
-      attributionControl: false,
-    });
+      mapInstanceRef.current = map;
 
-    mapInstanceRef.current = map;
-
-    map.on('load', () => {
-      applyEditorialPalette(map);
-      updateScreenPositions();
-      setIsLoaded(true);
-      if (onMapReady) onMapReady();
-    });
-
-    const handleResize = () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.resize();
+      map.on('load', () => {
+        applyEditorialPalette(map);
         updateScreenPositions();
-      }
-    };
+        if (onMapReady) onMapReady();
+      });
 
-    window.addEventListener('resize', handleResize);
+      map.on('render', () => {
+        updateScreenPositions();
+      });
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      map.remove();
-      mapInstanceRef.current = null;
-    };
+      const handleResize = () => {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.resize();
+          updateScreenPositions();
+        }
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        map.remove();
+        mapInstanceRef.current = null;
+      };
+    } catch (err) {
+      console.error('Failed to initialize MapLibre GL:', err);
+    }
   }, [updateScreenPositions, onMapReady]);
 
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#FAF9F6]">
-      {/* 01. REAL VECTOR MAP CONTAINER (MAPLIBRE GL) */}
-      <div ref={mapContainerRef} className="w-full h-full" />
+      {/* 01. IMMEDIATE BASE MAP VISUAL (GUARANTEES ZERO BLANK SCREEN) */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+        <Image
+          src="/images/location/dubai-cinematic-map.webp"
+          alt="Dubai Geographic Map"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-90"
+        />
+      </div>
 
-      {/* 02. OVERLAY LAYERS: LINES & MARKERS */}
+      {/* 02. REAL VECTOR MAP CONTAINER (MAPLIBRE GL) */}
+      <div
+        ref={mapContainerRef}
+        className="absolute inset-0 w-full h-full z-[1]"
+        style={{ width: '100%', height: '100%' }}
+      />
+
+      {/* 03. OVERLAY LAYERS: LINES & MARKERS */}
       {isLoaded && (
-        <>
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-[10]">
           <ConnectionLines positions={positions} />
           <CustomMarkers positions={positions} />
-        </>
+        </div>
       )}
     </div>
   );

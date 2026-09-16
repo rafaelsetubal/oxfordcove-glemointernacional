@@ -3,66 +3,31 @@
 // Oxford Cove · JVC · Dubai
 // =========================================================================
 
-import type { StyleSpecification } from 'maplibre-gl';
-
-/**
- * Editorial real estate map style for Dubai
- * Off-white/cream background, soft teal water, muted landcover, beige/neutral roads, no commercial POI noise.
- */
 export const EDITORIAL_MAP_STYLE_URL = 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
 
 /**
- * Custom style layer overrides applied after style load
- * to achieve the exact editorial luxury palette requested.
+ * Safe palette styling that never throws errors
  */
 export function applyEditorialPalette(map: any) {
   try {
-    // Background
-    if (map.getLayer('background')) {
-      map.setPaintProperty('background', 'background-color', '#FAF9F6');
+    if (!map || !map.isStyleLoaded()) return;
+
+    // Water layer
+    if (map.getLayer('water')) {
+      map.setPaintProperty('water', 'fill-color', '#CCE2E4');
     }
 
-    // Water
-    const waterLayers = ['water', 'waterway', 'water_shadow'];
-    waterLayers.forEach((layerId) => {
-      if (map.getLayer(layerId)) {
-        map.setPaintProperty(layerId, 'fill-color', '#CCE2E4');
-        map.setPaintProperty(layerId, 'fill-opacity', 0.9);
-      }
-    });
-
-    // Green areas / Parks / Landcover
-    const greenLayers = ['landcover_wood', 'landcover_grass', 'park', 'landuse_park', 'landuse_residential'];
-    greenLayers.forEach((layerId) => {
-      if (map.getLayer(layerId)) {
-        map.setPaintProperty(layerId, 'fill-color', '#EBF1EB');
-        map.setPaintProperty(layerId, 'fill-opacity', 0.6);
-      }
-    });
-
-    // Secondary Roads
-    const roadLayers = ['road_minor', 'road_secondary_tertiary', 'road_trunk_primary'];
-    roadLayers.forEach((layerId) => {
-      if (map.getLayer(layerId)) {
-        map.setPaintProperty(layerId, 'line-color', '#E8E4DC');
-      }
-    });
-
-    // Highways / Motorways
-    if (map.getLayer('road_motorway')) {
-      map.setPaintProperty('road_motorway', 'line-color', '#D9D2C4');
-      map.setPaintProperty('road_motorway', 'line-width', 2);
-    }
-
-    // Hide commercial POIs and noise
-    const poiLayers = ['poi', 'poi_label', 'poi_transit', 'transit_label'];
-    poiLayers.forEach((layerId) => {
-      if (map.getLayer(layerId)) {
-        map.setLayoutProperty(layerId, 'visibility', 'none');
+    // Hide commercial POI symbols and transit clutter
+    const layers = map.getStyle()?.layers || [];
+    layers.forEach((layer: any) => {
+      if (
+        layer.type === 'symbol' &&
+        (layer.id.startsWith('poi') || layer.id.startsWith('transit') || layer.id.includes('housenumber'))
+      ) {
+        map.setLayoutProperty(layer.id, 'visibility', 'none');
       }
     });
   } catch (err) {
-    // Non-fatal if specific layer name differs in sub-version
-    console.warn('Custom palette override note:', err);
+    console.warn('Style customization note:', err);
   }
 }

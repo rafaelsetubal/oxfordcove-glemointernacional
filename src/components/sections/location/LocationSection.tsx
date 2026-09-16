@@ -12,9 +12,12 @@ if (typeof window !== 'undefined') {
 export const LocationSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stickyContainerRef = useRef<HTMLDivElement>(null);
+  const animationInitializedRef = useRef<boolean>(false);
 
   const initScrollAnimation = () => {
     if (!sectionRef.current || !stickyContainerRef.current) return;
+    if (animationInitializedRef.current) return;
+    animationInitializedRef.current = true;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -197,12 +200,11 @@ export const LocationSection: React.FC = () => {
   };
 
   useEffect(() => {
-    // Initialize after component mounts
-    const timeout = setTimeout(() => {
+    const timer = setTimeout(() => {
       initScrollAnimation();
-    }, 150);
+    }, 200);
 
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -214,7 +216,7 @@ export const LocationSection: React.FC = () => {
         height: '350vh', // 3.5x viewport height for smooth progressive scrub
       }}
     >
-      {/* 100vh Sticky Viewport with Pure Real Vector Map */}
+      {/* 100vh Sticky Viewport */}
       <div
         ref={stickyContainerRef}
         className="w-full h-screen h-[100dvh] overflow-hidden bg-[#FAF9F6]"
