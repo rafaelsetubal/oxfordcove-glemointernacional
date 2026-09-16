@@ -6,7 +6,6 @@ import { Menu, X } from 'lucide-react';
 import { PrimaryButton } from '@/components/ui/Button';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useCurrency } from '@/context/CurrencyContext';
-import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 interface NavigationProps {
   onCtaClick?: () => void;
@@ -38,6 +37,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
     { label: 'PLANTAS', href: '#plantas' },
     { label: 'LOCALIZAÇÃO', href: '#localizacao' },
     { label: 'INVESTIMENTO', href: '#investimento' },
+    { label: 'PAGAMENTO', href: '#payment-plan' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -90,11 +90,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
           </nav>
 
           {/* DESKTOP CTA & MOBILE HAMBURGER */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div>
-              <CurrencyToggle variant={isScrolled ? 'light' : 'dark'} />
-            </div>
-
+          <div className="flex items-center gap-3">
             <div className="hidden sm:block">
               <PrimaryButton
                 size="sm"
@@ -126,11 +122,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
       {/* MOBILE MENU OVERLAY */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-30 bg-[rgba(250,249,246,0.98)] backdrop-blur-xl xl:hidden pt-28 pb-10 px-6 flex flex-col justify-between animate-fadeIn">
-          <div className="py-2">
-            <CurrencyToggle variant="light" />
-          </div>
-
-          <nav className="flex flex-col gap-5 divide-y divide-charcoal/[0.08]">
+          <nav className="flex flex-col gap-5 divide-y divide-charcoal/[0.08] my-auto">
             {navLinks.map((link) => (
               <Link
                 key={link.label}

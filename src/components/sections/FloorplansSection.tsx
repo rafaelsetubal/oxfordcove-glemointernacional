@@ -6,7 +6,6 @@ import { ArrowRight, Layers, Home, Maximize2, ChevronLeft, ChevronRight } from '
 import { useLeadDrawer } from '@/components/form/PersistentLeadDrawer';
 import { GalleryViewer, GalleryViewerItem } from '@/components/ui/GalleryViewer';
 import { useCurrency } from '@/context/CurrencyContext';
-import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 export type FloorplanViewMode = 'UNITS' | 'BUILDING';
 
@@ -422,41 +421,32 @@ export const FloorplansSection: React.FC = () => {
         {/* ========================================================================= */}
         {/* 02. TOP MODE TOGGLE (PLANTAS POR UNIDADE / PLANTAS POR PAVIMENTO)          */}
         {/* ========================================================================= */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-10 pb-6 border-b border-[#24231F]/10">
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setViewMode('UNITS')}
-              className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
-                viewMode === 'UNITS'
-                  ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
-                  : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
-              }`}
-            >
-              <Home className="w-4 h-4" />
-              <span>PLANTAS POR UNIDADE ({REAL_UNIT_FLOORPLANS.length})</span>
-            </button>
+        <div className="flex flex-wrap items-center gap-3 mb-10 pb-6 border-b border-[#24231F]/10">
+          <button
+            type="button"
+            onClick={() => setViewMode('UNITS')}
+            className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
+              viewMode === 'UNITS'
+                ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
+                : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
+            }`}
+          >
+            <Home className="w-4 h-4" />
+            <span>PLANTAS POR UNIDADE ({REAL_UNIT_FLOORPLANS.length})</span>
+          </button>
 
-            <button
-              type="button"
-              onClick={() => setViewMode('BUILDING')}
-              className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
-                viewMode === 'BUILDING'
-                  ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
-                  : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
-              }`}
-            >
-              <Layers className="w-4 h-4" />
-              <span>PAVIMENTOS DO EDIFÍCIO (GF - 5TH)</span>
-            </button>
-          </div>
-
-          <div className="flex items-center gap-2.5 bg-white/70 px-3.5 py-1.5 rounded-full border border-[#24231F]/10">
-            <span className="font-technical text-[10.5px] uppercase tracking-wider text-[#806B54] font-semibold">
-              MOEDA:
-            </span>
-            <CurrencyToggle variant="light" />
-          </div>
+          <button
+            type="button"
+            onClick={() => setViewMode('BUILDING')}
+            className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
+              viewMode === 'BUILDING'
+                ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
+                : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
+            }`}
+          >
+            <Layers className="w-4 h-4" />
+            <span>PAVIMENTOS DO EDIFÍCIO (GF - 5TH)</span>
+          </button>
         </div>
 
         {/* ========================================================================= */}

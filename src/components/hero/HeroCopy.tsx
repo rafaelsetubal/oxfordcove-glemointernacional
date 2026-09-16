@@ -3,19 +3,17 @@
 import React from 'react';
 import { HeroMetrics } from './HeroMetrics';
 import { useCurrency, CurrencyDisclaimer } from '@/context/CurrencyContext';
-import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 export const HeroCopy: React.FC = () => {
   const { formatPrice } = useCurrency();
 
   return (
     <div className="flex flex-col select-none max-w-[560px] animate-fadeIn">
-      {/* 01. TAG SUPERIOR & CURRENCY TOGGLE */}
-      <div className="flex items-center justify-between gap-4 mb-3 sm:mb-4">
+      {/* 01. TAG SUPERIOR */}
+      <div className="mb-3 sm:mb-4">
         <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-widest uppercase text-[#D4C7B5] block">
           DUBAI EM OUTRO RITMO
         </span>
-        <CurrencyToggle variant="dark" />
       </div>
 
       {/* 02. HEADLINE (Cormorant Garamond, SemiBold/Medium, #F8F5F0) */}

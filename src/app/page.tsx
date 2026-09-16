@@ -29,14 +29,14 @@ export default function Home() {
       {/* SEÇÃO 05: PLANTAS & UNIDADES */}
       <FloorplansSection />
 
-      {/* SEÇÃO 06: PLANO DE PAGAMENTO */}
-      <PaymentPlanSection />
-
-      {/* SEÇÃO 07: LOCALIZAÇÃO */}
+      {/* SEÇÃO 06: LOCALIZAÇÃO */}
       <LocationSection />
 
-      {/* SEÇÃO 08: INVESTIMENTO */}
+      {/* SEÇÃO 07: INVESTIMENTO */}
       <InvestmentSection />
+
+      {/* SEÇÃO 08: PLANO DE PAGAMENTO */}
+      <PaymentPlanSection />
     </main>
   );
 }

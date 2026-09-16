@@ -4,7 +4,6 @@ import React, { useState, useId } from 'react';
 import { X, Lock, CheckCircle2, ArrowRight, AlertCircle, Loader2 } from 'lucide-react';
 import { GlemoLogo } from '@/components/ui/GlemoLogo';
 import { useCurrency } from '@/context/CurrencyContext';
-import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 export interface LeadFormData {
   name: string;
@@ -100,19 +99,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         )}
       </div>
 
-      {/* 02. EDITORIAL HEADER & CURRENCY TOGGLE */}
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <span className="font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[#806B54] block">
-            {subtitle}
-          </span>
-          <h3 className="font-display font-normal text-[24px] sm:text-[26px] leading-[0.96] text-[#2C241F] mt-0.5">
-            {title}
-          </h3>
-        </div>
-        <div className="shrink-0 pt-0.5">
-          <CurrencyToggle variant="light" />
-        </div>
+      {/* 02. EDITORIAL HEADER */}
+      <div>
+        <span className="font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[#806B54] block">
+          {subtitle}
+        </span>
+        <h3 className="font-display font-normal text-[26px] sm:text-[28px] leading-[0.94] text-[#2C241F] mt-0.5">
+          {title}
+        </h3>
       </div>
 
       {/* 03. EOI SUPPORTING LINE */}

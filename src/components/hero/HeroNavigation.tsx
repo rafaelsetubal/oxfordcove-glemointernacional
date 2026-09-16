@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useCurrency } from '@/context/CurrencyContext';
-import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 interface HeroNavigationProps {
   onCtaClick?: () => void;
@@ -50,6 +49,7 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
     { label: 'PLANTAS', href: '#plantas' },
     { label: 'LOCALIZAÇÃO', href: '#localizacao' },
     { label: 'INVESTIMENTO', href: '#investimento' },
+    { label: 'PAGAMENTO', href: '#payment-plan' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -128,12 +128,8 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             })}
           </nav>
 
-          {/* CURRENCY TOGGLE & CTA IN HEADER */}
+          {/* CTA IN HEADER */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div>
-              <CurrencyToggle variant="dark" />
-            </div>
-
             <button
               type="button"
               onClick={handleCta}
@@ -176,11 +172,7 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             </button>
           </div>
 
-          <div className="py-2">
-            <CurrencyToggle variant="dark" />
-          </div>
-
-          <nav className="flex flex-col gap-4 divide-y divide-white/10">
+          <nav className="flex flex-col gap-4 divide-y divide-white/10 my-auto">
             {navLinks.map((link) => (
               <a
                 key={link.label}
