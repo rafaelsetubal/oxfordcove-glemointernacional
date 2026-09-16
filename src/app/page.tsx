@@ -7,6 +7,8 @@ import { FloorplansSection } from '@/components/sections/FloorplansSection';
 import { PaymentPlanSection } from '@/components/sections/PaymentPlanSection';
 import { LocationSection } from '@/components/sections/LocationSection';
 import { InvestmentSection } from '@/components/sections/InvestmentSection';
+import { FinalCtaSection } from '@/components/sections/FinalCtaSection';
+import { Footer } from '@/components/layout/Footer';
 
 export default function Home() {
   return (
@@ -37,6 +39,12 @@ export default function Home() {
 
       {/* SEÇÃO 08: PLANO DE PAGAMENTO */}
       <PaymentPlanSection />
+
+      {/* SEÇÃO 09: FINAL CTA (FECHAMENTO COM FORMULÁRIO MINIMALISTA INTEGRADO) */}
+      <FinalCtaSection />
+
+      {/* FOOTER INSTITUCIONAL */}
+      <Footer />
     </main>
   );
 }
