@@ -1,4 +1,5 @@
 import { Hero } from '@/components/hero/Hero';
+import { CinematicPreloader } from '@/components/preloader/CinematicPreloader';
 import { MobileLeadSection } from '@/components/sections/MobileLeadSection';
 import { ProductSection } from '@/components/sections/ArchitectureSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
@@ -13,6 +14,9 @@ import { Footer } from '@/components/layout/Footer';
 export default function Home() {
   return (
     <main className="min-h-screen bg-ivory text-charcoal">
+      {/* TESTE DE PRELOADER CINEMATOGRÁFICO (REVERSÍVEL / NÃO COMMITADO) */}
+      <CinematicPreloader />
+
       {/* SEÇÃO 01: HERO OFICIAL */}
       <Hero />
 

@@ -8,7 +8,10 @@ import { FixedLeadForm } from '@/components/form/FixedLeadForm';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden bg-ivory select-none">
+    <section
+      id="hero-section"
+      className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden bg-ivory select-none will-change-[filter,transform,opacity]"
+    >
       {/* 01. HERO BACKGROUND IMAGE (OFFICIAL HIGH-RES WEBP ASSET - FULL BLEED) */}
       <div className="absolute inset-0 z-0">
         <Image
