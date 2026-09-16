@@ -583,7 +583,10 @@ export const FloorplansSection: React.FC = () => {
                       <div
                         key={plan.id}
                         onClick={() => handleOpenUnitPlan(fullIndex >= 0 ? fullIndex : idx)}
-                        className="group relative bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between"
+                        className={`group relative bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between gpu-accel reveal-blur-init ${
+                          isInView ? 'reveal-blur-visible' : ''
+                        }`}
+                        style={{ transitionDelay: `${(idx % 3) * 120 + 150}ms` }}
                       >
                         {/* CARD HEADER */}
                         <div className="flex items-center justify-between pb-4 border-b border-[#24231F]/8">
@@ -710,7 +713,10 @@ export const FloorplansSection: React.FC = () => {
                 <div
                   key={floor.id}
                   onClick={() => handleOpenBuildingPlan(showAllBuilding ? fIdx : currentBuildingPage * ITEMS_PER_PAGE + fIdx)}
-                  className="group bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between"
+                  className={`group bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between gpu-accel reveal-blur-init ${
+                    isInView ? 'reveal-blur-visible' : ''
+                  }`}
+                  style={{ transitionDelay: `${(fIdx % 3) * 120 + 150}ms` }}
                 >
                   {/* HEADER */}
                   <div className="flex items-center justify-between pb-3 border-b border-[#24231F]/8">

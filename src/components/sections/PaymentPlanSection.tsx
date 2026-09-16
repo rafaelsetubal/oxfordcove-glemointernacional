@@ -200,9 +200,11 @@ export const PaymentPlanSection: React.FC = () => {
               {TIMELINE_STEPS.map((step, idx) => (
                 <div
                   key={step.number}
-                  className="flex flex-col items-center text-center group"
+                  className={`flex flex-col items-center text-center group gpu-accel reveal-blur-init ${
+                    isInView ? 'reveal-blur-visible' : ''
+                  }`}
                   style={{
-                    transitionDelay: `${idx * 80 + 150}ms`,
+                    transitionDelay: `${idx * 120 + 200}ms`,
                   }}
                 >
                   {/* STEP NUMBER BADGE */}
@@ -254,8 +256,16 @@ export const PaymentPlanSection: React.FC = () => {
             <div className="absolute top-[40px] bottom-[40px] left-[47px] w-[1.5px] bg-[#24231F]/20 z-0" />
 
             <div className="relative z-10 space-y-6">
-              {TIMELINE_STEPS.map((step) => (
-                <div key={step.number} className="flex items-center gap-4">
+              {TIMELINE_STEPS.map((step, idx) => (
+                <div
+                  key={step.number}
+                  className={`flex items-center gap-4 gpu-accel reveal-blur-init ${
+                    isInView ? 'reveal-blur-visible' : ''
+                  }`}
+                  style={{
+                    transitionDelay: `${idx * 100 + 150}ms`,
+                  }}
+                >
                   
                   {/* MATERIAL TEXTURED CIRCLE */}
                   <div
@@ -305,9 +315,10 @@ export const PaymentPlanSection: React.FC = () => {
         {/* 04. EOI PANEL (UNIFIED LUXURY EDITORIAL BLOCK · FIXED AED 50,000)         */}
         {/* ========================================================================= */}
         <div
-          className={`relative w-full rounded-[22px] sm:rounded-[26px] p-6 sm:p-8 lg:p-10 text-[#FAF9F6] overflow-hidden shadow-[0_16px_44px_rgba(29,48,39,0.22)] bg-[#192720] transition-all duration-700 delay-450 ease-out ${
-            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          className={`relative w-full rounded-[22px] sm:rounded-[26px] p-6 sm:p-8 lg:p-10 text-[#FAF9F6] overflow-hidden shadow-[0_16px_44px_rgba(29,48,39,0.22)] bg-[#192720] gpu-accel reveal-blur-init ${
+            isInView ? 'reveal-blur-visible' : ''
           }`}
+          style={{ transitionDelay: '350ms' }}
         >
           {/* MARBLE DARK BACKGROUND TEXTURE INTEGRATION */}
           <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none">

@@ -343,7 +343,10 @@ export const AmenitiesSection: React.FC = () => {
               <div
                 key={item.id}
                 onClick={() => setFullscreenIndex(fullIndex >= 0 ? fullIndex : 0)}
-                className="group relative w-full aspect-[4/3] rounded-[14px] sm:rounded-[18px] overflow-hidden bg-black/5 border border-[#24231F]/8 transition-all duration-500 ease-luxury cursor-pointer shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.12)]"
+                className={`group relative w-full aspect-[4/3] rounded-[14px] sm:rounded-[18px] overflow-hidden bg-black/5 border border-[#24231F]/8 transition-all duration-500 ease-luxury cursor-pointer shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.12)] gpu-accel reveal-blur-init ${
+                  isInView ? 'reveal-blur-visible' : ''
+                }`}
+                style={{ transitionDelay: `${(displayedItems.indexOf(item) % 4) * 100 + 100}ms` }}
               >
                 {/* IMAGE WITH OPTIMIZED SIZES */}
                 <Image

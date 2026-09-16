@@ -138,7 +138,12 @@ export const InvestmentSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mb-16 sm:mb-20">
           
           {/* LEFT GRAPH / BARS PANEL (8 COLS) */}
-          <div className="lg:col-span-8 bg-[#FAF8F5] p-6 sm:p-10 rounded-[20px] sm:rounded-[24px] border border-[#24231F]/8 shadow-[0_10px_30px_rgba(36,35,31,0.03)] flex flex-col justify-between min-h-[380px]">
+          <div
+            className={`lg:col-span-8 bg-[#FAF8F5] p-6 sm:p-10 rounded-[20px] sm:rounded-[24px] border border-[#24231F]/8 shadow-[0_10px_30px_rgba(36,35,31,0.03)] flex flex-col justify-between min-h-[380px] gpu-accel reveal-blur-init ${
+              isInView ? 'reveal-blur-visible' : ''
+            }`}
+            style={{ transitionDelay: '150ms' }}
+          >
             
             {activeTab === 'VALORIZACAO' ? (
               /* TAB 1: VALORIZAÇÃO HISTÓRICA GRAPH (CLEAN SINGLE CURVE WITHOUT FAKE MILESTONE DOTS) */
@@ -329,7 +334,12 @@ export const InvestmentSection: React.FC = () => {
           </div>
 
           {/* RIGHT SIDE STATS PANEL (+133% ROI OU RESUMO DE LOCAÇÃO CONECTADO AO TOGGLE) */}
-          <div className="lg:col-span-4 bg-[#1D3027] text-[#FAF9F6] p-6 sm:p-10 rounded-[20px] sm:rounded-[24px] flex flex-col justify-between relative overflow-hidden shadow-xl min-h-[380px]">
+          <div
+            className={`lg:col-span-4 bg-[#1D3027] text-[#FAF9F6] p-6 sm:p-10 rounded-[20px] sm:rounded-[24px] flex flex-col justify-between relative overflow-hidden shadow-xl min-h-[380px] gpu-accel reveal-blur-init ${
+              isInView ? 'reveal-blur-visible' : ''
+            }`}
+            style={{ transitionDelay: '250ms' }}
+          >
             {/* Background luxury subtle texture */}
             <div className="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-[#B7A489]/10 blur-3xl pointer-events-none" />
 
@@ -455,7 +465,12 @@ export const InvestmentSection: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 border-y border-[#24231F]/10 py-10 sm:py-12 mb-12 sm:mb-16">
             
             {/* PILAR 01 */}
-            <div className="md:pr-8 lg:pr-12 md:border-r border-[#24231F]/10 flex flex-col justify-between">
+            <div
+              className={`md:pr-8 lg:pr-12 md:border-r border-[#24231F]/10 flex flex-col justify-between gpu-accel reveal-blur-init ${
+                isInView ? 'reveal-blur-visible' : ''
+              }`}
+              style={{ transitionDelay: '150ms' }}
+            >
               <div>
                 <span className="font-technical text-[11.5px] sm:text-[12px] font-semibold text-[#806B54] tracking-wider block mb-3">
                   01
@@ -475,7 +490,12 @@ export const InvestmentSection: React.FC = () => {
             </div>
 
             {/* PILAR 02 */}
-            <div className="md:px-8 lg:px-12 md:border-r border-[#24231F]/10 flex flex-col justify-between">
+            <div
+              className={`md:px-8 lg:px-12 md:border-r border-[#24231F]/10 flex flex-col justify-between gpu-accel reveal-blur-init ${
+                isInView ? 'reveal-blur-visible' : ''
+              }`}
+              style={{ transitionDelay: '300ms' }}
+            >
               <div>
                 <span className="font-technical text-[11.5px] sm:text-[12px] font-semibold text-[#806B54] tracking-wider block mb-3">
                   02
@@ -495,7 +515,12 @@ export const InvestmentSection: React.FC = () => {
             </div>
 
             {/* PILAR 03 */}
-            <div className="md:pl-8 lg:pl-12 flex flex-col justify-between">
+            <div
+              className={`md:pl-8 lg:pl-12 flex flex-col justify-between gpu-accel reveal-blur-init ${
+                isInView ? 'reveal-blur-visible' : ''
+              }`}
+              style={{ transitionDelay: '450ms' }}
+            >
               <div>
                 <span className="font-technical text-[11.5px] sm:text-[12px] font-semibold text-[#806B54] tracking-wider block mb-3">
                   03
@@ -519,7 +544,12 @@ export const InvestmentSection: React.FC = () => {
           {/* ========================================================================= */}
           {/* CONCLUSÃO (FAIXA FULL-WIDTH EM VERDE MUITO ESCURO, SEM CARDS/SOMBRAS)     */}
           {/* ========================================================================= */}
-          <div className="w-full bg-[#16251E] text-[#FAF9F6] py-12 sm:py-16 px-6 sm:px-12 rounded-[14px] text-center flex flex-col items-center justify-center mb-8">
+          <div
+            className={`w-full bg-[#16251E] text-[#FAF9F6] py-12 sm:py-16 px-6 sm:px-12 rounded-[14px] text-center flex flex-col items-center justify-center mb-8 gpu-accel reveal-blur-init ${
+              isInView ? 'reveal-blur-visible' : ''
+            }`}
+            style={{ transitionDelay: '550ms' }}
+          >
             <h4 className="font-display text-[36px] sm:text-[46px] lg:text-[52px] font-normal leading-tight text-[#FAF9F6] mb-4 tracking-tight">
               NÃO É SORTE.
             </h4>

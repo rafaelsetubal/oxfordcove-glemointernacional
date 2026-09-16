@@ -107,10 +107,15 @@ export const ProductSection: React.FC = () => {
             Distante da densidade vertical dos arranha-céus, o Oxford Cove aposta em uma arquitetura horizontal contemporânea de 5 pavimentos. Linhas orgânicas, terraços sombreados e paisagismo integrado criam uma transição natural entre o pulsar cosmopolita de Dubai e a serenidade privada do lar.
           </p>
 
-          {/* 05. GRID DE 4 ATRIBUTOS ESTRUTURAIS (FROSTED GLASS ON MOBILE TO PRESERVE BACKGROUND FEEL WITH MAXIMUM LEGIBILITY) */}
+          {/* 05. GRID DE 4 ATRIBUTOS ESTRUTURAIS */}
           <div className="grid grid-cols-2 gap-2.5 sm:gap-x-8 sm:gap-y-5 pt-3 sm:border-t sm:border-[#24231F]/10">
             {/* ATRIBUTO 1: TIPOLOGIA */}
-            <div className="flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none">
+            <div
+              className={`flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none gpu-accel reveal-blur-init ${
+                isInView ? 'reveal-blur-visible' : ''
+              }`}
+              style={{ transitionDelay: '150ms' }}
+            >
               <span className="font-body text-[8.5px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
                 01. CONCEITO
               </span>
@@ -123,7 +128,12 @@ export const ProductSection: React.FC = () => {
             </div>
 
             {/* ATRIBUTO 2: LOCALIZAÇÃO PRIVILEGIADA */}
-            <div className="flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none">
+            <div
+              className={`flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none gpu-accel reveal-blur-init ${
+                isInView ? 'reveal-blur-visible' : ''
+              }`}
+              style={{ transitionDelay: '300ms' }}
+            >
               <span className="font-body text-[8.5px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
                 02. IMPLANTAÇÃO
               </span>
@@ -136,7 +146,12 @@ export const ProductSection: React.FC = () => {
             </div>
 
             {/* ATRIBUTO 3: UNIDADES */}
-            <div className="flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none sm:border-t sm:border-l sm:border-[#E2DDD5] sm:pt-4 sm:pl-5">
+            <div
+              className={`flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none sm:border-t sm:border-l sm:border-[#E2DDD5] sm:pt-4 sm:pl-5 gpu-accel reveal-blur-init ${
+                isInView ? 'reveal-blur-visible' : ''
+              }`}
+              style={{ transitionDelay: '450ms' }}
+            >
               <span className="font-body text-[8.5px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
                 03. TIPOLOGIAS
               </span>
@@ -149,7 +164,12 @@ export const ProductSection: React.FC = () => {
             </div>
 
             {/* ATRIBUTO 4: INCORPORADORA */}
-            <div className="flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none sm:border-t sm:border-l sm:border-[#E2DDD5] sm:pt-4 sm:pl-5">
+            <div
+              className={`flex flex-col space-y-1 p-3 sm:p-0 rounded-xl sm:rounded-none bg-[#FAF9F6]/85 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none border border-[#24231F]/10 sm:border-none shadow-[0_2px_10px_rgba(36,35,31,0.04)] sm:shadow-none sm:border-t sm:border-l sm:border-[#E2DDD5] sm:pt-4 sm:pl-5 gpu-accel reveal-blur-init ${
+                isInView ? 'reveal-blur-visible' : ''
+              }`}
+              style={{ transitionDelay: '600ms' }}
+            >
               <span className="font-body text-[8.5px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
                 04. ASSINATURA & SOLIDEZ
               </span>
