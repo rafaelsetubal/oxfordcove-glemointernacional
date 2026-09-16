@@ -7,26 +7,26 @@ export const Footer: React.FC = () => {
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | null>(null);
 
   return (
-    <footer className="w-full bg-[#FAF9F6] text-[#24231F] border-t border-[#24231F]/10 py-9 sm:py-11 select-none">
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
+    <footer className="w-full bg-[#FAF9F6] text-[#24231F] py-8 sm:py-10 select-none">
+      <div className="max-w-[860px] mx-auto px-5 sm:px-8 text-center flex flex-col items-center">
         
         {/* ========================================================================= */}
-        {/* ROW 01: BRAND SIGNATURE (3 ENLARGED, BALANCED LOGOS IN A LUXURY ROW)      */}
+        {/* 01. BRAND SIGNATURE GROUP (3 CENTERED LOGOS WITH BALANCED PROPORTIONS)   */}
         {/* ========================================================================= */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-7 sm:gap-10 pb-7 sm:pb-8">
+        <div className="flex flex-wrap items-center justify-center gap-7 sm:gap-10 md:gap-14 mb-5 sm:mb-6">
           
-          {/* LOGO 1: OXFORD COVE (PROMINENT SIGNATURE) */}
-          <div className="relative h-8 sm:h-9 w-[160px] sm:w-[185px]">
+          {/* LOGO 1: OXFORD COVE */}
+          <div className="relative h-8 sm:h-9 w-[150px] sm:w-[170px] flex items-center justify-center">
             <Image
               src="/images/brand/logo-bronze.png"
               alt="Oxford Cove"
               fill
-              className="object-contain object-center sm:object-left"
+              className="object-contain object-center"
             />
           </div>
 
           {/* LOGO 2: IMAN DEVELOPERS */}
-          <div className="relative h-7 sm:h-8 w-[135px] sm:w-[155px]">
+          <div className="relative h-7 sm:h-8 w-[125px] sm:w-[145px] flex items-center justify-center">
             <Image
               src="/images/brand/imandevelopers-charcoal.png"
               alt="IMAN Developers"
@@ -36,50 +36,46 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* LOGO 3: GLEMO INTERNATIONAL */}
-          <div className="relative h-7 sm:h-8 w-[140px] sm:w-[160px]">
+          <div className="relative h-7 sm:h-8 w-[130px] sm:w-[150px] flex items-center justify-center">
             <Image
               src="/images/brand/glemo-color.png"
               alt="glemO international"
               fill
-              className="object-contain object-center sm:object-right"
+              className="object-contain object-center"
             />
           </div>
 
         </div>
 
-        {/* THIN HORIZONTAL DIVIDER LINE */}
-        <div className="w-full h-px bg-[#24231F]/10 mb-6" />
+        {/* 02. DISCRETE CENTERED DIVIDER */}
+        <div className="w-24 sm:w-32 h-px bg-[#24231F]/12 mb-4 sm:mb-5" />
 
-        {/* ========================================================================= */}
-        {/* ROW 02: LOCATION & LEGAL LINKS (COMPACT COMPOSITION)                      */}
-        {/* ========================================================================= */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left font-body text-[12px] sm:text-[12.5px] text-[#5A544C] mb-4">
-          <div>
-            Jumeirah Village Circle · District 11 · Dubai, UAE
-          </div>
-          <div className="flex items-center gap-3 text-[#5A544C]">
-            <button
-              type="button"
-              onClick={() => setLegalModal('privacy')}
-              className="hover:text-[#171815] transition-colors cursor-pointer"
-            >
-              Privacy Policy
-            </button>
-            <span>·</span>
-            <button
-              type="button"
-              onClick={() => setLegalModal('terms')}
-              className="hover:text-[#171815] transition-colors cursor-pointer"
-            >
-              Terms & Conditions
-            </button>
-          </div>
+        {/* 03. LOCATION */}
+        <div className="font-body text-[12px] sm:text-[12.5px] text-[#5A544C] mb-2 leading-tight">
+          Jumeirah Village Circle · District 11 · Dubai, UAE
         </div>
 
-        {/* ========================================================================= */}
-        {/* ROW 03: COPYRIGHT (DISCRETE LUXURY BROCHURE BACK-COVER SIGNATURE)         */}
-        {/* ========================================================================= */}
-        <div className="text-center sm:text-left font-body text-[11px] text-[#8C8477]">
+        {/* 04. LEGAL LINKS */}
+        <div className="flex items-center justify-center gap-3 font-body text-[11.5px] text-[#5A544C] mb-3.5">
+          <button
+            type="button"
+            onClick={() => setLegalModal('privacy')}
+            className="hover:text-[#171815] transition-colors cursor-pointer"
+          >
+            Privacy Policy
+          </button>
+          <span className="text-[#5A544C]/50">·</span>
+          <button
+            type="button"
+            onClick={() => setLegalModal('terms')}
+            className="hover:text-[#171815] transition-colors cursor-pointer"
+          >
+            Terms & Conditions
+          </button>
+        </div>
+
+        {/* 05. COPYRIGHT SIGNATURE */}
+        <div className="font-body text-[11px] text-[#8C8477]">
           © 2026 Oxford Cove. All rights reserved.
         </div>
 

@@ -29,7 +29,7 @@ export const FinalCtaSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="final-cta"
-      className="relative w-full min-h-[100svh] flex items-center justify-center py-20 sm:py-24 lg:py-28 overflow-hidden select-none bg-[#14221A]"
+      className="relative w-full min-h-[100svh] flex items-center justify-center py-16 sm:py-20 lg:py-24 overflow-hidden select-none bg-[#14221A]"
     >
       {/* 01. FULL-BLEED ARCHITECTURAL PHOTOGRAPHY (PROTAGONIST, CRISP & VISIBLE) */}
       <div className="absolute inset-0 z-0">
@@ -38,38 +38,34 @@ export const FinalCtaSection: React.FC = () => {
           alt="Oxford Cove by IMAN Developers — Arquitetura e Terraços"
           fill
           priority={false}
-          quality={90}
+          quality={92}
           sizes="100vw"
           className="object-cover object-center"
         />
 
-        {/* 02. REDUCED FOREST GREEN OVERLAY (~18% LIGHTER) TO RESTORE ARCHITECTURAL DETAILS & CONTRAST */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse at 50% 50%, rgba(16, 28, 22, 0.68) 0%, rgba(16, 28, 22, 0.52) 45%, rgba(16, 28, 22, 0.28) 75%, rgba(16, 28, 22, 0.45) 100%)',
-          }}
-        />
+        {/* 02. SUBTLE OVERALL SCRIM — ARCHITECTURE FULLY VISIBLE & CRISP */}
+        <div className="absolute inset-0 bg-[#0E1813]/35 pointer-events-none" />
 
-        {/* TOP & BOTTOM SEAMLESS TRANSITIONS */}
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#FAF8F5] via-[#FAF8F5]/15 to-transparent pointer-events-none opacity-20" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/25 to-transparent pointer-events-none" />
+        {/* TOP SEAMLESS AMBIENT TRANSITION */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#FAF9F6]/20 to-transparent pointer-events-none" />
+
+        {/* 03. ART DIRECTION TRANSITION: GRADUAL LUXURY FADE TO WARM CREAM FOOTER */}
+        <div className="absolute inset-x-0 bottom-0 h-40 sm:h-52 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/80 via-[#FAF9F6]/25 to-transparent pointer-events-none z-[1]" />
       </div>
 
-      {/* 03. EDITORIAL FORM FLOATING DIRECTLY OVER ARCHITECTURE WITH SOFT ATMOSPHERIC HALO */}
+      {/* 04. EDITORIAL FORM FLOATING WITH LOCALIZED ATMOSPHERIC READING HALO */}
       <div
-        className={`relative z-10 w-full max-w-[440px] sm:max-w-[460px] mx-auto px-5 sm:px-6 transition-all duration-700 ease-luxury ${
-          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+        className={`relative z-10 w-full max-w-[430px] sm:max-w-[450px] mx-auto px-5 sm:px-6 transition-all duration-700 ease-luxury ${
+          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
       >
-        {/* Soft atmospheric radial halo behind the form for visual separation without hard box edges */}
+        {/* LOCALIZED ATMOSPHERIC READING HALO (520–640PX WIDE, ZERO CARD EDGES, SOFT FADE) */}
         <div
-          className="absolute -inset-6 sm:-inset-10 -z-10 rounded-[40px] pointer-events-none"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] sm:w-[640px] h-[640px] sm:h-[720px] -z-10 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center, rgba(10, 18, 14, 0.65) 0%, rgba(10, 18, 14, 0.35) 55%, transparent 75%)',
-            filter: 'blur(24px)',
+              'radial-gradient(ellipse at center, rgba(10, 18, 14, 0.76) 0%, rgba(10, 18, 14, 0.50) 45%, rgba(10, 18, 14, 0.15) 70%, transparent 100%)',
+            filter: 'blur(28px)',
           }}
         />
 
