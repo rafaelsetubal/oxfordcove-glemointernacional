@@ -260,20 +260,20 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             </div>
           </div>
 
-          {/* CREAM / GOLD SHIMMERING CTA BUTTON */}
+          {/* EARTHY GREEN CTA BUTTON WITH REFINED LIGHT SHIMMER EFFECT */}
           <button
             type="submit"
             disabled={loading}
-            className="relative w-full h-[48px] sm:h-[50px] mt-2 rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all duration-base ease-luxury shadow-[0_4px_22px_rgba(223,200,154,0.40)] hover:shadow-[0_6px_28px_rgba(223,200,154,0.60)] hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#806B54] overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed group cursor-pointer animate-pulse-gold border border-[#D8C7A5]/50"
+            className="relative w-full h-[48px] sm:h-[50px] mt-2 rounded-full bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all duration-base ease-luxury shadow-[0_4px_18px_rgba(40,55,45,0.28)] hover:shadow-[0_6px_26px_rgba(29,48,39,0.40)] hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#28372D] overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed group cursor-pointer border border-[#28372D]/40"
           >
-            {/* SHIMMER EFFECT OVERLAY */}
-            <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/70 to-transparent pointer-events-none" />
+            {/* SUBTLE LIGHT SHIMMER SWEEP ACROSS EARTHY GREEN */}
+            <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
             
             {loading ? (
-              <Loader2 className="w-4 h-4 animate-spin text-[#171815]" />
+              <Loader2 className="w-4 h-4 animate-spin text-[#FAF9F6]" />
             ) : (
               <>
-                <span className="relative z-10 font-bold">ACESSAR TABELA DE PRÉ-LANÇAMENTO</span>
+                <span className="relative z-10 font-bold tracking-[0.12em]">ACESSAR TABELA DE PRÉ-LANÇAMENTO</span>
                 <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[2]" />
               </>
             )}
