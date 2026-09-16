@@ -94,7 +94,6 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
 
       map.on('load', () => {
         updateScreenPositions();
-        if (onMapReady) onMapReady();
       });
 
       map.on('render', () => {
@@ -123,7 +122,19 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
       console.error('Error initializing map:', err);
       setHasError(true);
     }
-  }, [updateScreenPositions, onMapReady]);
+  }, [updateScreenPositions]);
+
+  // Notify parent once markers and connection lines are mounted in the DOM
+  useEffect(() => {
+    if (isLoaded && Object.keys(positions).length >= DESTINATIONS.length) {
+      const timer = setTimeout(() => {
+        if (onMapReady) {
+          onMapReady();
+        }
+      }, 60);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded, positions, onMapReady]);
 
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#FAF9F6]">

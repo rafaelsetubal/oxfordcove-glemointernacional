@@ -26,17 +26,28 @@ const OxfordCoveMap = dynamic(
 export const LocationSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stickyContainerRef = useRef<HTMLDivElement>(null);
-  const animationInitializedRef = useRef<boolean>(false);
+  const animationCtxRef = useRef<gsap.Context | null>(null);
   const [shouldMountMap, setShouldMountMap] = useState<boolean>(false);
 
   const initScrollAnimation = () => {
     if (!sectionRef.current || !stickyContainerRef.current) return;
-    if (animationInitializedRef.current) return;
-    animationInitializedRef.current = true;
+
+    // Check if markers exist in DOM before attaching GSAP ScrollTrigger
+    const markerOxford = sectionRef.current.querySelector('#marker-oxford-cove');
+    if (!markerOxford) {
+      // Retry in 100ms if React has not finished painting DOM
+      setTimeout(initScrollAnimation, 100);
+      return;
+    }
+
+    if (animationCtxRef.current) {
+      animationCtxRef.current.revert();
+      animationCtxRef.current = null;
+    }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const ctx = gsap.context(() => {
+    animationCtxRef.current = gsap.context(() => {
       if (prefersReducedMotion) {
         gsap.set('.marker-element', { opacity: 1, scale: 1 });
         gsap.set('.route-path', { strokeDashoffset: 0 });
@@ -46,6 +57,11 @@ export const LocationSection: React.FC = () => {
       // Initial state: 100% clean map
       gsap.set('.marker-element', { opacity: 0 });
       gsap.set('#marker-oxford-cove', { opacity: 0, scale: 0.8 });
+      gsap.set('.route-path', {
+        strokeDashoffset: (i, target) => {
+          return target.getAttribute('stroke-dasharray') || 500;
+        },
+      });
 
       // Master ScrollTrigger Timeline
       const tl = gsap.timeline({
@@ -53,32 +69,33 @@ export const LocationSection: React.FC = () => {
           trigger: sectionRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.6,
+          scrub: 0.5,
           pin: stickyContainerRef.current,
+          invalidateOnRefresh: true,
         },
       });
 
-      // 01. 15% - 25%: OXFORD COVE
+      // 01. 10% - 20%: OXFORD COVE
       tl.to(
         '#marker-oxford-cove',
         {
           opacity: 1,
           scale: 1,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power2.out',
         },
-        1.5
+        0.5
       );
 
-      // 02. 25% - 35%: DUBAI MARINA
+      // 02. 20% - 30%: DUBAI MARINA
       tl.to(
         '.route-path-dubai-marina',
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power1.inOut',
         },
-        2.5
+        1.5
       );
       tl.to(
         '#marker-dubai-marina',
@@ -87,18 +104,18 @@ export const LocationSection: React.FC = () => {
           duration: 0.8,
           ease: 'power2.out',
         },
-        3.0
+        2.0
       );
 
-      // 03. 35% - 45%: PALM JUMEIRAH
+      // 03. 30% - 40%: PALM JUMEIRAH
       tl.to(
         '.route-path-palm-jumeirah',
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power1.inOut',
         },
-        3.5
+        2.5
       );
       tl.to(
         '#marker-palm-jumeirah',
@@ -107,18 +124,18 @@ export const LocationSection: React.FC = () => {
           duration: 0.8,
           ease: 'power2.out',
         },
-        4.0
+        3.0
       );
 
-      // 04. 45% - 55%: MALL OF THE EMIRATES
+      // 04. 40% - 50%: MALL OF THE EMIRATES
       tl.to(
         '.route-path-mall-of-the-emirates',
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power1.inOut',
         },
-        4.5
+        3.5
       );
       tl.to(
         '#marker-mall-of-the-emirates',
@@ -127,18 +144,18 @@ export const LocationSection: React.FC = () => {
           duration: 0.8,
           ease: 'power2.out',
         },
-        5.0
+        4.0
       );
 
-      // 05. 55% - 65%: DUBAI HILLS
+      // 05. 50% - 60%: DUBAI HILLS
       tl.to(
         '.route-path-dubai-hills',
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power1.inOut',
         },
-        5.5
+        4.5
       );
       tl.to(
         '#marker-dubai-hills',
@@ -147,18 +164,18 @@ export const LocationSection: React.FC = () => {
           duration: 0.8,
           ease: 'power2.out',
         },
-        6.0
+        5.0
       );
 
-      // 06. 65% - 75%: DOWNTOWN DUBAI / BURJ KHALIFA
+      // 06. 60% - 70%: DOWNTOWN DUBAI / BURJ KHALIFA
       tl.to(
         '.route-path-downtown-dubai',
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power1.inOut',
         },
-        6.5
+        5.5
       );
       tl.to(
         '#marker-downtown-dubai',
@@ -167,18 +184,18 @@ export const LocationSection: React.FC = () => {
           duration: 0.8,
           ease: 'power2.out',
         },
-        7.0
+        6.0
       );
 
-      // 07. 75% - 85%: DXB AIRPORT
+      // 07. 70% - 80%: DXB AIRPORT
       tl.to(
         '.route-path-dxb-airport',
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power1.inOut',
         },
-        7.5
+        6.5
       );
       tl.to(
         '#marker-dxb-airport',
@@ -187,18 +204,18 @@ export const LocationSection: React.FC = () => {
           duration: 0.8,
           ease: 'power2.out',
         },
-        8.0
+        7.0
       );
 
-      // 08. 85% - 95%: DWC AIRPORT
+      // 08. 80% - 90%: DWC AIRPORT
       tl.to(
         '.route-path-dwc-airport',
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power1.inOut',
         },
-        8.5
+        7.5
       );
       tl.to(
         '#marker-dwc-airport',
@@ -207,11 +224,11 @@ export const LocationSection: React.FC = () => {
           duration: 0.8,
           ease: 'power2.out',
         },
-        9.0
+        8.0
       );
-    }, sectionRef);
 
-    return () => ctx.revert();
+      ScrollTrigger.refresh();
+    }, sectionRef);
   };
 
   useEffect(() => {
@@ -232,13 +249,12 @@ export const LocationSection: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (shouldMountMap) {
-      const timer = setTimeout(() => {
-        initScrollAnimation();
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [shouldMountMap]);
+    return () => {
+      if (animationCtxRef.current) {
+        animationCtxRef.current.revert();
+      }
+    };
+  }, []);
 
   return (
     <section
