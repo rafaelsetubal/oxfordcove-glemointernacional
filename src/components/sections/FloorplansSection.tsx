@@ -299,21 +299,16 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
   },
 ];
 
+const ITEMS_PER_PAGE = 3;
+
 export const FloorplansSection: React.FC = () => {
   const [viewMode, setViewMode] = useState<FloorplanViewMode>('UNITS');
   const [activeTypologyKey, setActiveTypologyKey] = useState<'STUDIO' | '2 BEDROOM' | '2 BED + STUDY'>('STUDIO');
-  const [showAllUnits, setShowAllUnits] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [showAll, setShowAll] = useState<boolean>(false);
+  
+  const [currentBuildingPage, setCurrentBuildingPage] = useState<number>(0);
   const [showAllBuilding, setShowAllBuilding] = useState<boolean>(false);
-
-  // Horizontal scroll container refs
-  const unitsScrollRef = useRef<HTMLDivElement>(null);
-  const buildingScrollRef = useRef<HTMLDivElement>(null);
-
-  // Scroll button active indicators
-  const [canScrollUnitsLeft, setCanScrollUnitsLeft] = useState(false);
-  const [canScrollUnitsRight, setCanScrollUnitsRight] = useState(true);
-  const [canScrollBuildingLeft, setCanScrollBuildingLeft] = useState(false);
-  const [canScrollBuildingRight, setCanScrollBuildingRight] = useState(true);
 
   // GalleryViewer state
   const [viewerItems, setViewerItems] = useState<GalleryViewerItem[]>([]);
@@ -331,55 +326,28 @@ export const FloorplansSection: React.FC = () => {
     return REAL_UNIT_FLOORPLANS.filter((plan) => plan.typology === activeTypologyKey);
   }, [activeTypologyKey]);
 
-  // Check scroll position for Units
-  const checkUnitsScroll = useCallback(() => {
-    if (!unitsScrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = unitsScrollRef.current;
-    setCanScrollUnitsLeft(scrollLeft > 10);
-    setCanScrollUnitsRight(scrollLeft < scrollWidth - clientWidth - 10);
-  }, []);
+  // Total pages for active typology
+  const totalPages = Math.ceil(filteredUnitPlans.length / ITEMS_PER_PAGE);
 
-  // Check scroll position for Building Floors
-  const checkBuildingScroll = useCallback(() => {
-    if (!buildingScrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = buildingScrollRef.current;
-    setCanScrollBuildingLeft(scrollLeft > 10);
-    setCanScrollBuildingRight(scrollLeft < scrollWidth - clientWidth - 10);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(checkUnitsScroll, 100);
-    return () => clearTimeout(timer);
-  }, [activeTypologyKey, showAllUnits, checkUnitsScroll]);
-
-  useEffect(() => {
-    const timer = setTimeout(checkBuildingScroll, 100);
-    return () => clearTimeout(timer);
-  }, [viewMode, showAllBuilding, checkBuildingScroll]);
-
-  // Smooth scroll handler for Units (advances ~1 view / 3 cards on desktop or 1 on mobile)
-  const scrollUnits = (direction: 'left' | 'right') => {
-    if (unitsScrollRef.current) {
-      const scrollAmount = unitsScrollRef.current.clientWidth * 0.88;
-      unitsScrollRef.current.scrollBy({
-        left: direction === 'right' ? scrollAmount : -scrollAmount,
-        behavior: 'smooth',
-      });
-      setTimeout(checkUnitsScroll, 350);
+  // Visible plans in grid (3 items per page initially)
+  const visibleUnitPlans = useMemo(() => {
+    if (showAll || filteredUnitPlans.length <= ITEMS_PER_PAGE) {
+      return filteredUnitPlans;
     }
-  };
+    const start = currentPage * ITEMS_PER_PAGE;
+    return filteredUnitPlans.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredUnitPlans, showAll, currentPage]);
 
-  // Smooth scroll handler for Building
-  const scrollBuilding = (direction: 'left' | 'right') => {
-    if (buildingScrollRef.current) {
-      const scrollAmount = buildingScrollRef.current.clientWidth * 0.88;
-      buildingScrollRef.current.scrollBy({
-        left: direction === 'right' ? scrollAmount : -scrollAmount,
-        behavior: 'smooth',
-      });
-      setTimeout(checkBuildingScroll, 350);
+  // Building Floor Plans Pagination (3 items per page initially)
+  const totalBuildingPages = Math.ceil(BUILDING_FLOORPLANS.length / ITEMS_PER_PAGE);
+
+  const visibleBuildingPlans = useMemo(() => {
+    if (showAllBuilding || BUILDING_FLOORPLANS.length <= ITEMS_PER_PAGE) {
+      return BUILDING_FLOORPLANS;
     }
-  };
+    const start = currentBuildingPage * ITEMS_PER_PAGE;
+    return BUILDING_FLOORPLANS.slice(start, start + ITEMS_PER_PAGE);
+  }, [showAllBuilding, currentBuildingPage]);
 
   // Handle opening unit plan in GalleryViewer
   const handleOpenUnitPlan = useCallback((planIndex: number) => {
@@ -495,8 +463,8 @@ export const FloorplansSection: React.FC = () => {
                       type="button"
                       onClick={() => {
                         setActiveTypologyKey(t.key);
-                        setShowAllUnits(false);
-                        if (unitsScrollRef.current) unitsScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+                        setCurrentPage(0);
+                        setShowAll(false);
                       }}
                       className={`relative py-3.5 font-body text-[12px] sm:text-[13px] font-semibold tracking-[0.20em] uppercase transition-all duration-300 cursor-pointer flex items-center gap-2 ${
                         isActive
@@ -575,84 +543,15 @@ export const FloorplansSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* RIGHT: UNIT FLOORPLANS GRID / CAROUSEL */}
+              {/* RIGHT: UNIT FLOORPLANS GRID */}
               <div className="lg:col-span-9" id="unit-plans-grid">
-                {!showAllUnits ? (
-                  /* 01. HORIZONTAL CAROUSEL TRACK (3 CARDS VISIBLE ON DESKTOP, SWIPE ON MOBILE) */
-                  <div
-                    ref={unitsScrollRef}
-                    onScroll={checkUnitsScroll}
-                    className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-4 pt-1 px-1 -mx-1"
-                  >
-                    {filteredUnitPlans.map((plan, idx) => (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+                  {visibleUnitPlans.map((plan, idx) => {
+                    const fullIndex = filteredUnitPlans.findIndex((p) => p.id === plan.id);
+                    return (
                       <div
                         key={plan.id}
-                        onClick={() => handleOpenUnitPlan(idx)}
-                        className="group relative bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between shrink-0 snap-start w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[390px]"
-                      >
-                        {/* CARD HEADER */}
-                        <div className="flex items-center justify-between pb-4 border-b border-[#24231F]/8">
-                          <div>
-                            <span className="font-technical text-[10px] uppercase tracking-wider text-[#806B54] block">
-                              UNIDADE
-                            </span>
-                            <h4 className="font-display font-medium text-[24px] text-[#171815] leading-none">
-                              {plan.unit}
-                            </h4>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <span className="font-technical text-[11px] font-semibold text-[#171815] bg-[#FAF9F6] border border-[#24231F]/10 px-2.5 py-1 rounded-full">
-                              {plan.totalArea} SQ.FT
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* PLAN PREVIEW (CLEAN & CENTERED) */}
-                        <div className="relative w-full h-[230px] my-5 flex items-center justify-center bg-[#FAF9F6] rounded-[14px] p-4 group-hover:bg-[#F3EFE8] transition-colors duration-300">
-                          <Image
-                            src={plan.imageSrc}
-                            alt={`Planta da unidade ${plan.unit} — Oxford Cove`}
-                            fill
-                            quality={85}
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                          />
-                          
-                          {/* QUICK EXPAND HOVER ICON */}
-                          <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 shadow-sm border border-black/5 flex items-center justify-center text-[#171815] opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Maximize2 className="w-4 h-4" />
-                          </div>
-                        </div>
-
-                        {/* CARD FOOTER SPECS */}
-                        <div>
-                          <div className="grid grid-cols-2 gap-2 text-[11.5px] font-body text-[#5A544C] pt-2 border-t border-[#24231F]/8 mb-4">
-                            <div>
-                              <span className="text-[#806B54] block text-[9.5px] uppercase font-technical">SUÍTE</span>
-                              <span className="font-semibold text-[#171815]">{plan.suiteArea} sq.ft</span>
-                            </div>
-                            <div>
-                              <span className="text-[#806B54] block text-[9.5px] uppercase font-technical">TERRAÇO</span>
-                              <span className="font-semibold text-[#171815]">{plan.terraceArea} sq.ft</span>
-                            </div>
-                          </div>
-
-                          <div className="w-full inline-flex items-center justify-between text-[#806B54] group-hover:text-[#171815] font-body text-[11px] font-semibold tracking-[0.16em] uppercase transition-colors">
-                            <span>VER PLANTA COMPLETA</span>
-                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  /* 02. FULL MULTI-ROW GRID (ALL UNITS EXPANDED) */
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 pt-1">
-                    {filteredUnitPlans.map((plan, idx) => (
-                      <div
-                        key={plan.id}
-                        onClick={() => handleOpenUnitPlan(idx)}
+                        onClick={() => handleOpenUnitPlan(fullIndex >= 0 ? fullIndex : idx)}
                         className="group relative bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between"
                       >
                         {/* CARD HEADER */}
@@ -709,74 +608,56 @@ export const FloorplansSection: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    );
+                  })}
+                </div>
 
-                {/* CONTROLS BAR: PREV/NEXT ARROWS + VER MAIS BUTTON */}
-                {filteredUnitPlans.length > 3 && (
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-[#24231F]/10">
+                {/* PAGINATION / EXPAND CONTROLS (3 ITEMS PER PAGE) */}
+                {filteredUnitPlans.length > ITEMS_PER_PAGE && (
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 pt-6 border-t border-[#24231F]/10">
                     <div className="font-technical text-[12px] text-[#806B54]">
-                      {filteredUnitPlans.length} plantas disponíveis {!showAllUnits && '· 3 exibidas'}
+                      Exibindo {visibleUnitPlans.length} de {filteredUnitPlans.length} unidades
                     </div>
 
                     <div className="flex items-center gap-3">
-                      {!showAllUnits && (
+                      {!showAll && (
                         <div className="flex items-center gap-2">
                           <button
                             type="button"
-                            onClick={() => scrollUnits('left')}
-                            disabled={!canScrollUnitsLeft}
-                            aria-label="Planta anterior"
-                            className={`px-4 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase border border-[#24231F]/15 transition-all flex items-center gap-1.5 ${
-                              canScrollUnitsLeft
-                                ? 'bg-white hover:bg-[#171815] hover:text-white text-[#171815] cursor-pointer shadow-sm'
-                                : 'opacity-30 cursor-not-allowed text-[#24231F]/40'
+                            onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+                            disabled={currentPage === 0}
+                            className={`px-4 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase border border-[#24231F]/15 transition-all ${
+                              currentPage === 0
+                                ? 'opacity-30 cursor-not-allowed'
+                                : 'hover:bg-[#171815] hover:text-white cursor-pointer shadow-sm'
                             }`}
                           >
-                            <ChevronLeft className="w-3.5 h-3.5" />
-                            <span>ANTERIOR</span>
+                            ANTERIOR
                           </button>
-
+                          <span className="font-technical text-[12px] text-[#171815] px-2">
+                            {currentPage + 1} / {totalPages}
+                          </span>
                           <button
                             type="button"
-                            onClick={() => scrollUnits('right')}
-                            disabled={!canScrollUnitsRight}
-                            aria-label="Próxima planta"
-                            className={`px-4 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase border border-[#24231F]/15 transition-all flex items-center gap-1.5 ${
-                              canScrollUnitsRight
-                                ? 'bg-white hover:bg-[#171815] hover:text-white text-[#171815] cursor-pointer shadow-sm'
-                                : 'opacity-30 cursor-not-allowed text-[#24231F]/40'
+                            onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+                            disabled={currentPage >= totalPages - 1}
+                            className={`px-4 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase border border-[#24231F]/15 transition-all ${
+                              currentPage >= totalPages - 1
+                                ? 'opacity-30 cursor-not-allowed'
+                                : 'hover:bg-[#171815] hover:text-white cursor-pointer shadow-sm'
                             }`}
                           >
-                            <span>PRÓXIMO</span>
-                            <ChevronRight className="w-3.5 h-3.5" />
+                            PRÓXIMO
                           </button>
                         </div>
                       )}
 
                       <button
                         type="button"
-                        onClick={() => {
-                          setShowAllUnits(!showAllUnits);
-                          if (showAllUnits) {
-                            const el = document.getElementById('unit-plans-grid');
-                            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                          }
-                        }}
-                        className="px-5 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase bg-[#171815] text-[#FAF9F6] hover:bg-[#28372D] transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
+                        onClick={() => setShowAll(!showAll)}
+                        className="px-5 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase bg-[#171815] text-[#FAF9F6] hover:bg-[#28372D] transition-all cursor-pointer shadow-sm"
                       >
-                        {showAllUnits ? (
-                          <>
-                            <span>RECOLHER (VER 3)</span>
-                            <ChevronLeft className="w-3.5 h-3.5 rotate-90" />
-                          </>
-                        ) : (
-                          <>
-                            <span>VER MAIS ({filteredUnitPlans.length})</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </>
-                        )}
+                        {showAll ? 'VER PAGINADO' : `VER TODAS (${filteredUnitPlans.length})`}
                       </button>
                     </div>
                   </div>
@@ -792,132 +673,74 @@ export const FloorplansSection: React.FC = () => {
         {/* ========================================================================= */}
         {viewMode === 'BUILDING' && (
           <div className="mb-16 sm:mb-20" id="building-plans-grid">
-            {!showAllBuilding ? (
-              /* 01. HORIZONTAL CAROUSEL TRACK (3 CARDS VISIBLE ON DESKTOP, SWIPE ON MOBILE) */
-              <div
-                ref={buildingScrollRef}
-                onScroll={checkBuildingScroll}
-                className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none pb-4 pt-1 px-1 -mx-1"
-              >
-                {BUILDING_FLOORPLANS.map((floor, fIdx) => (
-                  <div
-                    key={floor.id}
-                    onClick={() => handleOpenBuildingPlan(fIdx)}
-                    className="group bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between shrink-0 snap-start w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[420px]"
-                  >
-                    {/* HEADER */}
-                    <div className="flex items-center justify-between pb-3 border-b border-[#24231F]/8">
-                      <div>
-                        <span className="font-technical text-[10px] uppercase tracking-wider text-[#806B54] block">
-                          PAVIMENTO
-                        </span>
-                        <h4 className="font-display font-medium text-[22px] sm:text-[24px] text-[#171815] leading-none">
-                          {floor.floorName}
-                        </h4>
-                      </div>
-                      <span className="font-technical text-[10.5px] font-semibold text-[#806B54] bg-[#806B54]/10 px-2.5 py-1 rounded-full uppercase">
-                        {floor.levelCode}
-                      </span>
-                    </div>
-
-                    {/* PREVIEW */}
-                    <div className="relative w-full h-[220px] sm:h-[240px] my-5 flex items-center justify-center bg-[#FAF9F6] rounded-[14px] p-4 group-hover:bg-[#F3EFE8] transition-colors duration-300">
-                      <Image
-                        src={floor.imageSrc}
-                        alt={`Implantação ${floor.floorName} — Oxford Cove`}
-                        fill
-                        quality={85}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 shadow-sm border border-black/5 flex items-center justify-center text-[#171815] opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Maximize2 className="w-4 h-4" />
-                      </div>
-                    </div>
-
-                    {/* DESCRIPTION & CTA */}
+            {/* GRID OF BUILDING PLANS */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pt-1">
+              {visibleBuildingPlans.map((floor, fIdx) => (
+                <div
+                  key={floor.id}
+                  onClick={() => handleOpenBuildingPlan(showAllBuilding ? fIdx : currentBuildingPage * ITEMS_PER_PAGE + fIdx)}
+                  className="group bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between"
+                >
+                  {/* HEADER */}
+                  <div className="flex items-center justify-between pb-3 border-b border-[#24231F]/8">
                     <div>
-                      <p className="font-body text-[12.5px] text-[#5A544C] leading-relaxed mb-4 line-clamp-2">
-                        {floor.description}
-                      </p>
-                      <div className="w-full inline-flex items-center justify-between text-[#806B54] group-hover:text-[#171815] font-body text-[11px] font-semibold tracking-[0.16em] uppercase transition-colors pt-3 border-t border-[#24231F]/8">
-                        <span>VER PLANTA DO PAVIMENTO</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                      </div>
+                      <span className="font-technical text-[10px] uppercase tracking-wider text-[#806B54] block">
+                        PAVIMENTO
+                      </span>
+                      <h4 className="font-display font-medium text-[22px] sm:text-[24px] text-[#171815] leading-none">
+                        {floor.floorName}
+                      </h4>
+                    </div>
+                    <span className="font-technical text-[10.5px] font-semibold text-[#806B54] bg-[#806B54]/10 px-2.5 py-1 rounded-full uppercase">
+                      {floor.levelCode}
+                    </span>
+                  </div>
+
+                  {/* PREVIEW */}
+                  <div className="relative w-full h-[220px] sm:h-[240px] my-5 flex items-center justify-center bg-[#FAF9F6] rounded-[14px] p-4 group-hover:bg-[#F3EFE8] transition-colors duration-300">
+                    <Image
+                      src={floor.imageSrc}
+                      alt={`Implantação ${floor.floorName} — Oxford Cove`}
+                      fill
+                      quality={85}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 shadow-sm border border-black/5 flex items-center justify-center text-[#171815] opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Maximize2 className="w-4 h-4" />
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              /* 02. FULL MULTI-ROW GRID (ALL FLOORS EXPANDED) */
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pt-1">
-                {BUILDING_FLOORPLANS.map((floor, fIdx) => (
-                  <div
-                    key={floor.id}
-                    onClick={() => handleOpenBuildingPlan(fIdx)}
-                    className="group bg-white rounded-[20px] p-6 border border-[#24231F]/10 hover:border-[#806B54]/40 transition-all duration-400 ease-luxury shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.08)] cursor-pointer flex flex-col justify-between"
-                  >
-                    {/* HEADER */}
-                    <div className="flex items-center justify-between pb-3 border-b border-[#24231F]/8">
-                      <div>
-                        <span className="font-technical text-[10px] uppercase tracking-wider text-[#806B54] block">
-                          PAVIMENTO
-                        </span>
-                        <h4 className="font-display font-medium text-[22px] sm:text-[24px] text-[#171815] leading-none">
-                          {floor.floorName}
-                        </h4>
-                      </div>
-                      <span className="font-technical text-[10.5px] font-semibold text-[#806B54] bg-[#806B54]/10 px-2.5 py-1 rounded-full uppercase">
-                        {floor.levelCode}
-                      </span>
-                    </div>
 
-                    {/* PREVIEW */}
-                    <div className="relative w-full h-[220px] sm:h-[240px] my-5 flex items-center justify-center bg-[#FAF9F6] rounded-[14px] p-4 group-hover:bg-[#F3EFE8] transition-colors duration-300">
-                      <Image
-                        src={floor.imageSrc}
-                        alt={`Implantação ${floor.floorName} — Oxford Cove`}
-                        fill
-                        quality={85}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 shadow-sm border border-black/5 flex items-center justify-center text-[#171815] opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Maximize2 className="w-4 h-4" />
-                      </div>
-                    </div>
-
-                    {/* DESCRIPTION & CTA */}
-                    <div>
-                      <p className="font-body text-[12.5px] text-[#5A544C] leading-relaxed mb-4 line-clamp-2">
-                        {floor.description}
-                      </p>
-                      <div className="w-full inline-flex items-center justify-between text-[#806B54] group-hover:text-[#171815] font-body text-[11px] font-semibold tracking-[0.16em] uppercase transition-colors pt-3 border-t border-[#24231F]/8">
-                        <span>VER PLANTA DO PAVIMENTO</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                      </div>
+                  {/* DESCRIPTION & CTA */}
+                  <div>
+                    <p className="font-body text-[12.5px] text-[#5A544C] leading-relaxed mb-4 line-clamp-2">
+                      {floor.description}
+                    </p>
+                    <div className="w-full inline-flex items-center justify-between text-[#806B54] group-hover:text-[#171815] font-body text-[11px] font-semibold tracking-[0.16em] uppercase transition-colors pt-3 border-t border-[#24231F]/8">
+                      <span>VER PLANTA DO PAVIMENTO</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
 
             {/* CONTROLS BAR: PREV/NEXT ARROWS + VER MAIS BUTTON FOR BUILDING */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-[#24231F]/10">
               <div className="font-technical text-[12px] text-[#806B54]">
-                {BUILDING_FLOORPLANS.length} pavimentos disponíveis {!showAllBuilding && '· 3 exibidos'}
+                {BUILDING_FLOORPLANS.length} pavimentos disponíveis {!showAllBuilding && totalBuildingPages > 1 && `· Página ${currentBuildingPage + 1} de ${totalBuildingPages}`}
               </div>
 
               <div className="flex items-center gap-3">
-                {!showAllBuilding && (
+                {!showAllBuilding && totalBuildingPages > 1 && (
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => scrollBuilding('left')}
-                      disabled={!canScrollBuildingLeft}
+                      onClick={() => setCurrentBuildingPage((p) => Math.max(0, p - 1))}
+                      disabled={currentBuildingPage === 0}
                       aria-label="Pavimento anterior"
                       className={`px-4 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase border border-[#24231F]/15 transition-all flex items-center gap-1.5 ${
-                        canScrollBuildingLeft
+                        currentBuildingPage > 0
                           ? 'bg-white hover:bg-[#171815] hover:text-white text-[#171815] cursor-pointer shadow-sm'
                           : 'opacity-30 cursor-not-allowed text-[#24231F]/40'
                       }`}
@@ -928,11 +751,11 @@ export const FloorplansSection: React.FC = () => {
 
                     <button
                       type="button"
-                      onClick={() => scrollBuilding('right')}
-                      disabled={!canScrollBuildingRight}
+                      onClick={() => setCurrentBuildingPage((p) => Math.min(totalBuildingPages - 1, p + 1))}
+                      disabled={currentBuildingPage >= totalBuildingPages - 1}
                       aria-label="Próximo pavimento"
                       className={`px-4 py-2 rounded-full font-body text-[11px] font-semibold tracking-wider uppercase border border-[#24231F]/15 transition-all flex items-center gap-1.5 ${
-                        canScrollBuildingRight
+                        currentBuildingPage < totalBuildingPages - 1
                           ? 'bg-white hover:bg-[#171815] hover:text-white text-[#171815] cursor-pointer shadow-sm'
                           : 'opacity-30 cursor-not-allowed text-[#24231F]/40'
                       }`}
@@ -956,7 +779,7 @@ export const FloorplansSection: React.FC = () => {
                 >
                   {showAllBuilding ? (
                     <>
-                      <span>RECOLHER (VER 3)</span>
+                      <span>VER PAGINADO (3)</span>
                       <ChevronLeft className="w-3.5 h-3.5 rotate-90" />
                     </>
                   ) : (
