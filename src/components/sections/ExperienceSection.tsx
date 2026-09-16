@@ -64,33 +64,44 @@ export const ExperienceSection: React.FC = () => {
           }}
           onClick={handlePlayClick}
         >
-          {/* HORIZONTAL VIDEO TAG */}
+          {/* HORIZONTAL VIDEO TAG WITH PRELOAD NONE TO ELIMINATE 13MB INITIAL DOWNLOAD */}
           <video
             ref={videoRef}
             src="/video/oxford_cove_horizontal.mp4"
-            poster="/images/product/oxford-cove-facade.webp"
             playsInline
-            preload="metadata"
+            preload="none"
             controls={isPlaying}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
-            className="w-full h-full object-cover"
-          />
+            className={`w-full h-full object-cover ${isPlaying ? 'block' : 'hidden'}`}
+          >
+            <track kind="captions" srcLang="pt" label="Português" />
+          </video>
 
-          {/* CUSTOM GLASS PLAY BUTTON OVERLAY (VISIBLE WHEN NOT PLAYING) */}
+          {/* RESPONSIVE NEXT.JS OPTIMIZED POSTER IMAGE */}
           {!isPlaying && (
-            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-base flex flex-col items-center justify-center gap-3.5">
-              <button
-                type="button"
-                aria-label="Assistir ao vídeo institucional em widescreen"
-                className="w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-full bg-white/25 group-hover:bg-white/35 backdrop-blur-xl border border-white/60 text-white flex items-center justify-center transition-all duration-base ease-luxury shadow-[0_8px_32px_rgba(0,0,0,0.30)] group-hover:scale-105 active:scale-95 cursor-pointer"
-              >
-                <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white translate-x-0.5 transition-transform duration-base group-hover:translate-x-1" />
-              </button>
+            <div className="absolute inset-0">
+              <Image
+                src="/images/product/oxford-cove-facade.webp"
+                alt="Oxford Cove — Vídeo de Apresentação"
+                fill
+                quality={82}
+                sizes="(max-width: 768px) 100vw, 980px"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-base flex flex-col items-center justify-center gap-3.5">
+                <button
+                  type="button"
+                  aria-label="Assistir ao vídeo institucional em widescreen"
+                  className="w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-full bg-white/25 group-hover:bg-white/35 backdrop-blur-xl border border-white/60 text-white flex items-center justify-center transition-all duration-base ease-luxury shadow-[0_8px_32px_rgba(0,0,0,0.30)] group-hover:scale-105 active:scale-95 cursor-pointer"
+                >
+                  <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white translate-x-0.5 transition-transform duration-base group-hover:translate-x-1" />
+                </button>
 
-              <span className="font-body text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-semibold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
-                ASSISTIR AO VÍDEO
-              </span>
+                <span className="font-body text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-semibold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                  ASSISTIR AO VÍDEO
+                </span>
+              </div>
             </div>
           )}
         </div>

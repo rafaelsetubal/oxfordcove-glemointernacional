@@ -407,7 +407,7 @@ export const FloorplansSection: React.FC = () => {
         {/* 01. SECTION HEADER                                                        */}
         {/* ========================================================================= */}
         <div className="mb-10 sm:mb-12">
-          <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#806B54] mb-3 block">
+          <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#705B44] mb-3 block">
             PLANTAS
           </span>
           <h2 className="font-display font-normal text-[36px] sm:text-[46px] lg:text-[54px] leading-[1.04] text-[#171815] tracking-tight max-w-3xl">
@@ -471,12 +471,12 @@ export const FloorplansSection: React.FC = () => {
                       className={`relative py-3.5 font-body text-[12px] sm:text-[13px] font-semibold tracking-[0.20em] uppercase transition-all duration-300 cursor-pointer flex items-center gap-2 ${
                         isActive
                           ? 'text-[#171815]'
-                          : 'text-[#8C8477] hover:text-[#171815]'
+                          : 'text-[#6B5742] hover:text-[#171815]'
                       }`}
                     >
                       <span>{t.label}</span>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-technical ${
-                        isActive ? 'bg-[#171815] text-white' : 'bg-black/5 text-[#8C8477]'
+                        isActive ? 'bg-[#171815] text-white' : 'bg-black/5 text-[#5A544C]'
                       }`}>
                         {t.unitsCount}
                       </span>
@@ -829,7 +829,7 @@ export const FloorplansSection: React.FC = () => {
                   <span className="font-technical text-[16px] sm:text-[18px] font-semibold text-white tracking-wider">
                     EOI — {formatPrice(50000)}
                   </span>
-                  <span className="font-technical text-[10px] text-champagne bg-champagne/15 px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">
+                  <span className="font-technical text-[10px] text-white bg-white/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold border border-white/20">
                     100% REEMBOLSÁVEL
                   </span>
                 </div>

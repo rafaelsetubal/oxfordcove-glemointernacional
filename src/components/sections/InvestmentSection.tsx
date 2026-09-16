@@ -81,7 +81,7 @@ export const InvestmentSection: React.FC = () => {
         {/* ========================================================================= */}
         <div className="mb-12 sm:mb-16 pb-8 border-b border-[#24231F]/10">
           <div>
-            <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#806B54] mb-3 block">
+            <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#705B44] mb-3 block">
               INVESTIMENTO
             </span>
             <h2 className="font-display font-normal text-[38px] sm:text-[48px] lg:text-[56px] leading-[1.04] text-[#171815] tracking-tight">
@@ -530,7 +530,7 @@ export const InvestmentSection: React.FC = () => {
 
           {/* LEGAL DISCLAIMER */}
           <div className="text-center pt-2">
-            <p className="font-body text-[11px] sm:text-[11.5px] text-[#8C8477] font-normal max-w-2xl mx-auto leading-normal">
+            <p className="font-body text-[11px] sm:text-[11.5px] text-[#5A544C] font-normal max-w-2xl mx-auto leading-normal">
               Resultados históricos do empreendimento Oxford 212 referem-se a transações reais e não garantem performance ou rentabilidade futura para o Oxford Cove.
             </p>
           </div>

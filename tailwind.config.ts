@@ -87,8 +87,8 @@ const config: Config = {
           '100%': { transform: 'translateX(200%)' },
         },
         'pulse-gold': {
-          '0%, 100%': { boxShadow: '0 0 15px rgba(223, 200, 154, 0.25), 0 4px 16px rgba(0, 0, 0, 0.12)' },
-          '50%': { boxShadow: '0 0 30px rgba(223, 200, 154, 0.65), 0 6px 26px rgba(0, 0, 0, 0.20)' },
+          '0%, 100%': { transform: 'scale(1)', opacity: '0.97' },
+          '50%': { transform: 'scale(1.02)', opacity: '1' },
         },
       },
       animation: {

@@ -269,7 +269,7 @@ export const AmenitiesSection: React.FC = () => {
         {/* 01. EDITORIAL HEADER                                                      */}
         {/* ========================================================================= */}
         <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
-          <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#806B54] mb-2.5 block">
+          <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#705B44] mb-2.5 block">
             AMENITIES
           </span>
           <h2 className="font-display font-normal text-[36px] sm:text-[46px] lg:text-[52px] leading-[1.08] text-[#1A1816] mb-3.5 max-w-2xl">

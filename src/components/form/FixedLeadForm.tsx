@@ -101,12 +101,12 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 
       {/* 02. EDITORIAL HEADER */}
       <div>
-        <span className="font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[#806B54] block">
+        <span className="font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[#705B44] block">
           {subtitle}
         </span>
-        <h3 className="font-display font-normal text-[26px] sm:text-[28px] leading-[0.94] text-[#2C241F] mt-0.5">
+        <h2 className="font-display font-normal text-[26px] sm:text-[28px] leading-[0.94] text-[#2C241F] mt-0.5">
           {title}
-        </h3>
+        </h2>
       </div>
 
       {/* 03. EOI SUPPORTING LINE */}

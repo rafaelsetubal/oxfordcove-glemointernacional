@@ -19,7 +19,7 @@ export const GlemoLogo: React.FC<GlemoLogoProps> = ({
       ? '/images/brand/glemo-white.png'
       : '/images/brand/glemo-color.png';
 
-  const labelColor = variant === 'white' ? 'text-white/60' : 'text-[#2C241F]/60';
+  const labelColor = variant === 'white' ? 'text-white/85' : 'text-[#42352B]';
 
   return (
     <div className={`inline-flex flex-col items-start select-none ${className}`}>

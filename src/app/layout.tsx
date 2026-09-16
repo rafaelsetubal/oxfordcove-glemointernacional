@@ -38,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable} ${dmMono.variable}`}>
+    <html lang="pt-BR" className={`${cormorant.variable} ${manrope.variable} ${dmMono.variable}`}>
       <body className="bg-ivory text-charcoal font-body antialiased selection:bg-olive selection:text-warm-white">
         <CurrencyProvider>
           <LeadDrawerProvider>

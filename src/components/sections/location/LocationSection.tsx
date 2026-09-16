@@ -1,18 +1,33 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { OxfordCoveMap } from './OxfordCoveMap';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const OxfordCoveMap = dynamic(
+  () => import('./OxfordCoveMap').then((mod) => mod.OxfordCoveMap),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex flex-col items-center justify-center bg-[#FAF9F6] text-[#806B54]">
+        <span className="font-technical text-[11px] font-semibold tracking-widest uppercase animate-pulse">
+          Carregando mapa interativo de localização...
+        </span>
+      </div>
+    ),
+  }
+);
+
 export const LocationSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stickyContainerRef = useRef<HTMLDivElement>(null);
   const animationInitializedRef = useRef<boolean>(false);
+  const [shouldMountMap, setShouldMountMap] = useState<boolean>(false);
 
   const initScrollAnimation = () => {
     if (!sectionRef.current || !stickyContainerRef.current) return;
@@ -200,12 +215,30 @@ export const LocationSection: React.FC = () => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      initScrollAnimation();
-    }, 200);
+    if (!sectionRef.current) return;
 
-    return () => clearTimeout(timer);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldMountMap(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '600px 0px' }
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (shouldMountMap) {
+      const timer = setTimeout(() => {
+        initScrollAnimation();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [shouldMountMap]);
 
   return (
     <section
@@ -221,7 +254,15 @@ export const LocationSection: React.FC = () => {
         ref={stickyContainerRef}
         className="w-full h-screen h-[100dvh] overflow-hidden bg-[#FAF9F6]"
       >
-        <OxfordCoveMap onMapReady={() => initScrollAnimation()} />
+        {shouldMountMap ? (
+          <OxfordCoveMap onMapReady={() => initScrollAnimation()} />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center bg-[#FAF9F6] text-[#806B54]">
+            <span className="font-technical text-[11px] font-semibold tracking-widest uppercase">
+              Localização · Oxford Cove JVC
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );
