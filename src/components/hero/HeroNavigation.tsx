@@ -31,16 +31,54 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
 
   const handleCta = scrollToHeroForm;
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let lastY = window.scrollY;
+    let scrollTimeout: NodeJS.Timeout | null = null;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > 60);
+
+      // Always visible when at the top
+      if (currentY < 80) {
+        setIsNavbarVisible(true);
+        lastY = currentY;
+        return;
+      }
+
+      // Softly dissolve navbar with blur when actively scrolling
+      if (Math.abs(currentY - lastY) > 6) {
+        setIsNavbarVisible(false);
+      }
+
+      // Debounce: reveal smoothly in crisp focus when user pauses scrolling
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsNavbarVisible(true);
+      }, 450);
+
+      lastY = currentY;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Reveal immediately if mouse approaches top of window
+      if (e.clientY < 70) {
+        setIsNavbarVisible(true);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
   }, []);
 
   const navLinks = [
@@ -70,7 +108,7 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
       {/* 01. TOP GRADIENT PROTECTION OVER HERO */}
       <div
         className={`fixed top-0 left-0 w-full h-[90px] pointer-events-none z-40 transition-opacity duration-base ease-luxury ${
-          isScrolled ? 'opacity-0' : 'opacity-100'
+          isScrolled || !isNavbarVisible ? 'opacity-0' : 'opacity-100'
         }`}
         style={{
           background:
@@ -78,9 +116,13 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
         }}
       />
 
-      {/* 02. FIXED HEADER (ALWAYS VISIBLE & STICKY AT TOP) */}
+      {/* 02. FIXED HEADER WITH LUXURY BLUR REVEAL / DISSOLVE TRANSITION */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-base ease-luxury ${
+        className={`fixed top-0 left-0 w-full z-50 transform transition-all duration-500 ease-luxury will-change-transform will-change-filter ${
+          isNavbarVisible
+            ? 'translate-y-0 opacity-100 filter blur(0px)'
+            : '-translate-y-3 opacity-0 filter blur(6px) pointer-events-none'
+        } ${
           isScrolled
             ? 'h-[68px] md:h-[72px] bg-[rgba(18,16,14,0.85)] backdrop-blur-[12px] border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)]'
             : 'h-[80px] md:h-[92px] bg-transparent border-b border-transparent'
