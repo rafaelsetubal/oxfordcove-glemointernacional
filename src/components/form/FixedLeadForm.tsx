@@ -60,15 +60,51 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setLoading(true);
-    setTimeout(() => {
+
+    try {
+      // Captura UTMs da URL se disponíveis
+      let utms = {};
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        utms = {
+          utm_source: params.get('utm_source') || undefined,
+          utm_medium: params.get('utm_medium') || undefined,
+          utm_campaign: params.get('utm_campaign') || undefined,
+          utm_content: params.get('utm_content') || undefined,
+          utm_term: params.get('utm_term') || undefined,
+          gclid: params.get('gclid') || undefined,
+          fbclid: params.get('fbclid') || undefined,
+        };
+      }
+
+      const payload = {
+        ...formData,
+        utms,
+        metadata: {
+          pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+          referrer: typeof document !== 'undefined' ? document.referrer : '',
+          formMode: mode,
+        },
+      };
+
+      await fetch('/api/lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.error('Erro ao enviar formulário:', err);
+    } finally {
       setLoading(false);
       setSubmitted(true);
-    }, 450);
+    }
   };
 
   const interestOptions = [
