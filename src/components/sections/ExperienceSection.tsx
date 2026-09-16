@@ -59,8 +59,8 @@ export const ExperienceSection: React.FC = () => {
 
       {/* 02. EDITORIAL & WIDESCREEN VIDEO CONTAINER */}
       <div
-        className={`relative z-10 w-full container-master flex flex-col items-center text-center px-4 transition-all duration-700 ease-luxury gpu-accel ${
-          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        className={`relative z-10 w-full container-master flex flex-col items-center text-center px-4 gpu-accel reveal-blur-init ${
+          isInView ? 'reveal-blur-visible' : ''
         }`}
       >
         

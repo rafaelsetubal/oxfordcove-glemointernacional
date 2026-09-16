@@ -284,8 +284,8 @@ export const AmenitiesSection: React.FC = () => {
       className="relative w-full bg-[#F4F1EA] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/8 select-none"
     >
       <div
-        className={`container-master px-4 sm:px-6 lg:px-8 transition-all duration-700 ease-luxury gpu-accel ${
-          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        className={`container-master px-4 sm:px-6 lg:px-8 gpu-accel reveal-blur-init ${
+          isInView ? 'reveal-blur-visible' : ''
         }`}
       >
         

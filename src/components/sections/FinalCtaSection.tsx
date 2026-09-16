@@ -55,8 +55,8 @@ export const FinalCtaSection: React.FC = () => {
 
       {/* 04. EDITORIAL FORM FLOATING WITH LOCALIZED ATMOSPHERIC READING HALO */}
       <div
-        className={`relative z-10 w-full max-w-[430px] sm:max-w-[450px] mx-auto px-5 sm:px-6 transition-all duration-700 ease-luxury ${
-          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        className={`relative z-10 w-full max-w-[430px] sm:max-w-[450px] mx-auto px-5 sm:px-6 gpu-accel reveal-blur-init ${
+          isInView ? 'reveal-blur-visible' : ''
         }`}
       >
         {/* LOCALIZED ATMOSPHERIC READING HALO (520–640PX WIDE, ZERO CARD EDGES, SOFT FADE) */}

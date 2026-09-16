@@ -144,8 +144,8 @@ export const PaymentPlanSection: React.FC = () => {
           
           {/* LEFT: EDITORIAL COPY (2 LINES IN DESKTOP, REDUCED VERTICAL FOOTPRINT) */}
           <div
-            className={`lg:col-span-7 flex flex-col justify-center transition-all duration-700 ease-out ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+            className={`lg:col-span-7 flex flex-col justify-center gpu-accel reveal-blur-init ${
+              isInView ? 'reveal-blur-visible' : ''
             }`}
           >
             <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.28em] uppercase text-[#806B54] mb-2.5 block">
@@ -161,9 +161,10 @@ export const PaymentPlanSection: React.FC = () => {
 
           {/* RIGHT: ARCHITECTURAL HERO BALCONY PHOTOGRAPHY (COMPACT & PROPORTIONATE) */}
           <div
-            className={`lg:col-span-5 transition-all duration-700 delay-150 ease-out ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+            className={`lg:col-span-5 gpu-accel reveal-blur-init ${
+              isInView ? 'reveal-blur-visible' : ''
             }`}
+            style={{ transitionDelay: '150ms' }}
           >
             <div className="relative w-full h-[190px] sm:h-[220px] lg:h-[240px] rounded-[18px] sm:rounded-[22px] overflow-hidden border border-[#24231F]/10 shadow-[0_10px_30px_rgba(36,35,31,0.05)]">
               <Image

@@ -75,8 +75,8 @@ export const ProductSection: React.FC = () => {
       {/* 04. EDITORIAL CONTENT BLOCK (MAX 530PX ANCHORED ON SOLID OPAQUE ZONE) */}
       <div className="relative z-10 w-full container-master">
         <div
-          className={`max-w-[530px] flex flex-col justify-center space-y-5 lg:space-y-6 transition-all duration-700 ease-luxury gpu-accel ${
-            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          className={`max-w-[530px] flex flex-col justify-center space-y-5 lg:space-y-6 gpu-accel reveal-blur-init ${
+            isInView ? 'reveal-blur-visible' : ''
           }`}
         >
           

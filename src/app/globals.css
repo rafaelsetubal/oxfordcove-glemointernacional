@@ -193,25 +193,29 @@ body {
 }
 
 /* EDITORIAL CHAPTER & LUXURY REVEAL TRANSITIONS */
-@keyframes luxuryFadeUp {
+@keyframes luxuryBlurReveal {
   0% {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(28px) scale(0.985);
+    filter: blur(8px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
   }
 }
 
 @keyframes luxuryFadeScale {
   0% {
     opacity: 0;
-    transform: scale(0.96) translateY(12px);
+    transform: scale(0.95) translateY(16px);
+    filter: blur(6px);
   }
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
+    filter: blur(0px);
   }
 }
 
@@ -220,20 +224,38 @@ body {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
   }
 }
 
-.animate-fade-up {
-  animation: luxuryFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* REUSABLE LUXURY BLUR REVEAL CLASSES */
+.reveal-blur-init {
+  opacity: 0;
+  transform: translateY(30px) scale(0.985);
+  filter: blur(10px);
+  transition: opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-blur-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  filter: blur(0px) !important;
+}
+
+.animate-hero-blur {
+  animation: luxuryBlurReveal 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform, filter;
 }
 
 .animate-fade-scale {
-  animation: luxuryFadeScale 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: luxuryFadeScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-float-slow {
-  animation: subtleFloat 4s ease-in-out infinite;
+  animation: subtleFloat 5s ease-in-out infinite;
 }
 
 /* HARDWARE ACCELERATION & MOBILE TAP OPTIMIZATION */
@@ -241,7 +263,7 @@ body {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 * {
