@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useId } from 'react';
-import { X, Lock, CheckCircle2, ArrowRight, AlertCircle, Loader2 } from 'lucide-react';
+import React, { useState, useId, useRef, useEffect } from 'react';
+import { X, Lock, CheckCircle2, ArrowRight, AlertCircle, Loader2, ChevronDown, Check } from 'lucide-react';
 import { GlemoLogo } from '@/components/ui/GlemoLogo';
 import { useCurrency } from '@/context/CurrencyContext';
 
@@ -29,6 +29,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const { formatPrice } = useCurrency();
 
   const [formData, setFormData] = useState<LeadFormData>({
@@ -44,6 +46,31 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   const phoneId = useId();
   const emailId = useId();
   const interestId = useId();
+
+  // Fecha o dropdown ao clicar fora ou pressionar ESC
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDropdownOpen]);
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -290,36 +317,86 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           </div>
 
           {/* TENHO INTERESSE EM */}
-          <div className="flex flex-col">
+          {/* TENHO INTERESSE EM (CUSTOM LUXURY DROPDOWN) */}
+          <div className="flex flex-col relative" ref={dropdownRef}>
             <label
-              htmlFor={interestId}
+              id={`${interestId}-label`}
               className={`font-body text-[10.5px] font-semibold tracking-wider uppercase mb-0.5 ${isFinalCta ? 'text-[#FAF9F6]' : 'text-[#2C241F]/80 px-1'}`}
             >
               Tenho interesse em...
             </label>
-            <div className="relative">
-              <select
-                id={interestId}
-                value={formData.interest}
-                onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                className={
+
+            {/* TRIGGER BUTTON (ROUNDED PILL) */}
+            <button
+              type="button"
+              id={interestId}
+              aria-haspopup="listbox"
+              aria-expanded={isDropdownOpen}
+              aria-labelledby={`${interestId}-label ${interestId}`}
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
+              className={
+                isFinalCta
+                  ? 'w-full h-[42px] sm:h-[44px] px-0 pr-2 bg-transparent border-0 border-b border-white/45 focus:border-[#E5D7B7] text-[#FAF9F6] font-body text-[13px] font-medium transition-colors focus:outline-none flex items-center justify-between text-left cursor-pointer group'
+                  : 'w-full h-[42px] sm:h-[44px] px-4 pr-3.5 rounded-full bg-white/90 hover:bg-white border border-[#2C241F]/15 text-[#2C241F] font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive flex items-center justify-between text-left shadow-sm cursor-pointer group'
+              }
+            >
+              <span className="truncate pr-2 font-medium">
+                {interestOptions.find((opt) => opt.value === formData.interest)?.label || 'Selecione uma tipologia'}
+              </span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${
+                  isDropdownOpen ? 'rotate-180' : 'rotate-0'
+                } ${isFinalCta ? 'text-white/80' : 'text-[#2C241F]/60'}`}
+              />
+            </button>
+
+            {/* FLOATING CUSTOM ROUNDED LUXURY MENU */}
+            {isDropdownOpen && (
+              <div
+                role="listbox"
+                tabIndex={-1}
+                className={`absolute z-50 left-0 right-0 top-full mt-1.5 p-1.5 rounded-[18px] max-h-[260px] overflow-y-auto scrollbar-thin shadow-[0_16px_36px_rgba(20,25,20,0.22)] transition-all animate-fadeIn ${
                   isFinalCta
-                    ? 'w-full h-[42px] sm:h-[44px] px-0 pr-8 bg-transparent border-0 border-b border-white/45 focus:border-[#E5D7B7] text-[#FAF9F6] font-body text-[13px] font-medium transition-colors focus:outline-none appearance-none cursor-pointer'
-                    : 'w-full h-[42px] sm:h-[44px] px-4 pr-9 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white appearance-none cursor-pointer'
-                }
+                    ? 'bg-[#192720]/95 backdrop-blur-xl border border-white/20 text-[#FAF9F6]'
+                    : 'bg-[#FAF8F5]/98 backdrop-blur-xl border border-[#2C241F]/15 text-[#2C241F]'
+                }`}
               >
-                {interestOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value} className={isFinalCta ? 'bg-[#14221A] text-[#FAF9F6]' : 'bg-[#FAF9F6] text-[#2C241F]'}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <div className={`absolute top-1/2 -translate-y-1/2 pointer-events-none ${isFinalCta ? 'right-0 text-[#FAF9F6]/75' : 'right-3.5 text-[#2C241F]/60'}`}>
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                </svg>
+                <div className="space-y-0.5">
+                  {interestOptions.map((opt) => {
+                    const isSelected = formData.interest === opt.value;
+                    return (
+                      <div
+                        key={opt.value}
+                        role="option"
+                        aria-selected={isSelected}
+                        onClick={() => {
+                          setFormData({ ...formData, interest: opt.value });
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`flex items-center justify-between px-3.5 py-2.5 rounded-[12px] text-[12px] sm:text-[12.5px] font-body font-medium transition-all duration-150 cursor-pointer ${
+                          isSelected
+                            ? isFinalCta
+                              ? 'bg-[#FAF9F6] text-[#171815] font-semibold shadow-sm'
+                              : 'bg-[#1D3027] text-[#FAF9F6] font-semibold shadow-sm'
+                            : isFinalCta
+                            ? 'hover:bg-white/10 text-[#FAF9F6]/90'
+                            : 'hover:bg-[#1D3027]/8 hover:text-[#171815] text-[#2C241F]/85'
+                        }`}
+                      >
+                        <span className="truncate pr-2">{opt.label}</span>
+                        {isSelected && (
+                          <Check
+                            className={`w-3.5 h-3.5 shrink-0 ${
+                              isFinalCta ? 'text-[#171815]' : 'text-[#FAF9F6]'
+                            }`}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* CTA BUTTON */}
