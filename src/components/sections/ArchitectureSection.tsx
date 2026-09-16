@@ -32,12 +32,12 @@ export const ProductSection: React.FC = () => {
           className="object-cover object-[78%_center] sm:object-[72%_center] md:object-[68%_center] lg:object-right select-none"
         />
 
-        {/* 02. DESKTOP/TABLET SEAMLESS FADE OVERLAY (EXTENDED OPAQUE ZONE TO 50%) */}
+        {/* 02. DESKTOP/TABLET SEAMLESS FADE OVERLAY (REDUCED BY 50% TO FULLY REVEAL THE FACADE) */}
         <div
           className="hidden md:block absolute inset-0 pointer-events-none"
           style={{
             background:
-              'linear-gradient(90deg, #F5F2EB 0%, #F5F2EB 50%, rgba(245, 242, 235, 0.96) 62%, rgba(245, 242, 235, 0.45) 78%, transparent 92%)',
+              'linear-gradient(90deg, #F5F2EB 0%, rgba(245, 242, 235, 0.95) 22%, rgba(245, 242, 235, 0.40) 38%, transparent 50%)',
           }}
         />
 
@@ -46,7 +46,7 @@ export const ProductSection: React.FC = () => {
           className="md:hidden absolute inset-0 pointer-events-none"
           style={{
             background:
-              'linear-gradient(180deg, #F5F2EB 0%, #F5F2EB 58%, rgba(245, 242, 235, 0.92) 78%, rgba(245, 242, 235, 0.35) 92%, transparent 100%)',
+              'linear-gradient(180deg, #F5F2EB 0%, #F5F2EB 30%, rgba(245, 242, 235, 0.50) 46%, transparent 58%)',
           }}
         />
       </div>
