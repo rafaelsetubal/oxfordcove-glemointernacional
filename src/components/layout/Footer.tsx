@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* 05. COPYRIGHT SIGNATURE */}
-        <div className="font-body text-[11px] text-[#8C8477]">
+        <div className="font-body text-[11px] text-[#5A544C]">
           © 2026 Oxford Cove. All rights reserved.
         </div>
 

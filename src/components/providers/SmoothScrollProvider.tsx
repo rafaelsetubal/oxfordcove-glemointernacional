@@ -11,7 +11,16 @@ if (typeof window !== 'undefined') {
 
 export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
-    // Ultra-smooth, lightweight luxury inertia scroll
+    // Only run Lenis inertia on desktop pointer devices to preserve 0 TBT on mobile
+    const isTouchDevice =
+      typeof window !== 'undefined' &&
+      ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
+
+    if (isTouchDevice) {
+      return;
+    }
+
+    // Ultra-smooth, lightweight luxury inertia scroll for Desktop
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -19,7 +28,6 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ 
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 0.9,
-      touchMultiplier: 1.4,
       infinite: false,
     });
 

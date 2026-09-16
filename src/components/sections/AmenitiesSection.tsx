@@ -2,7 +2,13 @@
 
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { GalleryViewer, GalleryViewerItem } from '@/components/ui/GalleryViewer';
+import dynamic from 'next/dynamic';
+import type { GalleryViewerItem } from '@/components/ui/GalleryViewer';
+
+const GalleryViewer = dynamic(
+  () => import('@/components/ui/GalleryViewer').then((mod) => mod.GalleryViewer),
+  { ssr: false }
+);
 
 export type CategoryFilter = 'TODOS' | 'EXTERIOR' | 'AMENITIES' | 'INTERIOR';
 
@@ -426,13 +432,15 @@ export const AmenitiesSection: React.FC = () => {
       {/* ========================================================================= */}
       {/* 04. SHARED FULLSCREEN IMMERSIVE IMAGE VIEWER                              */}
       {/* ========================================================================= */}
-      <GalleryViewer
-        items={viewerItems}
-        currentIndex={fullscreenIndex}
-        onClose={() => setFullscreenIndex(null)}
-        onIndexChange={(idx) => setFullscreenIndex(idx)}
-        showThumbnails={true}
-      />
+      {fullscreenIndex !== null && (
+        <GalleryViewer
+          items={viewerItems}
+          currentIndex={fullscreenIndex}
+          onClose={() => setFullscreenIndex(null)}
+          onIndexChange={(idx) => setFullscreenIndex(idx)}
+          showThumbnails={true}
+        />
+      )}
     </section>
   );
 };

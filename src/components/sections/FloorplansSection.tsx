@@ -2,10 +2,16 @@
 
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { ArrowRight, Layers, Home, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLeadDrawer } from '@/components/form/PersistentLeadDrawer';
-import { GalleryViewer, GalleryViewerItem } from '@/components/ui/GalleryViewer';
+import type { GalleryViewerItem } from '@/components/ui/GalleryViewer';
 import { useCurrency } from '@/context/CurrencyContext';
+
+const GalleryViewer = dynamic(
+  () => import('@/components/ui/GalleryViewer').then((mod) => mod.GalleryViewer),
+  { ssr: false }
+);
 
 export type FloorplanViewMode = 'UNITS' | 'BUILDING';
 
@@ -893,13 +899,15 @@ export const FloorplansSection: React.FC = () => {
       {/* ========================================================================= */}
       {/* 05. SHARED FULLSCREEN GALLERY VIEWER (FOR FLOORPLANS & UNITS)             */}
       {/* ========================================================================= */}
-      <GalleryViewer
-        items={viewerItems}
-        currentIndex={viewerIndex}
-        onClose={() => setViewerIndex(null)}
-        onIndexChange={(idx) => setViewerIndex(idx)}
-        showThumbnails={viewerItems.length > 1}
-      />
+      {viewerIndex !== null && (
+        <GalleryViewer
+          items={viewerItems}
+          currentIndex={viewerIndex}
+          onClose={() => setViewerIndex(null)}
+          onIndexChange={(idx) => setViewerIndex(idx)}
+          showThumbnails={viewerItems.length > 1}
+        />
+      )}
     </section>
   );
 };

@@ -18,8 +18,9 @@ export const Hero: React.FC = () => {
           alt="Oxford Cove by IMAN Developers - Official Architectural Rendering"
           fill
           priority
-          quality={82}
-          sizes="(max-width: 768px) 100vw, 100vw"
+          fetchPriority="high"
+          quality={80}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
           className="object-cover object-[52%_center] sm:object-center select-none"
         />
 

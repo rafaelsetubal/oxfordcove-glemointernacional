@@ -35,49 +35,38 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    let lastY = window.scrollY;
-    let scrollTimeout: NodeJS.Timeout | null = null;
+    let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
-      const currentY = window.scrollY;
-      setIsScrolled(currentY > 60);
+      const currentScrollY = window.scrollY;
 
-      // Always visible when at the top
-      if (currentY < 80) {
+      // At top of the page: transparent & always visible
+      if (currentScrollY <= 60) {
+        setIsScrolled(false);
         setIsNavbarVisible(true);
-        lastY = currentY;
+        lastScrollY = currentScrollY;
         return;
       }
 
-      // Softly dissolve navbar with blur when actively scrolling
-      if (Math.abs(currentY - lastY) > 6) {
+      setIsScrolled(true);
+
+      // Industry Standard Smart Sticky Behavior:
+      // Scrolling DOWN -> Hide Navbar smoothly
+      // Scrolling UP -> Reveal Navbar immediately with dark glass & blur
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setIsNavbarVisible(false);
-      }
-
-      // Debounce: reveal smoothly in crisp focus when user pauses scrolling
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        setIsNavbarVisible(true);
-      }, 450);
-
-      lastY = currentY;
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      // Reveal immediately if mouse approaches top of window
-      if (e.clientY < 70) {
+      } else if (currentScrollY < lastScrollY) {
         setIsNavbarVisible(true);
       }
+
+      lastScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
     };
   }, []);
 
@@ -116,12 +105,12 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
         }}
       />
 
-      {/* 02. FIXED HEADER WITH LUXURY BLUR REVEAL / DISSOLVE TRANSITION */}
+      {/* 02. FIXED HEADER WITH INDUSTRY-STANDARD SMART SCROLL UP/DOWN REVEAL */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 transform transition-all duration-500 ease-luxury will-change-transform will-change-filter ${
+        className={`fixed top-0 left-0 w-full z-50 transform transition-all duration-400 ease-luxury will-change-transform will-change-filter ${
           isNavbarVisible
             ? 'translate-y-0 opacity-100 filter blur(0px)'
-            : '-translate-y-3 opacity-0 filter blur(6px) pointer-events-none'
+            : '-translate-y-full opacity-0 filter blur(4px) pointer-events-none'
         } ${
           isScrolled
             ? 'h-[68px] md:h-[72px] bg-[rgba(18,16,14,0.85)] backdrop-blur-[12px] border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)]'
