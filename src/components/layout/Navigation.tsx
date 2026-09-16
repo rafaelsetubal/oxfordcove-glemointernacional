@@ -91,9 +91,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
           </nav>
 
           {/* DESKTOP CTA & MOBILE HAMBURGER */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <CurrencyToggle variant={isScrolled ? 'light' : 'dark'} />
-
+          <div className="flex items-center gap-3">
             <div className="hidden sm:block">
               <PrimaryButton
                 size="sm"

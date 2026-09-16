@@ -129,10 +129,8 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             })}
           </nav>
 
-          {/* CURRENCY TOGGLE & CTA IN HEADER */}
+          {/* CTA IN HEADER */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <CurrencyToggle variant="dark" />
-
             <button
               type="button"
               onClick={handleCta}

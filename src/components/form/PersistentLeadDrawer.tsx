@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, createContext, useContext } from 'r
 import { ArrowRight } from 'lucide-react';
 import { LeadForm } from '@/components/form/FixedLeadForm';
 import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 // CONTEXT FOR GLOBAL LEAD DRAWER TRIGGER
 interface LeadDrawerContextType {
@@ -76,23 +77,31 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     <LeadDrawerContext.Provider value={{ openLeadDrawer, closeLeadDrawer, isDrawerOpen: isOpen }}>
       {children}
 
-      {/* 01. DESKTOP FLOATING PERSISTENT CTA (BOTTOM-RIGHT - Only when scrolled past Hero) */}
-      <div
-        className={`hidden xl:block fixed bottom-8 right-8 z-40 transition-all duration-base ease-luxury ${
-          showFloatingCta && !isOpen
-            ? 'opacity-100 translate-y-0 pointer-events-auto scale-100'
-            : 'opacity-0 translate-y-6 pointer-events-none scale-95'
-        }`}
-      >
-        <button
-          ref={triggerRef}
-          type="button"
-          onClick={openLeadDrawer}
-          className="h-[52px] px-6 rounded-pill bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[11px] font-semibold tracking-[0.12em] uppercase flex items-center gap-2.5 transition-all duration-base ease-luxury shadow-[0_12px_36px_rgba(20,25,20,0.28)] hover:shadow-[0_16px_44px_rgba(20,25,20,0.36)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#28372D] cursor-pointer"
+      {/* 01. DESKTOP FLOATING CONTROLS (BOTTOM-RIGHT - ABOVE CONVERSION CTA) */}
+      <div className="hidden xl:flex fixed bottom-8 right-8 z-40 flex-col items-end gap-2.5 pointer-events-none">
+        {/* DESKTOP FLOATING CURRENCY TOGGLE (ALWAYS VISIBLE & CONVENIENT) */}
+        <div className="pointer-events-auto shadow-[0_8px_24px_rgba(0,0,0,0.25)] rounded-full">
+          <CurrencyToggle variant="dark" />
+        </div>
+
+        {/* DESKTOP FLOATING CTA (ONLY WHEN SCROLLED PAST HERO) */}
+        <div
+          className={`transition-all duration-base ease-luxury ${
+            showFloatingCta && !isOpen
+              ? 'opacity-100 translate-y-0 pointer-events-auto scale-100'
+              : 'opacity-0 translate-y-6 pointer-events-none scale-95'
+          }`}
         >
-          <span>QUERO INVESTIR COM PRIORIDADE</span>
-          <ArrowRight className="w-4 h-4 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />
-        </button>
+          <button
+            ref={triggerRef}
+            type="button"
+            onClick={openLeadDrawer}
+            className="h-[52px] px-6 rounded-pill bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[11px] font-semibold tracking-[0.12em] uppercase flex items-center gap-2.5 transition-all duration-base ease-luxury shadow-[0_12px_36px_rgba(20,25,20,0.28)] hover:shadow-[0_16px_44px_rgba(20,25,20,0.36)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#28372D] cursor-pointer"
+          >
+            <span>QUERO INVESTIR COM PRIORIDADE</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />
+          </button>
+        </div>
       </div>
 
       {/* 02. MOBILE FIXED BOTTOM BAR (Only when scrolled past Hero) */}
