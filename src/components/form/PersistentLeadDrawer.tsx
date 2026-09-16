@@ -114,10 +114,10 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         <button
           type="button"
           onClick={openLeadDrawer}
-          className="h-10 px-4 rounded-sm bg-[#FAF9F6] text-[#1D3027] font-body text-[11px] font-semibold uppercase tracking-[0.10em] flex items-center gap-1.5 hover:bg-ivory transition-colors active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FAF9F6] cursor-pointer"
+          className="h-10 px-5 rounded-full bg-[#FAF9F6] text-[#1D3027] font-body text-[11px] font-bold uppercase tracking-[0.10em] flex items-center gap-1.5 hover:bg-ivory transition-colors active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FAF9F6] cursor-pointer shadow-sm"
         >
           <span>QUERO PRIORIDADE</span>
-          <ArrowRight className="w-3.5 h-3.5 stroke-[1.5]" />
+          <ArrowRight className="w-3.5 h-3.5 stroke-[2]" />
         </button>
       </div>
 

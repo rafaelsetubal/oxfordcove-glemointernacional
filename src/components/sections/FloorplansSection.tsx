@@ -74,49 +74,49 @@ export const BUILDING_FLOORPLANS: BuildingFloorPlan[] = [
     floorName: 'Ground Floor',
     levelCode: 'GF',
     description: 'Acesso principal, lobby com pé-direito duplo, unidades exclusivas com terraços privativos e circulação integrada.',
-    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-2 1.png',
+    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-2 1.webp',
   },
   {
     id: 'floor-podium',
     floorName: 'P - Floor',
     levelCode: 'PODIUM',
     description: 'Pavimento de lazer e garagens com circulação reservada e acesso direto aos elevadores residenciais.',
-    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-3 1.png',
+    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-3 1.webp',
   },
   {
     id: 'floor-1st',
     floorName: 'First Floor',
     levelCode: '1ST FLOOR',
     description: 'Pavimento residencial tipo com distribuição equilibrada de studios e apartamentos de 2 dormitórios.',
-    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-4 1.png',
+    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-4 1.webp',
   },
   {
     id: 'floor-2nd',
     floorName: 'Second Floor',
     levelCode: '2ND FLOOR',
     description: 'Plantas residenciais otimizadas com vista desimpedida para os eixos arborizados de Jumeirah Village Circle.',
-    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-5 1.png',
+    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-5 1.webp',
   },
   {
     id: 'floor-3rd',
     floorName: 'Third Floor',
     levelCode: '3RD FLOOR',
     description: 'Pavimento intermediário de baixa densidade, proporcionando privacidade acústica e insolação favorável.',
-    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-6 1.png',
+    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-6 1.webp',
   },
   {
     id: 'floor-4th',
     floorName: 'Fourth Floor',
     levelCode: '4TH FLOOR',
     description: 'Nível elevado com amplas varandas e perspectiva privilegiada do skyline residencial circundante.',
-    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-7 1.png',
+    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-7 1.webp',
   },
   {
     id: 'floor-5th',
     floorName: 'Fifth Floor',
     levelCode: '5TH FLOOR',
     description: 'Último pavimento residencial, diretamente conectado ao rooftop com piscina de borda infinita e lounge.',
-    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-8 1.png',
+    imageSrc: '/images/gf to 5tg floor plans/GF to 5TH Floor Plans-8 1.webp',
   },
 ];
 
@@ -130,7 +130,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 96,
     totalArea: 426,
-    imageSrc: '/images/plantas/61d695b6e4bf8e20be6218530e9e5eb2.png',
+    imageSrc: '/images/plantas/61d695b6e4bf8e20be6218530e9e5eb2.webp',
   },
   {
     id: 'studio-g02',
@@ -141,7 +141,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/f70123997c1c7bba616a6e24e3b41208.png',
+    imageSrc: '/images/plantas/f70123997c1c7bba616a6e24e3b41208.webp',
   },
   {
     id: 'studio-g03',
@@ -152,7 +152,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/6d49d563a5049e727f23460e9066ea4f.png',
+    imageSrc: '/images/plantas/6d49d563a5049e727f23460e9066ea4f.webp',
   },
   {
     id: 'studio-g04',
@@ -163,7 +163,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/ebb9f3ef1debd4deccda868adc20715c.png',
+    imageSrc: '/images/plantas/ebb9f3ef1debd4deccda868adc20715c.webp',
   },
   {
     id: 'studio-g05',
@@ -174,7 +174,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/578f15643af0259b9a7473545c990518.png',
+    imageSrc: '/images/plantas/578f15643af0259b9a7473545c990518.webp',
   },
   {
     id: 'studio-g06',
@@ -185,7 +185,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/42ebfd57384c2ca6d7c4e93bbd231ade.png',
+    imageSrc: '/images/plantas/42ebfd57384c2ca6d7c4e93bbd231ade.webp',
   },
   {
     id: 'studio-g07',
@@ -196,7 +196,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/17c466001842b0e4b4c63c0bbfb6cfe3.png',
+    imageSrc: '/images/plantas/17c466001842b0e4b4c63c0bbfb6cfe3.webp',
   },
   {
     id: 'studio-g08',
@@ -207,7 +207,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/3c4407fd813318fd4cc11d0b86c8d2f7.png',
+    imageSrc: '/images/plantas/3c4407fd813318fd4cc11d0b86c8d2f7.webp',
   },
   {
     id: 'studio-g09',
@@ -218,7 +218,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/fdaf5135e1109ab41440d031b82c01e4.png',
+    imageSrc: '/images/plantas/fdaf5135e1109ab41440d031b82c01e4.webp',
   },
   {
     id: 'studio-g10',
@@ -229,7 +229,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/7a0a72269b3bddac25b992f4f109703b.png',
+    imageSrc: '/images/plantas/7a0a72269b3bddac25b992f4f109703b.webp',
   },
   {
     id: 'studio-g13',
@@ -240,7 +240,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/3b881fc0c3bbc84f78014bb21beef7dd.png',
+    imageSrc: '/images/plantas/3b881fc0c3bbc84f78014bb21beef7dd.webp',
   },
   {
     id: 'studio-g14',
@@ -251,7 +251,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/a0240e51947ffb8132ee6ec09ea43294.png',
+    imageSrc: '/images/plantas/a0240e51947ffb8132ee6ec09ea43294.webp',
   },
   {
     id: 'studio-g15',
@@ -262,7 +262,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/12625e2afdc056290a2152d7f2697857.png',
+    imageSrc: '/images/plantas/12625e2afdc056290a2152d7f2697857.webp',
   },
   {
     id: 'studio-g16',
@@ -273,7 +273,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 330,
     terraceArea: 95,
     totalArea: 425,
-    imageSrc: '/images/plantas/b5d329b6caeab9e606bdd8ed122dea7d.png',
+    imageSrc: '/images/plantas/b5d329b6caeab9e606bdd8ed122dea7d.webp',
   },
   {
     id: '2br-g12',
@@ -284,7 +284,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 895,
     terraceArea: 286,
     totalArea: 1181,
-    imageSrc: '/images/plantas/2 b-r/29b9ea200cf2d969c1129e094e2d7c6f.png',
+    imageSrc: '/images/plantas/2 b-r/29b9ea200cf2d969c1129e094e2d7c6f.webp',
   },
   {
     id: '2br-study-g11',
@@ -295,7 +295,7 @@ export const REAL_UNIT_FLOORPLANS: UnitFloorPlan[] = [
     suiteArea: 972,
     terraceArea: 531,
     totalArea: 1503,
-    imageSrc: '/images/plantas/2 b-r/5dd99a4eb4ac3bc5c147d4827a64bd28.png',
+    imageSrc: '/images/plantas/2 b-r/5dd99a4eb4ac3bc5c147d4827a64bd28.webp',
   },
 ];
 
@@ -564,8 +564,8 @@ export const FloorplansSection: React.FC = () => {
                             src={plan.imageSrc}
                             alt={`Planta da unidade ${plan.unit} — Oxford Cove`}
                             fill
-                            quality={90}
-                            unoptimized
+                            quality={85}
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
                           />
                           
@@ -687,8 +687,8 @@ export const FloorplansSection: React.FC = () => {
                       src={floor.imageSrc}
                       alt={`Implantação ${floor.floorName} — Oxford Cove`}
                       fill
-                      quality={90}
-                      unoptimized
+                      quality={85}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 shadow-sm border border-black/5 flex items-center justify-center text-[#171815] opacity-0 group-hover:opacity-100 transition-opacity">

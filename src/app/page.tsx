@@ -1,4 +1,5 @@
 import { Hero } from '@/components/hero/Hero';
+import { MobileLeadSection } from '@/components/sections/MobileLeadSection';
 import { ProductSection } from '@/components/sections/ArchitectureSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { AmenitiesSection } from '@/components/sections/AmenitiesSection';
@@ -11,6 +12,9 @@ export default function Home() {
     <main className="min-h-screen bg-ivory text-charcoal">
       {/* SEÇÃO 01: HERO OFICIAL */}
       <Hero />
+
+      {/* SEÇÃO DEDICADA DE CADASTRO NO MOBILE (FULL SCREEN, SEM BORDAS) */}
+      <MobileLeadSection />
 
       {/* SEÇÃO 02: O PRODUTO (OXFORD COVE BY IMAN) */}
       <ProductSection />

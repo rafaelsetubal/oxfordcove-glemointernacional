@@ -30,6 +30,26 @@ export const HeroCopy: React.FC = () => {
 
       {/* 06. INVESTMENT METRICS */}
       <HeroMetrics />
+
+      {/* 07. MOBILE CONVERSION CTA BUTTON (REFINED CREAM/GOLD SHIMMER) */}
+      <div className="md:hidden mt-6 sm:mt-8 flex flex-col items-stretch gap-2.5">
+        <a
+          href="#cadastro-mobile"
+          className="relative w-full h-[52px] rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2.5 transition-all shadow-[0_4px_22px_rgba(223,200,154,0.40)] animate-pulse-gold overflow-hidden border border-[#D8C7A5]/60 active:scale-[0.98]"
+        >
+          {/* GOLD SHIMMER OVERLAY */}
+          <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/75 to-transparent pointer-events-none" />
+          <span className="relative z-10 font-bold">ACESSAR TABELA DE PRÉ-LANÇAMENTO</span>
+          <svg className="relative z-10 w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+        <div className="flex items-center justify-center gap-2 text-white/70 text-[10px] uppercase font-technical tracking-wider pt-0.5">
+          <span>EOI AED 50.000</span>
+          <span>•</span>
+          <span className="text-champagne font-semibold">100% REEMBOLSÁVEL</span>
+        </div>
+      </div>
     </div>
   );
 };

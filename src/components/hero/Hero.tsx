@@ -9,15 +9,14 @@ import { FixedLeadForm } from '@/components/form/FixedLeadForm';
 export const Hero: React.FC = () => {
   return (
     <section className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden bg-ivory select-none">
-      {/* 01. HERO BACKGROUND IMAGE (OFFICIAL HIGH-RES PNG ASSET - FULL BLEED) */}
+      {/* 01. HERO BACKGROUND IMAGE (OFFICIAL HIGH-RES WEBP ASSET - FULL BLEED) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero/hero-lifestyle.png"
+          src="/images/hero/hero-lifestyle.webp"
           alt="Oxford Cove by IMAN Developers - Official Architectural Rendering"
           fill
           priority
-          quality={100}
-          unoptimized
+          quality={90}
           sizes="100vw"
           className="object-cover object-[52%_center] sm:object-center select-none"
         />
@@ -52,10 +51,10 @@ export const Hero: React.FC = () => {
             <HeroCopy />
           </div>
 
-          {/* RIGHT 3.5 COLUMNS: COMPACT APPLE GLASS LEAD FORM */}
+          {/* RIGHT 3.5 COLUMNS: COMPACT APPLE GLASS LEAD FORM (DESKTOP & TABLET ONLY) */}
           <div
             id="hero-lead-form"
-            className="col-span-4 sm:col-span-8 lg:col-span-5 xl:col-span-4 xl:col-start-9 flex justify-center xl:justify-end mt-8 xl:mt-0 -translate-y-5 lg:-translate-y-7"
+            className="hidden md:flex col-span-4 sm:col-span-8 lg:col-span-5 xl:col-span-4 xl:col-start-9 justify-center xl:justify-end mt-8 xl:mt-0 -translate-y-5 lg:-translate-y-7"
           >
             <FixedLeadForm mode="inline" />
           </div>

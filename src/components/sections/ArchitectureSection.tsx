@@ -24,12 +24,10 @@ export const ProductSection: React.FC = () => {
       {/* 01. FULL-BLEED BACKGROUND IMAGE (SEAMLESS IMMERSIVE COVER) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/product/oxford-cove-facade.png"
+          src="/images/product/oxford-cove-facade.webp"
           alt="Oxford Cove by IMAN Developers — Fachada Oficial e Arquitetura em JVC Dubai"
           fill
-          priority
-          quality={100}
-          unoptimized
+          quality={88}
           sizes="100vw"
           className="object-cover object-[78%_center] sm:object-[72%_center] md:object-[68%_center] lg:object-right select-none"
         />
@@ -58,75 +56,74 @@ export const ProductSection: React.FC = () => {
         <div className="max-w-[530px] flex flex-col justify-center space-y-5 lg:space-y-6">
           
           {/* LOGO OXFORD COVE & OVERLINE TAG */}
-          <div className="flex flex-col items-start gap-2 pb-0.5">
-            <Image
-              src="/images/brand/logo-bronze.png"
-              alt="Oxford Cove"
-              width={135}
-              height={58}
-              className="w-[110px] sm:w-[125px] lg:w-[135px] h-auto object-contain select-none"
-              priority
-            />
-            <div className="flex items-center gap-2 mt-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-bronze" />
-              <span className="font-body text-[9.5px] sm:text-[10px] font-semibold tracking-[0.24em] uppercase text-bronze">
-                THE BOUTIQUE CONCEPT · JVC DISTRICT 11
-              </span>
+          <div className="flex flex-col space-y-2">
+            <span className="font-body text-[10.5px] sm:text-[11px] font-semibold tracking-[0.24em] uppercase text-bronze">
+              THE BOUTIQUE RESIDENCE
+            </span>
+            <div className="relative h-6 sm:h-7 w-48 sm:w-56">
+              <Image
+                src="/images/brand/logo-charcoal.png"
+                alt="Oxford Cove"
+                fill
+                className="object-contain object-left"
+              />
             </div>
           </div>
 
-          {/* HEADLINE PRINCIPAL */}
-          <h2 className="font-display font-normal text-[32px] sm:text-[38px] xl:text-[44px] leading-[1.08] tracking-[-0.02em] text-[#1A1816]">
-            A escassez do conceito boutique em uma cidade dominada por arranha-céus.
+          {/* HEADLINE EDITORIAL PRINCIPAL */}
+          <h2 className="font-display font-normal text-[36px] sm:text-[46px] lg:text-[52px] leading-[1.04] text-[#1A1816] tracking-tight">
+            Design que respira.
+            <br />
+            Escala que acolhe.
           </h2>
 
-          {/* COPY ORIENTADA A BENEFÍCIOS E LIQUIDEZ (ENTRELINHA 1.72 AUMENTADA) */}
-          <p className="font-body text-[14px] sm:text-[14.5px] leading-[1.72] text-[#5A544C] font-normal">
-            Enquanto o mercado constrói torres massivas, o Oxford Cove aposta na baixa densidade: apenas 5 pavimentos residenciais assinados pela IMAN. Um ativo desenhado para atrair locatários qualificados que pagam prêmio por silêncio, design contemporâneo e conveniência no District 11.
+          {/* TEXTO DE POSICIONAMENTO E CONCEITO */}
+          <p className="font-body text-[#5A544C] text-[14px] sm:text-[15px] leading-[1.62] font-normal">
+            Distante da densidade vertical dos arranha-céus, o Oxford Cove aposta em uma arquitetura horizontal contemporânea de 5 pavimentos. Linhas orgânicas, terraços sombreados e paisagismo integrado criam uma transição natural entre o pulsar cosmopolita de Dubai e a serenidade privada do lar.
           </p>
 
-          {/* 05. GRID DAS 4 MÉTRICAS TÉCNICAS (GRADE 2x2 COM BORDAS DIVISÓRIAS #E2DDD5) */}
-          <div className="grid grid-cols-2 border-t border-[#E2DDD5] pt-5 gap-y-5 gap-x-5 sm:gap-x-6">
-            {/* 01. GABARITO EXCLUSIVO */}
+          {/* 05. GRID DE 4 ATRIBUTOS ESTRUTURAIS (2x2) */}
+          <div className="grid grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-5 pt-3 border-t border-[#24231F]/10">
+            {/* ATRIBUTO 1: TIPOLOGIA */}
             <div className="flex flex-col space-y-1">
               <span className="font-body text-[9px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
-                01. GABARITO EXCLUSIVO
+                01. CONCEITO
               </span>
               <span className="font-technical text-[14px] sm:text-[15px] font-bold text-[#1A1816] uppercase tracking-tight">
-                B + G + P + 5
+                Low-Rise Boutique
               </span>
               <p className="font-body text-[11.5px] leading-[1.48] text-[#5A544C]">
-                Baixa densidade, elevadores sem espera e privacidade comunitária preservada.
+                Apenas 5 pavimentos residenciais em uma composição de baixa densidade e privacidade máxima.
               </p>
             </div>
 
-            {/* 02. LOCALIZAÇÃO TÁTICA */}
-            <div className="flex flex-col space-y-1 border-l border-[#E2DDD5] pl-4 sm:pl-5">
+            {/* ATRIBUTO 2: LOCALIZAÇÃO PRIVILEGIADA */}
+            <div className="flex flex-col space-y-1">
               <span className="font-body text-[9px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
-                02. LOCALIZAÇÃO TÁTICA
+                02. IMPLANTAÇÃO
               </span>
               <span className="font-technical text-[14px] sm:text-[15px] font-bold text-[#1A1816] uppercase tracking-tight">
-                District 11 · JVC
+                JVC District 11
               </span>
               <p className="font-body text-[11.5px] leading-[1.48] text-[#5A544C]">
-                Uma das zonas mais consolidadas e procuradas para locação premium residencial.
+                Lote de esquina estrategicamente posicionado entre os parques centrais e os principais eixos viários.
               </p>
             </div>
 
-            {/* 03. TIPOLOGIAS INTELIGENTES */}
-            <div className="flex flex-col space-y-1 border-t border-[#E2DDD5] pt-4">
+            {/* ATRIBUTO 3: UNIDADES */}
+            <div className="flex flex-col space-y-1 border-t border-l border-[#E2DDD5] pt-4 pl-4 sm:pl-5">
               <span className="font-body text-[9px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
-                03. TIPOLOGIAS INTELIGENTES
+                03. TIPOLOGIAS
               </span>
               <span className="font-technical text-[14px] sm:text-[15px] font-bold text-[#1A1816] uppercase tracking-tight">
-                Studios a 2BR Duplex
+                Studios a Duplex
               </span>
               <p className="font-body text-[11.5px] leading-[1.48] text-[#5A544C]">
-                De 388 a 2.159 sq.ft., com plantas desenhadas para maximizar espaço e luz natural.
+                Plantas inteligentes projetadas para investidores exigentes e moradia premium em Dubai.
               </p>
             </div>
 
-            {/* 04. ASSINATURA & SOLIDEZ */}
+            {/* ATRIBUTO 4: INCORPORADORA */}
             <div className="flex flex-col space-y-1 border-t border-l border-[#E2DDD5] pt-4 pl-4 sm:pl-5">
               <span className="font-body text-[9px] sm:text-[9.5px] font-semibold tracking-[0.18em] uppercase text-bronze">
                 04. ASSINATURA & SOLIDEZ
@@ -140,12 +137,12 @@ export const ProductSection: React.FC = () => {
             </div>
           </div>
 
-          {/* 06. BOTÃO PRINCIPAL ÚNICO (DARK CONTRASTANTE) */}
+          {/* 06. BOTÃO PRINCIPAL ÚNICO (DARK CONTRASTANTE - ROUNDED FULL) */}
           <div className="pt-2">
             <button
               type="button"
               onClick={scrollToHeroForm}
-              className="h-[48px] sm:h-[50px] px-8 rounded-[8px] bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] inline-flex items-center gap-2.5 transition-all duration-base ease-luxury shadow-[0_4px_18px_rgba(40,55,45,0.20)] hover:shadow-[0_8px_26px_rgba(29,48,39,0.28)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] group cursor-pointer"
+              className="h-[48px] sm:h-[50px] px-8 rounded-full bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] inline-flex items-center gap-2.5 transition-all duration-base ease-luxury shadow-[0_4px_18px_rgba(40,55,45,0.20)] hover:shadow-[0_8px_26px_rgba(29,48,39,0.28)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] group cursor-pointer"
             >
               <span>RECEBER BOOK TÉCNICO E DISPONIBILIDADES</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />

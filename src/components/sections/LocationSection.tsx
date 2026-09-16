@@ -22,12 +22,11 @@ export const LocationSection: React.FC = () => {
         {/* FULL MAP AS BACKGROUND VISUAL */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
-            src="/images/location/location-map.png"
+            src="/images/location/location-map.webp"
             alt="Mapa de Localização — Oxford Cove by IMAN em Jumeirah Village Circle (JVC), Dubai"
             fill
-            priority
-            quality={100}
-            unoptimized
+            quality={90}
+            sizes="100vw"
             className="object-cover object-right"
           />
           {/* Subtle gradient on extreme left to ensure text contrast on ultra-wide screens */}
@@ -142,12 +141,11 @@ export const LocationSection: React.FC = () => {
         {/* 3. MAP BLOCK (RESPONSIVE CROP FOCUSED ON PALM JUMEIRAH, COAST & OXFORD COVE) */}
         <div className="relative w-full h-[300px] sm:h-[380px] rounded-[18px] overflow-hidden border border-white/10 shadow-lg bg-[#2E2824]">
           <Image
-            src="/images/location/location-map.png"
+            src="/images/location/location-map.webp"
             alt="Mapa Oxford Cove — JVC Dubai"
             fill
-            priority
-            quality={100}
-            unoptimized
+            quality={90}
+            sizes="(max-width: 640px) 100vw, 640px"
             className="object-cover object-[78%_center]"
           />
         </div>

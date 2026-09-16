@@ -81,6 +81,20 @@ const config: Config = {
       maxWidth: {
         container: '1440px',
       },
+      keyframes: {
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(200%)' },
+        },
+        'pulse-gold': {
+          '0%, 100%': { boxShadow: '0 0 15px rgba(223, 200, 154, 0.25), 0 4px 16px rgba(0, 0, 0, 0.12)' },
+          '50%': { boxShadow: '0 0 30px rgba(223, 200, 154, 0.65), 0 6px 26px rgba(0, 0, 0, 0.20)' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 3s ease-in-out infinite',
+        'pulse-gold': 'pulse-gold 2.8s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

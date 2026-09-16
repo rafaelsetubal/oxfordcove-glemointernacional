@@ -25,17 +25,15 @@ export const ExperienceSection: React.FC = () => {
       id="experiencia"
       className="relative w-full min-h-[75vh] lg:min-h-[85vh] flex items-center justify-center py-20 lg:py-28 overflow-hidden select-none bg-[#F5F2EB] border-t border-[#24231F]/8"
     >
-      {/* 01. FULL-BLEED REAL PNG BACKGROUND (ORIGINAL BRIGHTNESS) */}
+      {/* 01. FULL-BLEED REAL WEBP BACKGROUND (OPTIMIZED) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/experience/experience-bg.png"
+          src="/images/experience/experience-bg.webp"
           alt="Oxford Cove by IMAN — Atmosfera"
           fill
-          quality={100}
-          unoptimized
+          quality={88}
           sizes="100vw"
           className="object-cover object-center select-none pointer-events-none"
-          priority
         />
       </div>
 
@@ -70,7 +68,7 @@ export const ExperienceSection: React.FC = () => {
           <video
             ref={videoRef}
             src="/video/oxford_cove_horizontal.mp4"
-            poster="/images/product/oxford-cove-facade.png"
+            poster="/images/product/oxford-cove-facade.webp"
             playsInline
             preload="metadata"
             controls={isPlaying}

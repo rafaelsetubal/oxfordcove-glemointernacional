@@ -12,7 +12,7 @@ export interface LeadFormData {
 }
 
 interface LeadFormProps {
-  mode?: 'inline' | 'drawer' | 'modal';
+  mode?: 'inline' | 'drawer' | 'modal' | 'plain';
   onClose?: () => void;
   className?: string;
   title?: string;
@@ -156,12 +156,12 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 setFormData({ ...formData, name: e.target.value });
                 if (errors.name) setErrors({ ...errors, name: '' });
               }}
-              className={`w-full h-[40px] sm:h-[42px] px-3 rounded-[9px] bg-white/80 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
+              className={`w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
                 errors.name ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
               }`}
             />
             {errors.name && (
-              <span id={`${nameId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5">
+              <span id={`${nameId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5 px-2">
                 <AlertCircle className="w-2.5 h-2.5 shrink-0" /> {errors.name}
               </span>
             )}
@@ -171,7 +171,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor={phoneId}
-              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5"
+              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5 px-1"
             >
               WhatsApp
             </label>
@@ -188,12 +188,12 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 setFormData({ ...formData, phone: e.target.value });
                 if (errors.phone) setErrors({ ...errors, phone: '' });
               }}
-              className={`w-full h-[40px] sm:h-[42px] px-3 rounded-[9px] bg-white/80 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
+              className={`w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
                 errors.phone ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
               }`}
             />
             {errors.phone && (
-              <span id={`${phoneId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5">
+              <span id={`${phoneId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5 px-2">
                 <AlertCircle className="w-2.5 h-2.5 shrink-0" /> {errors.phone}
               </span>
             )}
@@ -203,7 +203,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor={emailId}
-              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5"
+              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5 px-1"
             >
               E-mail
             </label>
@@ -220,12 +220,12 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 setFormData({ ...formData, email: e.target.value });
                 if (errors.email) setErrors({ ...errors, email: '' });
               }}
-              className={`w-full h-[40px] sm:h-[42px] px-3 rounded-[9px] bg-white/80 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
+              className={`w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
                 errors.email ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
               }`}
             />
             {errors.email && (
-              <span id={`${emailId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5">
+              <span id={`${emailId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5 px-2">
                 <AlertCircle className="w-2.5 h-2.5 shrink-0" /> {errors.email}
               </span>
             )}
@@ -235,7 +235,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor={interestId}
-              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5"
+              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5 px-1"
             >
               Tenho interesse em...
             </label>
@@ -244,7 +244,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 id={interestId}
                 value={formData.interest}
                 onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                className="w-full h-[40px] sm:h-[42px] px-3 pr-8 rounded-[9px] bg-white/80 border border-[#2C241F]/15 text-[#2C241F] font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white appearance-none cursor-pointer"
+                className="w-full h-[42px] sm:h-[44px] px-4 pr-9 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white appearance-none cursor-pointer"
               >
                 {interestOptions.map((opt) => (
                   <option key={opt.value} value={opt.value} className="bg-[#FAF9F6] text-[#2C241F]">
@@ -252,7 +252,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                   </option>
                 ))}
               </select>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C241F]/60">
+              <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C241F]/60">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -260,18 +260,21 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             </div>
           </div>
 
-          {/* SOLID CTA BUTTON */}
+          {/* CREAM / GOLD SHIMMERING CTA BUTTON */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-[44px] sm:h-[46px] mt-1 rounded-[8px] bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[10.5px] font-semibold uppercase tracking-[0.10em] flex items-center justify-center gap-2 transition-all duration-base ease-luxury shadow-[0_4px_16px_rgba(40,55,45,0.20)] hover:shadow-[0_6px_22px_rgba(29,48,39,0.28)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-olive disabled:opacity-75 disabled:cursor-not-allowed group cursor-pointer"
+            className="relative w-full h-[48px] sm:h-[50px] mt-2 rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all duration-base ease-luxury shadow-[0_4px_22px_rgba(223,200,154,0.40)] hover:shadow-[0_6px_28px_rgba(223,200,154,0.60)] hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#806B54] overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed group cursor-pointer animate-pulse-gold border border-[#D8C7A5]/50"
           >
+            {/* SHIMMER EFFECT OVERLAY */}
+            <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/70 to-transparent pointer-events-none" />
+            
             {loading ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FAF9F6]" />
+              <Loader2 className="w-4 h-4 animate-spin text-[#171815]" />
             ) : (
               <>
-                <span>ACESSAR TABELA DE PRÉ-LANÇAMENTO</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />
+                <span className="relative z-10 font-bold">ACESSAR TABELA DE PRÉ-LANÇAMENTO</span>
+                <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[2]" />
               </>
             )}
           </button>
@@ -292,10 +295,18 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     return content;
   }
 
+  if (mode === 'plain') {
+    return (
+      <div className={`w-full ${className}`}>
+        {content}
+      </div>
+    );
+  }
+
   if (mode === 'modal') {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/50 backdrop-blur-sm animate-fadeIn">
-        <div className={`w-[320px] max-w-[340px] rounded-[20px] p-5 sm:p-6 apple-glass ${className}`}>
+        <div className={`w-[320px] max-w-[340px] rounded-[24px] p-5 sm:p-6 apple-glass ${className}`}>
           {content}
         </div>
       </div>
@@ -304,7 +315,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 
   // Default: inline
   return (
-    <div className={`w-[305px] max-w-[315px] rounded-[20px] p-5 sm:p-5.5 apple-glass ${className}`}>
+    <div className={`w-[305px] max-w-[315px] rounded-[24px] p-5 sm:p-5.5 apple-glass ${className}`}>
       {content}
     </div>
   );

@@ -244,7 +244,7 @@ export const AmenitiesSection: React.FC = () => {
   }, [selectedCategory]);
 
   const displayedItems = useMemo(() => {
-    return isExpanded ? filteredItems : filteredItems.slice(0, 6);
+    return isExpanded ? filteredItems : filteredItems.slice(0, 8);
   }, [isExpanded, filteredItems]);
 
   // Transform to GalleryViewerItem format
@@ -308,9 +308,9 @@ export const AmenitiesSection: React.FC = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* 03. CLEAN GAP-FREE EDITORIAL GRID (6 IMAGES BY DEFAULT + EXPANDABLE)       */}
+        {/* 03. EDITORIAL GRID (4 COLS ON DESKTOP · 8 IMAGES INITIALLY)               */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-5 lg:gap-6 transition-all duration-500">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6 transition-all duration-500">
           {displayedItems.map((item) => {
             const fullIndex = filteredItems.findIndex((fi) => fi.id === item.id);
             const formatNumber = String((fullIndex >= 0 ? fullIndex : 0) + 1).padStart(2, '0');
@@ -321,15 +321,13 @@ export const AmenitiesSection: React.FC = () => {
                 onClick={() => setFullscreenIndex(fullIndex >= 0 ? fullIndex : 0)}
                 className="group relative w-full aspect-[4/3] rounded-[14px] sm:rounded-[18px] overflow-hidden bg-black/5 border border-[#24231F]/8 transition-all duration-500 ease-luxury cursor-pointer shadow-sm hover:shadow-[0_16px_36px_rgba(20,18,16,0.12)]"
               >
-                {/* IMAGE */}
+                {/* IMAGE WITH OPTIMIZED SIZES */}
                 <Image
                   src={item.image}
                   alt={`${item.title} — Oxford Cove`}
                   fill
-                  priority={fullIndex < 6}
-                  quality={90}
-                  unoptimized
-                  sizes="(max-width: 768px) 50vw, 33vw"
+                  quality={85}
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className="object-cover object-center transition-transform duration-700 ease-luxury group-hover:scale-[1.03]"
                 />
 
@@ -364,7 +362,7 @@ export const AmenitiesSection: React.FC = () => {
         {/* ========================================================================= */}
         {/* EXPAND / COLLAPSE BUTTON ("VER MAIS" / "VER MENOS")                       */}
         {/* ========================================================================= */}
-        {filteredItems.length > 6 && (
+        {filteredItems.length > 8 && (
           <div className="flex justify-center mt-10 sm:mt-14">
             {!isExpanded ? (
               <button
@@ -372,7 +370,7 @@ export const AmenitiesSection: React.FC = () => {
                 onClick={() => setIsExpanded(true)}
                 className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#1A1816] text-[#FAF9F6] font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.22em] uppercase transition-all duration-300 hover:bg-[#806B54] hover:shadow-lg focus:outline-none cursor-pointer"
               >
-                <span>VER MAIS FOTOS ({filteredItems.length - 6})</span>
+                <span>VER MAIS FOTOS ({filteredItems.length - 8})</span>
                 <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M19 9l-7 7-7-7" />
                 </svg>

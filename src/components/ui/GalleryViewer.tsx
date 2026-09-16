@@ -199,8 +199,7 @@ export const GalleryViewer: React.FC<GalleryViewerProps> = ({
             alt={`${activeItem.title} — Oxford Cove`}
             fill
             priority
-            quality={100}
-            unoptimized
+            quality={92}
             sizes="(max-width: 1200px) 100vw, 1200px"
             className="object-contain object-center transition-opacity duration-300 ease-out"
           />

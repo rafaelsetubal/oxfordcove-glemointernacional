@@ -193,10 +193,11 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
                 setMobileMenuOpen(false);
                 handleCta();
               }}
-              className="w-full h-12 rounded-sm bg-olive text-warm-white font-body text-xs uppercase font-semibold tracking-btn flex items-center justify-center gap-2 hover:bg-forest transition-colors"
+              className="relative w-full h-12 rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] text-[#171815] font-body text-[11px] uppercase font-bold tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(223,200,154,0.35)] overflow-hidden active:scale-[0.98] transition-all"
             >
-              <span>QUERO MINHA PRIORIDADE</span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/70 to-transparent pointer-events-none" />
+              <span className="relative z-10 font-bold">QUERO MINHA PRIORIDADE</span>
+              <ArrowRight className="relative z-10 w-4 h-4 stroke-[2]" />
             </button>
             <span className="font-body text-center text-[11px] text-white/70">
               EOI DE AED 50.000 · 100% REEMBOLSÁVEL
