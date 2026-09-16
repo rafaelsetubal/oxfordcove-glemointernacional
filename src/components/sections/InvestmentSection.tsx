@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useCurrency, CurrencyDisclaimer } from '@/context/CurrencyContext';
 
 interface RentRange {
   type: string;
@@ -8,25 +9,6 @@ interface RentRange {
   max: string;
   roi?: string;
 }
-
-const RENTAL_DATA: RentRange[] = [
-  {
-    type: 'STUDIO',
-    min: 'AED 95K',
-    max: 'AED 100K / YEAR',
-    roi: '~ 18% – 20% ROI',
-  },
-  {
-    type: '1 BEDROOM',
-    min: 'AED 140K',
-    max: 'AED 160K / YEAR',
-  },
-  {
-    type: '2 BEDROOM',
-    min: 'AED 245K',
-    max: 'AED 250K / YEAR',
-  },
-];
 
 const INSIGHTS = [
   {
@@ -47,9 +29,32 @@ const INSIGHTS = [
 ];
 
 export const InvestmentSection: React.FC = () => {
+  const { formatCompact, currency, disclaimer } = useCurrency();
   const [activeTab, setActiveTab] = useState<'VALORIZACAO' | 'ALUGUEL'>('VALORIZACAO');
   const [isInView, setIsInView] = useState<boolean>(false);
   const sectionRef = useRef<HTMLElement | null>(null);
+
+  const rentalData: RentRange[] = useMemo(
+    () => [
+      {
+        type: 'STUDIO',
+        min: formatCompact(95000, { showPlus: false }),
+        max: `${formatCompact(100000, { showPlus: false })} / ANO`,
+        roi: '~ 18% – 20% ROI',
+      },
+      {
+        type: '1 BEDROOM',
+        min: formatCompact(140000, { showPlus: false }),
+        max: `${formatCompact(160000, { showPlus: false })} / ANO`,
+      },
+      {
+        type: '2 BEDROOM',
+        min: formatCompact(245000, { showPlus: false }),
+        max: `${formatCompact(250000, { showPlus: false })} / ANO`,
+      },
+    ],
+    [formatCompact]
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -159,7 +164,7 @@ export const InvestmentSection: React.FC = () => {
                   </div>
                   <div className="text-right">
                     <span className="font-body text-[22px] sm:text-[26px] font-bold text-[#171815] leading-none block tracking-tight">
-                      AED 980K
+                      {formatCompact(980000, { showPlus: false })}
                     </span>
                     <span className="font-technical text-[10px] sm:text-[11px] text-[#806B54] uppercase tracking-wider">
                       FEV 2025 · REVENDA
@@ -242,7 +247,7 @@ export const InvestmentSection: React.FC = () => {
                       Compra
                     </span>
                     <span className="font-body text-[14px] sm:text-[16px] font-bold text-white block leading-tight tracking-tight">
-                      AED 420K
+                      {formatCompact(420000, { showPlus: false })}
                     </span>
                   </div>
 
@@ -255,7 +260,7 @@ export const InvestmentSection: React.FC = () => {
                       Revenda
                     </span>
                     <span className="font-body text-[16px] sm:text-[18px] font-bold text-white block leading-tight tracking-tight">
-                      AED 980K
+                      {formatCompact(980000, { showPlus: false })}
                     </span>
                   </div>
                 </div>
@@ -281,7 +286,7 @@ export const InvestmentSection: React.FC = () => {
 
                 {/* HORIZONTAL RANGE BARS */}
                 <div className="space-y-6 sm:space-y-8 my-auto">
-                  {RENTAL_DATA.map((item, idx) => (
+                  {rentalData.map((item, idx) => (
                     <div key={item.type} className="group">
                       <div className="flex items-baseline justify-between mb-2">
                         <span className="font-body text-[11.5px] sm:text-[13px] font-semibold tracking-[0.18em] uppercase text-[#171815]">
@@ -367,7 +372,7 @@ export const InvestmentSection: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="font-body text-[18px] sm:text-[21px] font-bold text-white block leading-none tracking-tight">
-                          AED 420K
+                          {formatCompact(420000, { showPlus: false })}
                         </span>
                         <span className="font-body text-[10px] sm:text-[10.5px] text-[#B5AEA4] uppercase tracking-wider">
                           Compra · Mai 2022
@@ -376,7 +381,7 @@ export const InvestmentSection: React.FC = () => {
                       <span className="text-champagne font-light text-lg">→</span>
                       <div className="text-right">
                         <span className="font-body text-[18px] sm:text-[21px] font-bold text-white block leading-none tracking-tight">
-                          AED 980K
+                          {formatCompact(980000, { showPlus: false })}
                         </span>
                         <span className="font-body text-[10px] sm:text-[10.5px] text-[#B5AEA4] uppercase tracking-wider">
                           Revenda · Fev 2025
@@ -389,7 +394,7 @@ export const InvestmentSection: React.FC = () => {
                 {/* CAPITAL GAIN BOX AT BOTTOM */}
                 <div className="pt-6 border-t border-white/15 mt-6">
                   <span className="font-body text-[24px] sm:text-[28px] font-bold text-champagne block leading-none mb-1 tracking-tight">
-                    AED 560K
+                    {formatCompact(560000, { showPlus: false })}
                   </span>
                   <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.16em] uppercase text-[#FAF9F6] block">
                     GANHO DE CAPITAL
@@ -502,7 +507,7 @@ export const InvestmentSection: React.FC = () => {
                 </span>
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="font-body text-[24px] sm:text-[28px] font-bold leading-none text-[#1D3027] tracking-tight">
-                    AED 95K–100K
+                    {formatCompact(95000, { showPlus: false })}–{formatCompact(100000, { showPlus: false })}
                   </span>
                 </div>
                 <span className="font-body text-[11px] sm:text-[12px] font-bold tracking-[0.22em] uppercase text-[#171815] block mb-2">
@@ -567,6 +572,7 @@ export const InvestmentSection: React.FC = () => {
             <p className="font-body text-[11px] sm:text-[11.5px] text-[#5A544C] font-normal max-w-2xl mx-auto leading-normal">
               Resultados históricos do empreendimento Oxford 212 referem-se a transações reais e não garantem performance ou rentabilidade futura para o Oxford Cove.
             </p>
+            <CurrencyDisclaimer className="mt-2 text-center" />
           </div>
 
         </div>
