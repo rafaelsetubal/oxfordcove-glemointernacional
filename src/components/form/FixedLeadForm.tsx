@@ -350,16 +350,17 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               />
             </button>
 
-            {/* FLOATING CUSTOM ROUNDED LUXURY MENU */}
+            {/* FLOATING CUSTOM ROUNDED LUXURY MENU (100% SOLID CREME) */}
             {isDropdownOpen && (
               <div
                 role="listbox"
                 tabIndex={-1}
-                className={`absolute z-50 left-0 right-0 top-full mt-1.5 p-1.5 rounded-[18px] max-h-[260px] overflow-y-auto scrollbar-thin shadow-[0_16px_36px_rgba(20,25,20,0.22)] transition-all animate-fadeIn ${
+                className={`absolute z-50 left-0 right-0 top-full mt-1.5 p-1.5 rounded-[16px] max-h-[260px] overflow-y-auto scrollbar-thin shadow-[0_20px_40px_rgba(0,0,0,0.28)] border ${
                   isFinalCta
-                    ? 'bg-[#192720]/95 backdrop-blur-xl border border-white/20 text-[#FAF9F6]'
-                    : 'bg-[#FAF8F5]/98 backdrop-blur-xl border border-[#2C241F]/15 text-[#2C241F]'
+                    ? 'bg-[#192720] border-white/20 text-[#FAF9F6]'
+                    : 'bg-[#FAF8F5] border-[#2C241F]/20 text-[#171815]'
                 }`}
+                style={{ opacity: 1 }}
               >
                 <div className="space-y-0.5">
                   {interestOptions.map((opt) => {
@@ -373,21 +374,21 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                           setFormData({ ...formData, interest: opt.value });
                           setIsDropdownOpen(false);
                         }}
-                        className={`flex items-center justify-between px-3.5 py-2.5 rounded-[12px] text-[12px] sm:text-[12.5px] font-body font-medium transition-all duration-150 cursor-pointer ${
+                        className={`flex items-center justify-between px-3.5 py-2.5 rounded-[10px] text-[12px] sm:text-[12.5px] font-body transition-colors duration-150 cursor-pointer ${
                           isSelected
                             ? isFinalCta
-                              ? 'bg-[#FAF9F6] text-[#171815] font-semibold shadow-sm'
-                              : 'bg-[#1D3027] text-[#FAF9F6] font-semibold shadow-sm'
+                              ? 'bg-[#FAF9F6] text-[#171815] font-bold shadow-sm'
+                              : 'bg-[#1D3027] text-white font-bold shadow-sm'
                             : isFinalCta
-                            ? 'hover:bg-white/10 text-[#FAF9F6]/90'
-                            : 'hover:bg-[#1D3027]/8 hover:text-[#171815] text-[#2C241F]/85'
+                            ? 'hover:bg-white/10 text-[#FAF9F6] font-medium'
+                            : 'hover:bg-[#EAE5DC] text-[#171815] font-medium'
                         }`}
                       >
                         <span className="truncate pr-2">{opt.label}</span>
                         {isSelected && (
                           <Check
                             className={`w-3.5 h-3.5 shrink-0 ${
-                              isFinalCta ? 'text-[#171815]' : 'text-[#FAF9F6]'
+                              isFinalCta ? 'text-[#171815]' : 'text-white'
                             }`}
                           />
                         )}
