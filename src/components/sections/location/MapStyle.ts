@@ -6,21 +6,18 @@
 import type { StyleSpecification } from 'maplibre-gl';
 
 /**
- * Self-contained editorial real estate map style for Dubai.
- * Uses high-performance Carto Light NoLabels tiles (real OpenStreetMap geodata)
- * with an off-white/cream background, subtle water, and zero commercial POI noise.
+ * Clean architectural map style for Dubai.
+ * Uses Esri World Light Gray Canvas & OpenStreetMap geodata.
+ * 100% Free, NO API key required, NO watermark.
  */
 export const EDITORIAL_MAP_STYLE: StyleSpecification = {
   version: 8,
-  name: 'Oxford Cove Editorial Dubai',
+  name: 'Oxford Cove Editorial Map',
   sources: {
-    'carto-light': {
+    'esri-light-gray': {
       type: 'raster',
       tiles: [
-        'https://a.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png',
-        'https://b.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png',
-        'https://c.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png',
-        'https://d.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png',
+        'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
       ],
       tileSize: 256,
       attribution: '',
@@ -35,11 +32,11 @@ export const EDITORIAL_MAP_STYLE: StyleSpecification = {
       },
     },
     {
-      id: 'carto-light-layer',
+      id: 'esri-light-gray-layer',
       type: 'raster',
-      source: 'carto-light',
+      source: 'esri-light-gray',
       minzoom: 0,
-      maxzoom: 19,
+      maxzoom: 18,
       paint: {
         'raster-opacity': 0.95,
         'raster-saturation': -0.15,

@@ -7,6 +7,7 @@ import { DESTINATIONS } from './destinations';
 import { EDITORIAL_MAP_STYLE } from './MapStyle';
 import { CustomMarkers } from './CustomMarkers';
 import { ConnectionLines } from './ConnectionLines';
+import { LocationSidebar } from './LocationSidebar';
 
 interface OxfordCoveMapProps {
   onMapReady?: () => void;
@@ -55,7 +56,7 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
       const map = new Map({
         container: mapContainerRef.current,
         style: EDITORIAL_MAP_STYLE,
-        center: [55.24, 25.09],
+        center: [55.25, 25.09],
         zoom: isMobile ? 9.5 : 10.4,
         interactive: false, // 100% static map — no pan, zoom, pitch, or rotate
         attributionControl: false,
@@ -97,7 +98,7 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
 
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#FAF9F6]">
-      {/* 01. MAPLIBRE GL CONTAINER */}
+      {/* 01. MAPLIBRE GL CONTAINER (ESRI WORLD LIGHT GRAY CANVAS — ZERO WATERMARK, ZERO API KEY) */}
       <div
         ref={mapContainerRef}
         className="absolute inset-0 w-full h-full"
@@ -111,6 +112,9 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
           <CustomMarkers positions={positions} />
         </>
       )}
+
+      {/* 03. SIDE LEGEND WITH CONTENT, TIMES, AND DISTANCES */}
+      <LocationSidebar />
     </div>
   );
 };
