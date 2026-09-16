@@ -1,3 +1,4 @@
+import { HeroNavigation } from '@/components/hero/HeroNavigation';
 import { Hero } from '@/components/hero/Hero';
 import { CinematicPreloader } from '@/components/preloader/CinematicPreloader';
 import { MobileLeadSection } from '@/components/sections/MobileLeadSection';
@@ -14,10 +15,13 @@ import { Footer } from '@/components/layout/Footer';
 export default function Home() {
   return (
     <main className="min-h-screen bg-ivory text-charcoal">
-      {/* PRELOADER CINEMATOGRÁFICO */}
+      {/* 00. PRELOADER CINEMATOGRÁFICO */}
       <CinematicPreloader />
 
-      {/* SEÇÃO 01: HERO OFICIAL */}
+      {/* 01. BARRA DE NAVEGAÇÃO FIXA GLOBAL (SITE TODO) */}
+      <HeroNavigation />
+
+      {/* 02. SEÇÃO HERO OFICIAL */}
       <Hero />
 
       {/* SEÇÃO DEDICADA DE CADASTRO NO MOBILE (FULL SCREEN, SEM BORDAS) */}

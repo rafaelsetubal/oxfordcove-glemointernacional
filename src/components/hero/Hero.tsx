@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { HeroNavigation } from './HeroNavigation';
 import { HeroCopy } from './HeroCopy';
 import { FixedLeadForm } from '@/components/form/FixedLeadForm';
 
@@ -10,7 +9,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="hero-section"
-      className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden bg-ivory select-none will-change-[filter,transform,opacity]"
+      className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden bg-ivory select-none"
     >
       {/* 01. HERO BACKGROUND IMAGE (OFFICIAL HIGH-RES WEBP ASSET - FULL BLEED) */}
       <div className="absolute inset-0 z-0">
@@ -42,9 +41,6 @@ export const Hero: React.FC = () => {
           }}
         />
       </div>
-
-      {/* 04. HERO MINIMALIST NAVIGATION WITH TOP GRADIENT */}
-      <HeroNavigation />
 
       {/* 05. GLOBAL 12-COLUMN MASTER GRID LAYOUT (RAISED BASELINE BY AN ADDITIONAL ~20PX) */}
       <div className="relative z-10 w-full container-master pt-[80px] sm:pt-[90px] lg:pt-[95px] pb-[100px] lg:pb-[75px] my-auto">
