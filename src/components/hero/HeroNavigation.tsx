@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
+import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 interface HeroNavigationProps {
   onCtaClick?: () => void;
@@ -11,6 +12,8 @@ interface HeroNavigationProps {
 }
 
 export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, activeSection }) => {
+  const { formatPrice } = useCurrency();
+
   const scrollToHeroForm = () => {
     if (onCtaClick) {
       onCtaClick();
@@ -32,7 +35,6 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
 
   useEffect(() => {
     const handleScroll = () => {
-      // Trigger scrolled state when leaving the top of Hero
       setIsScrolled(window.scrollY > 60);
     };
 
@@ -64,7 +66,7 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
 
   return (
     <>
-      {/* 01. TOP GRADIENT PROTECTION OVER HERO (Active when at the top: 90px) */}
+      {/* 01. TOP GRADIENT PROTECTION OVER HERO */}
       <div
         className={`fixed top-0 left-0 w-full h-[90px] pointer-events-none z-40 transition-opacity duration-base ease-luxury ${
           isScrolled ? 'opacity-0' : 'opacity-100'
@@ -75,7 +77,7 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
         }}
       />
 
-      {/* 02. FIXED HEADER (Fixed across the entire landing page) */}
+      {/* 02. FIXED HEADER */}
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-base ease-luxury ${
           isScrolled
@@ -84,7 +86,7 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
         }`}
       >
         <div className="container-master h-full flex items-center justify-between">
-          {/* BRAND LOGO (Always crisp White on both Hero and Scrolled Dark Header) */}
+          {/* BRAND LOGO */}
           <div className="flex items-center">
             <BrandLogo
               variant="white"
@@ -126,17 +128,19 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             })}
           </nav>
 
-          {/* CTA IN HEADER (ALWAYS VISIBLE IN RADIANT CHAMPAGNE GOLD SHIMMER) */}
-          <div className="flex items-center gap-3">
+          {/* CURRENCY TOGGLE & CTA IN HEADER */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div>
+              <CurrencyToggle variant="dark" />
+            </div>
+
             <button
               type="button"
               onClick={handleCta}
-              className="relative hidden lg:inline-flex items-center justify-center gap-2 h-[42px] px-5 rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[10.5px] font-bold tracking-[0.14em] uppercase transition-all duration-base ease-luxury shadow-[0_2px_18px_rgba(223,200,154,0.38)] hover:shadow-[0_4px_24px_rgba(223,200,154,0.58)] hover:scale-[1.02] active:scale-[0.98] border border-[#D8C7A5]/60 overflow-hidden group cursor-pointer animate-pulse-gold"
+              className="relative hidden lg:inline-flex items-center justify-center gap-2 h-[40px] px-5 rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[10px] sm:text-[10.5px] font-bold tracking-[0.14em] uppercase transition-all duration-base ease-luxury shadow-[0_2px_18px_rgba(223,200,154,0.38)] hover:shadow-[0_4px_24px_rgba(223,200,154,0.58)] hover:scale-[1.02] active:scale-[0.98] border border-[#D8C7A5]/60 overflow-hidden group cursor-pointer animate-pulse-gold"
             >
-              {/* SHIMMER EFFECT OVERLAY */}
               <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/75 to-transparent pointer-events-none" />
-              
-              <span className="relative z-10 font-bold">QUERO MINHA PRIORIDADE</span>
+              <span className="relative z-10 font-bold">QUERO INVESTIR COM PRIORIDADE</span>
               <ArrowRight className="relative z-10 w-3.5 h-3.5 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[2]" />
             </button>
 
@@ -172,6 +176,10 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             </button>
           </div>
 
+          <div className="py-2">
+            <CurrencyToggle variant="dark" />
+          </div>
+
           <nav className="flex flex-col gap-4 divide-y divide-white/10">
             {navLinks.map((link) => (
               <a
@@ -195,11 +203,11 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
               className="relative w-full h-12 rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] text-[#171815] font-body text-[11px] uppercase font-bold tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(223,200,154,0.35)] overflow-hidden active:scale-[0.98] transition-all"
             >
               <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/70 to-transparent pointer-events-none" />
-              <span className="relative z-10 font-bold">QUERO MINHA PRIORIDADE</span>
+              <span className="relative z-10 font-bold">QUERO INVESTIR COM PRIORIDADE</span>
               <ArrowRight className="relative z-10 w-4 h-4 stroke-[2]" />
             </button>
             <span className="font-body text-center text-[11px] text-white/70">
-              EOI DE AED 50.000 · 100% REEMBOLSÁVEL
+              EOI DE {formatPrice(50000)} · 100% REEMBOLSÁVEL
             </span>
           </div>
         </div>

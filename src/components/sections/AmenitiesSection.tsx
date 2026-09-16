@@ -370,7 +370,7 @@ export const AmenitiesSection: React.FC = () => {
                 onClick={() => setIsExpanded(true)}
                 className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#1A1816] text-[#FAF9F6] font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.22em] uppercase transition-all duration-300 hover:bg-[#806B54] hover:shadow-lg focus:outline-none cursor-pointer"
               >
-                <span>VER MAIS FOTOS ({filteredItems.length - 8})</span>
+                <span>VER TODAS AS ÁREAS DE LAZER ({filteredItems.length - 8})</span>
                 <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M19 9l-7 7-7-7" />
                 </svg>

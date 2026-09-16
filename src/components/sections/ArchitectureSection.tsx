@@ -144,7 +144,7 @@ export const ProductSection: React.FC = () => {
               onClick={scrollToHeroForm}
               className="w-full sm:w-auto h-[48px] sm:h-[50px] px-8 rounded-full bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] inline-flex items-center justify-center gap-2.5 transition-all duration-base ease-luxury shadow-[0_4px_18px_rgba(40,55,45,0.20)] hover:shadow-[0_8px_26px_rgba(29,48,39,0.28)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] group cursor-pointer"
             >
-              <span>RECEBER BOOK TÉCNICO E DISPONIBILIDADES</span>
+              <span>QUERO O BOOK TÉCNICO COMPLETO</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />
             </button>
           </div>

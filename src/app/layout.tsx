@@ -30,6 +30,7 @@ export const metadata: Metadata = {
 };
 
 import { LeadDrawerProvider } from '@/components/form/PersistentLeadDrawer';
+import { CurrencyProvider } from '@/context/CurrencyContext';
 
 export default function RootLayout({
   children,
@@ -39,9 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${manrope.variable} ${dmMono.variable}`}>
       <body className="bg-ivory text-charcoal font-body antialiased selection:bg-olive selection:text-warm-white">
-        <LeadDrawerProvider>
-          {children}
-        </LeadDrawerProvider>
+        <CurrencyProvider>
+          <LeadDrawerProvider>
+            {children}
+          </LeadDrawerProvider>
+        </CurrencyProvider>
       </body>
     </html>
   );

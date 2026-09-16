@@ -1,13 +1,22 @@
+'use client';
+
 import React from 'react';
 import { HeroMetrics } from './HeroMetrics';
+import { useCurrency, CurrencyDisclaimer } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 export const HeroCopy: React.FC = () => {
+  const { formatPrice } = useCurrency();
+
   return (
     <div className="flex flex-col select-none max-w-[560px] animate-fadeIn">
-      {/* 01. TAG SUPERIOR */}
-      <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-widest uppercase text-[#D4C7B5] mb-3 sm:mb-4 block">
-        DUBAI EM OUTRO RITMO
-      </span>
+      {/* 01. TAG SUPERIOR & CURRENCY TOGGLE */}
+      <div className="flex items-center justify-between gap-4 mb-3 sm:mb-4">
+        <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-widest uppercase text-[#D4C7B5] block">
+          DUBAI EM OUTRO RITMO
+        </span>
+        <CurrencyToggle variant="dark" />
+      </div>
 
       {/* 02. HEADLINE (Cormorant Garamond, SemiBold/Medium, #F8F5F0) */}
       <h1 className="font-display font-medium text-[48px] sm:text-[62px] lg:text-[clamp(64px,5.8vw,88px)] leading-[0.92] tracking-[-0.035em] text-[#F8F5F0] drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">
@@ -28,10 +37,11 @@ export const HeroCopy: React.FC = () => {
         Acesso prioritário a um dos projetos boutique de maior potencial de valorização em JVC, com condições exclusivas de pré-lançamento.
       </p>
 
-      {/* 06. INVESTMENT METRICS */}
+      {/* 05. INVESTMENT METRICS */}
       <HeroMetrics />
+      <CurrencyDisclaimer className="mt-2 text-white/70" />
 
-      {/* 07. MOBILE CONVERSION CTA BUTTON (REFINED CREAM/GOLD SHIMMER) */}
+      {/* 06. MOBILE CONVERSION CTA BUTTON (REFINED CREAM/GOLD SHIMMER) */}
       <div className="md:hidden mt-6 sm:mt-8 flex flex-col items-stretch gap-2.5">
         <a
           href="#cadastro-mobile"
@@ -39,13 +49,13 @@ export const HeroCopy: React.FC = () => {
         >
           {/* GOLD SHIMMER OVERLAY */}
           <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/75 to-transparent pointer-events-none" />
-          <span className="relative z-10 font-bold">ACESSAR TABELA DE PRÉ-LANÇAMENTO</span>
+          <span className="relative z-10 font-bold">GARANTIR MINHA PRIORIDADE NA TABELA</span>
           <svg className="relative z-10 w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
         </a>
         <div className="flex items-center justify-center gap-2 text-white/70 text-[10px] uppercase font-technical tracking-wider pt-0.5">
-          <span>EOI AED 50.000</span>
+          <span>EOI {formatPrice(50000)}</span>
           <span>•</span>
           <span className="text-champagne font-semibold">100% REEMBOLSÁVEL</span>
         </div>

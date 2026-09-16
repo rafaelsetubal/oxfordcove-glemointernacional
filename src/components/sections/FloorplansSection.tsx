@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { ArrowRight, Layers, Home, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLeadDrawer } from '@/components/form/PersistentLeadDrawer';
 import { GalleryViewer, GalleryViewerItem } from '@/components/ui/GalleryViewer';
+import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 export type FloorplanViewMode = 'UNITS' | 'BUILDING';
 
@@ -32,7 +34,7 @@ export interface TypologyCategory {
   key: 'STUDIO' | '2 BEDROOM' | '2 BED + STUDY';
   name: string;
   label: string;
-  startingPrice: string;
+  basePrice: number;
   startingArea: string;
   unitsCount: number;
   description: string;
@@ -43,7 +45,7 @@ export const TYPOLOGIES: TypologyCategory[] = [
     key: 'STUDIO',
     name: 'Studio',
     label: 'STUDIO',
-    startingPrice: 'A partir de AED 679,000',
+    basePrice: 679000,
     startingArea: 'A partir de 425 sq.ft',
     unitsCount: 14,
     description: 'Layouts inteligentes com aproveitamento integral dos espaços, terraços privativos e acabamento contemporâneo de alto padrão.',
@@ -52,7 +54,7 @@ export const TYPOLOGIES: TypologyCategory[] = [
     key: '2 BEDROOM',
     name: '2 Bedroom',
     label: '2 BEDROOM',
-    startingPrice: 'A partir de AED 1,450,000',
+    basePrice: 1450000,
     startingArea: '1,181 sq.ft',
     unitsCount: 1,
     description: 'Espaços de convivência amplos, suíte master com closet, segundo dormitório privativo e amplo terraço contínuo.',
@@ -61,7 +63,7 @@ export const TYPOLOGIES: TypologyCategory[] = [
     key: '2 BED + STUDY',
     name: '2 Bed + Study',
     label: '2 BED + STUDY',
-    startingPrice: 'A partir de AED 1,690,000',
+    basePrice: 1690000,
     startingArea: '1,503 sq.ft',
     unitsCount: 1,
     description: 'Configuração expandida com home office/estudo dedicado, living integrado e terraço panorâmico de 531 sq.ft.',
@@ -315,6 +317,7 @@ export const FloorplansSection: React.FC = () => {
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
 
   const { openLeadDrawer } = useLeadDrawer();
+  const { formatPrice, currency, disclaimer } = useCurrency();
 
   // Active Typology Data
   const activeTypology = useMemo(() => {
@@ -363,7 +366,7 @@ export const FloorplansSection: React.FC = () => {
         { label: 'SUÍTE', value: `${plan.suiteArea} SQ.FT` },
         { label: 'TERRAÇO', value: `${plan.terraceArea} SQ.FT` },
       ],
-      ctaText: 'REQUEST AVAILABILITY',
+      ctaText: 'RESERVAR MINHA ESCOLHA DE UNIDADE',
       onCtaClick: () => {
         setViewerIndex(null);
         openLeadDrawer();
@@ -383,7 +386,7 @@ export const FloorplansSection: React.FC = () => {
       subtitle: `Implantação · ${floor.levelCode}`,
       tag: 'BUILDING FLOOR PLAN',
       description: floor.description,
-      ctaText: 'REQUEST AVAILABILITY',
+      ctaText: 'RESERVAR MINHA ESCOLHA DE UNIDADE',
       onCtaClick: () => {
         setViewerIndex(null);
         openLeadDrawer();
@@ -419,32 +422,41 @@ export const FloorplansSection: React.FC = () => {
         {/* ========================================================================= */}
         {/* 02. TOP MODE TOGGLE (PLANTAS POR UNIDADE / PLANTAS POR PAVIMENTO)          */}
         {/* ========================================================================= */}
-        <div className="flex flex-wrap items-center gap-3 mb-10 pb-6 border-b border-[#24231F]/10">
-          <button
-            type="button"
-            onClick={() => setViewMode('UNITS')}
-            className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
-              viewMode === 'UNITS'
-                ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
-                : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
-            }`}
-          >
-            <Home className="w-4 h-4" />
-            <span>PLANTAS POR UNIDADE ({REAL_UNIT_FLOORPLANS.length})</span>
-          </button>
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-10 pb-6 border-b border-[#24231F]/10">
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setViewMode('UNITS')}
+              className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
+                viewMode === 'UNITS'
+                  ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
+                  : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
+              }`}
+            >
+              <Home className="w-4 h-4" />
+              <span>PLANTAS POR UNIDADE ({REAL_UNIT_FLOORPLANS.length})</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={() => setViewMode('BUILDING')}
-            className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
-              viewMode === 'BUILDING'
-                ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
-                : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
-            }`}
-          >
-            <Layers className="w-4 h-4" />
-            <span>PAVIMENTOS DO EDIFÍCIO (GF - 5TH)</span>
-          </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('BUILDING')}
+              className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 cursor-pointer ${
+                viewMode === 'BUILDING'
+                  ? 'bg-[#171815] text-[#FAF9F6] shadow-md'
+                  : 'bg-white/80 text-[#5A544C] hover:text-[#171815] border border-[#24231F]/10 hover:border-[#24231F]/30'
+              }`}
+            >
+              <Layers className="w-4 h-4" />
+              <span>PAVIMENTOS DO EDIFÍCIO (GF - 5TH)</span>
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2.5 bg-white/70 px-3.5 py-1.5 rounded-full border border-[#24231F]/10">
+            <span className="font-technical text-[10.5px] uppercase tracking-wider text-[#806B54] font-semibold">
+              MOEDA:
+            </span>
+            <CurrencyToggle variant="light" />
+          </div>
         </div>
 
         {/* ========================================================================= */}
@@ -503,8 +515,13 @@ export const FloorplansSection: React.FC = () => {
                         VALOR ESTIMADO
                       </span>
                       <span className="font-display text-[20px] font-medium text-[#171815]">
-                        {activeTypology.startingPrice}
+                        A partir de {formatPrice(activeTypology.basePrice)}
                       </span>
+                      {currency !== 'AED' && (
+                        <span className="block text-[10.5px] font-technical text-[#8C8477] mt-0.5">
+                          {disclaimer}
+                        </span>
+                      )}
                     </div>
 
                     <div>
@@ -537,7 +554,7 @@ export const FloorplansSection: React.FC = () => {
                     onClick={openLeadDrawer}
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1D3027] hover:bg-[#28372D] text-[#FAF9F6] font-body text-[11px] font-semibold tracking-[0.18em] uppercase transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                   >
-                    <span>CONSULTAR DISPONIBILIDADE</span>
+                    <span>VER UNIDADES DISPONÍVEIS AGORA</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -820,7 +837,7 @@ export const FloorplansSection: React.FC = () => {
               <div>
                 <div className="flex items-center gap-3 mb-1">
                   <span className="font-technical text-[16px] sm:text-[18px] font-semibold text-white tracking-wider">
-                    EOI — AED 50,000
+                    EOI — {formatPrice(50000)}
                   </span>
                   <span className="font-technical text-[10px] text-champagne bg-champagne/15 px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">
                     100% REEMBOLSÁVEL
@@ -829,6 +846,11 @@ export const FloorplansSection: React.FC = () => {
                 <p className="font-body text-[12px] sm:text-[12.5px] text-[#B5AEA4] leading-relaxed">
                   Garante prioridade na alocação da unidade desejada antes da abertura pública de vendas.
                 </p>
+                {currency !== 'AED' && (
+                  <p className="font-technical text-[11px] text-[#D1CCC3]/70 mt-1">
+                    {disclaimer}
+                  </p>
+                )}
               </div>
 
               <div className="pt-2">
@@ -837,7 +859,7 @@ export const FloorplansSection: React.FC = () => {
                   onClick={openLeadDrawer}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#FAF9F6] hover:bg-white text-[#171815] font-body text-[11px] font-semibold tracking-[0.20em] uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
                 >
-                  <span>REQUEST AVAILABILITY</span>
+                  <span>RESERVAR MINHA ESCOLHA DE UNIDADE</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>

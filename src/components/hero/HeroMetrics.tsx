@@ -1,9 +1,17 @@
+'use client';
+
 import React from 'react';
+import { useCurrency } from '@/context/CurrencyContext';
 
 export const HeroMetrics: React.FC = () => {
+  const { formatCompact } = useCurrency();
+
+  const startingPrice = formatCompact(679000, { showPlus: true });
+  const eoiPrice = formatCompact(50000, { showPlus: false });
+
   const metrics = [
-    { value: 'AED 679K+', label: 'A PARTIR DE' },
-    { value: 'AED 50K', label: 'EOI REEMBOLSÁVEL' },
+    { value: startingPrice, label: 'A PARTIR DE' },
+    { value: eoiPrice, label: 'EOI REEMBOLSÁVEL' },
     { value: '40/60', label: 'PLANO DE PAGAMENTO' },
     { value: 'Q1 2029', label: 'ENTREGA PREVISTA' },
   ];

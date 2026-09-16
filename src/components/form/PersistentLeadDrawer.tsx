@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { LeadForm } from '@/components/form/FixedLeadForm';
+import { useCurrency } from '@/context/CurrencyContext';
 
 // CONTEXT FOR GLOBAL LEAD DRAWER TRIGGER
 interface LeadDrawerContextType {
@@ -24,6 +25,7 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [showFloatingCta, setShowFloatingCta] = useState(false);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
+  const { formatPrice } = useCurrency();
 
   const openLeadDrawer = () => setIsOpen(true);
   const closeLeadDrawer = () => {
@@ -88,7 +90,7 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           onClick={openLeadDrawer}
           className="h-[52px] px-6 rounded-pill bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[11px] font-semibold tracking-[0.12em] uppercase flex items-center gap-2.5 transition-all duration-base ease-luxury shadow-[0_12px_36px_rgba(20,25,20,0.28)] hover:shadow-[0_16px_44px_rgba(20,25,20,0.36)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#28372D] cursor-pointer"
         >
-          <span>QUERO MINHA PRIORIDADE</span>
+          <span>QUERO INVESTIR COM PRIORIDADE</span>
           <ArrowRight className="w-4 h-4 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />
         </button>
       </div>
@@ -107,7 +109,7 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             ACESSO ANTECIPADO
           </span>
           <span className="font-technical text-[11px] font-medium text-[#FAF9F6]">
-            EOI AED 50.000 · 100% REEMBOLSÁVEL
+            EOI {formatPrice(50000)} · 100% REEMBOLSÁVEL
           </span>
         </div>
 
@@ -116,7 +118,7 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           onClick={openLeadDrawer}
           className="h-10 px-5 rounded-full bg-[#FAF9F6] text-[#1D3027] font-body text-[11px] font-bold uppercase tracking-[0.10em] flex items-center gap-1.5 hover:bg-ivory transition-colors active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FAF9F6] cursor-pointer shadow-sm"
         >
-          <span>QUERO PRIORIDADE</span>
+          <span>QUERO INVESTIR COM PRIORIDADE</span>
           <ArrowRight className="w-3.5 h-3.5 stroke-[2]" />
         </button>
       </div>

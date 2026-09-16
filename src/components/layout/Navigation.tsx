@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { PrimaryButton } from '@/components/ui/Button';
 import { BrandLogo } from '@/components/ui/BrandLogo';
+import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 interface NavigationProps {
   onCtaClick?: () => void;
@@ -12,6 +14,7 @@ interface NavigationProps {
 }
 
 export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSection }) => {
+  const { formatPrice } = useCurrency();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -87,14 +90,18 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
           </nav>
 
           {/* DESKTOP CTA & MOBILE HAMBURGER */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div>
+              <CurrencyToggle variant={isScrolled ? 'light' : 'dark'} />
+            </div>
+
             <div className="hidden sm:block">
               <PrimaryButton
                 size="sm"
                 onClick={onCtaClick}
                 className="hidden lg:inline-flex"
               >
-                QUERO MINHA PRIORIDADE
+                QUERO INVESTIR COM PRIORIDADE
               </PrimaryButton>
             </div>
 
@@ -119,6 +126,10 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
       {/* MOBILE MENU OVERLAY */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-30 bg-[rgba(250,249,246,0.98)] backdrop-blur-xl xl:hidden pt-28 pb-10 px-6 flex flex-col justify-between animate-fadeIn">
+          <div className="py-2">
+            <CurrencyToggle variant="light" />
+          </div>
+
           <nav className="flex flex-col gap-5 divide-y divide-charcoal/[0.08]">
             {navLinks.map((link) => (
               <Link
@@ -141,10 +152,10 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
                 if (onCtaClick) onCtaClick();
               }}
             >
-              QUERO MINHA PRIORIDADE
+              QUERO INVESTIR COM PRIORIDADE
             </PrimaryButton>
             <span className="font-body text-center text-xs text-charcoal/60">
-              EOI DE AED 50.000 · 100% REEMBOLSÁVEL
+              EOI DE {formatPrice(50000)} · 100% REEMBOLSÁVEL
             </span>
           </div>
         </div>

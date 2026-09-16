@@ -3,6 +3,8 @@
 import React, { useState, useId } from 'react';
 import { X, Lock, CheckCircle2, ArrowRight, AlertCircle, Loader2 } from 'lucide-react';
 import { GlemoLogo } from '@/components/ui/GlemoLogo';
+import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 export interface LeadFormData {
   name: string;
@@ -28,6 +30,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { formatPrice } = useCurrency();
 
   const [formData, setFormData] = useState<LeadFormData>({
     name: '',
@@ -70,7 +73,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   };
 
   const interestOptions = [
-    { value: 'studio', label: 'Studio (A partir de AED 679K)' },
+    { value: 'studio', label: `Studio (A partir de ${formatPrice(679000)})` },
     { value: '1-quarto', label: '1 quarto' },
     { value: '1-quarto-escritorio', label: '1 quarto + escritório' },
     { value: '2-quartos', label: '2 quartos' },
@@ -97,20 +100,25 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         )}
       </div>
 
-      {/* 02. EDITORIAL HEADER */}
-      <div>
-        <span className="font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[#806B54] block">
-          {subtitle}
-        </span>
-        <h3 className="font-display font-normal text-[26px] sm:text-[28px] leading-[0.94] text-[#2C241F] mt-0.5">
-          {title}
-        </h3>
+      {/* 02. EDITORIAL HEADER & CURRENCY TOGGLE */}
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <span className="font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[#806B54] block">
+            {subtitle}
+          </span>
+          <h3 className="font-display font-normal text-[24px] sm:text-[26px] leading-[0.96] text-[#2C241F] mt-0.5">
+            {title}
+          </h3>
+        </div>
+        <div className="shrink-0 pt-0.5">
+          <CurrencyToggle variant="light" />
+        </div>
       </div>
 
       {/* 03. EOI SUPPORTING LINE */}
       <div className="mt-1.5 mb-2.5 pb-2 border-b border-[#2C241F]/10">
         <span className="font-body text-[9px] font-semibold uppercase tracking-[0.08em] text-[#2C241F]/80 block">
-          EOI DE AED 50.000 · <span className="text-[#1D3027] font-bold">100% REEMBOLSÁVEL</span>
+          EOI DE {formatPrice(50000)} · <span className="text-[#1D3027] font-bold">100% REEMBOLSÁVEL</span>
         </span>
       </div>
 
@@ -273,7 +281,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               <Loader2 className="w-4 h-4 animate-spin text-[#FAF9F6]" />
             ) : (
               <>
-                <span className="relative z-10 font-bold tracking-[0.12em]">ACESSAR TABELA DE PRÉ-LANÇAMENTO</span>
+                <span className="relative z-10 font-bold tracking-[0.12em]">GARANTIR MINHA PRIORIDADE NA TABELA</span>
                 <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[2]" />
               </>
             )}

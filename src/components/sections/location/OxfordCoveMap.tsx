@@ -19,6 +19,7 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
 
   const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({});
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   // Project geographic [lng, lat] coordinates to screen pixels
   const updateScreenPositions = useCallback(() => {
@@ -50,6 +51,25 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
   useEffect(() => {
     if (!mapContainerRef.current || mapInstanceRef.current) return;
 
+    // 01. WebGL Support Verification
+    const checkWebGL = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        return !!(
+          window.WebGLRenderingContext &&
+          (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+        );
+      } catch (e) {
+        return false;
+      }
+    };
+
+    if (!checkWebGL()) {
+      console.warn('WebGL is not supported in this environment.');
+      setHasError(true);
+      return;
+    }
+
     const isMobile = window.innerWidth < 768;
 
     try {
@@ -63,6 +83,14 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
       });
 
       mapInstanceRef.current = map;
+
+      map.on('error', (e) => {
+        console.error('MapLibre error:', e);
+        // Only set error if critical style or rendering failure
+        if (e.error?.message?.includes('WebGL') || e.error?.message?.includes('Context')) {
+          setHasError(true);
+        }
+      });
 
       map.on('load', () => {
         updateScreenPositions();
@@ -93,6 +121,7 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
       };
     } catch (err) {
       console.error('Error initializing map:', err);
+      setHasError(true);
     }
   }, [updateScreenPositions, onMapReady]);
 
@@ -105,8 +134,20 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
         style={{ width: '100%', height: '100%' }}
       />
 
+      {/* FALLBACK IF WEBGL FAILS */}
+      {hasError && (
+        <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-[#F3EFE8] z-10">
+          <iframe
+            title="Mapa Oxford Cove Dubai JVC"
+            src="https://maps.google.com/maps?q=Jumeirah+Village+Circle+Dubai&t=&z=11&ie=UTF8&iwloc=&output=embed"
+            className="w-full h-full border-0 opacity-75 grayscale contrast-125"
+            loading="lazy"
+          />
+        </div>
+      )}
+
       {/* 02. OVERLAYS: SVG CONNECTION LINES & CUSTOM PINS */}
-      {isLoaded && (
+      {isLoaded && !hasError && (
         <>
           <ConnectionLines positions={positions} />
           <CustomMarkers positions={positions} />
