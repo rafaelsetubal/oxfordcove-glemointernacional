@@ -6,7 +6,26 @@ import { Play, X } from 'lucide-react';
 
 export const ExperienceSection: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handlePlayClick = () => {
     if (videoRef.current) {
@@ -22,6 +41,7 @@ export const ExperienceSection: React.FC = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="experiencia"
       className="relative w-full min-h-[75vh] lg:min-h-[85vh] flex items-center justify-center py-20 lg:py-28 overflow-hidden select-none bg-[#F5F2EB] border-t border-[#24231F]/8"
     >
@@ -38,7 +58,11 @@ export const ExperienceSection: React.FC = () => {
       </div>
 
       {/* 02. EDITORIAL & WIDESCREEN VIDEO CONTAINER */}
-      <div className="relative z-10 w-full container-master flex flex-col items-center text-center px-4">
+      <div
+        className={`relative z-10 w-full container-master flex flex-col items-center text-center px-4 transition-all duration-700 ease-luxury gpu-accel ${
+          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+      >
         
         {/* TAG SUPERIOR */}
         <span className="font-body text-xs font-semibold tracking-widest uppercase text-[#8C8275] mb-2.5 block">

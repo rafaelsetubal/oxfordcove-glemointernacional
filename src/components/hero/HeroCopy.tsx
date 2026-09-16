@@ -8,42 +8,50 @@ export const HeroCopy: React.FC = () => {
   const { formatPrice } = useCurrency();
 
   return (
-    <div className="flex flex-col select-none max-w-[560px] animate-fadeIn">
+    <div className="flex flex-col select-none max-w-[560px] gpu-accel">
       {/* 01. TAG SUPERIOR */}
-      <div className="mb-3 sm:mb-4">
+      <div className="mb-3 sm:mb-4 animate-fade-up" style={{ animationDelay: '100ms' }}>
         <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-widest uppercase text-[#D4C7B5] block">
           DUBAI EM OUTRO RITMO
         </span>
       </div>
 
       {/* 02. HEADLINE (Cormorant Garamond, SemiBold/Medium, #F8F5F0) */}
-      <h1 className="font-display font-medium text-[48px] sm:text-[62px] lg:text-[clamp(64px,5.8vw,88px)] leading-[0.92] tracking-[-0.035em] text-[#F8F5F0] drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">
+      <h1
+        className="font-display font-medium text-[48px] sm:text-[62px] lg:text-[clamp(64px,5.8vw,88px)] leading-[0.92] tracking-[-0.035em] text-[#F8F5F0] drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] animate-fade-up"
+        style={{ animationDelay: '250ms' }}
+      >
         Entre antes
         <br />
         do mercado.
       </h1>
 
       {/* 03. SUBTÍTULO DE LOCALIZAÇÃO */}
-      <div className="mt-3.5 sm:mt-4">
+      <div className="mt-3.5 sm:mt-4 animate-fade-up" style={{ animationDelay: '400ms' }}>
         <span className="font-display font-medium text-[22px] sm:text-[25px] lg:text-[28px] leading-tight text-[#FAF8F5] block">
           Oxford Cove by IMAN • Jumeirah Village Circle
         </span>
       </div>
 
       {/* 04. PARÁGRAFO DE APOIO (PROMESSA TANGÍVEL DE POSICIONAMENTO FINANCEIRO) */}
-      <p className="font-body text-[14px] sm:text-[15px] leading-[1.60] text-[#EAE5DC] mt-3 sm:mt-4 mb-4 sm:mb-5 max-w-[480px]">
+      <p
+        className="font-body text-[14px] sm:text-[15px] leading-[1.60] text-[#EAE5DC] mt-3 sm:mt-4 mb-4 sm:mb-5 max-w-[480px] animate-fade-up"
+        style={{ animationDelay: '550ms' }}
+      >
         Acesso prioritário a um dos projetos boutique de maior potencial de valorização em JVC, com condições exclusivas de pré-lançamento.
       </p>
 
       {/* 05. INVESTMENT METRICS */}
-      <HeroMetrics />
-      <CurrencyDisclaimer className="mt-2 text-white/70" />
+      <div className="animate-fade-up" style={{ animationDelay: '700ms' }}>
+        <HeroMetrics />
+        <CurrencyDisclaimer className="mt-2 text-white/70" />
+      </div>
 
       {/* 06. MOBILE CONVERSION CTA BUTTON (REFINED CREAM/GOLD SHIMMER) */}
-      <div className="md:hidden mt-6 sm:mt-8 flex flex-col items-stretch gap-2.5">
+      <div className="md:hidden mt-6 sm:mt-8 flex flex-col items-stretch gap-2.5 animate-fade-up" style={{ animationDelay: '850ms' }}>
         <a
           href="#cadastro-mobile"
-          className="relative w-full h-[52px] rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2.5 transition-all shadow-[0_4px_22px_rgba(223,200,154,0.40)] animate-pulse-gold overflow-hidden border border-[#D8C7A5]/60 active:scale-[0.98]"
+          className="relative w-full h-[52px] rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2.5 transition-all duration-300 shadow-[0_4px_22px_rgba(223,200,154,0.40)] hover:shadow-[0_6px_28px_rgba(223,200,154,0.60)] animate-pulse-gold overflow-hidden border border-[#D8C7A5]/60 active:scale-[0.98] cursor-pointer"
         >
           {/* GOLD SHIMMER OVERLAY */}
           <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/75 to-transparent pointer-events-none" />

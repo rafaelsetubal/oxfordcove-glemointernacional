@@ -74,7 +74,11 @@ export const InvestmentSection: React.FC = () => {
       id="investimento"
       className="relative w-full bg-[#F5F2EC] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/10 select-none overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-14">
+      <div
+        className={`max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-14 transition-all duration-700 ease-luxury gpu-accel ${
+          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+      >
         
         {/* ========================================================================= */}
         {/* 01. EDITORIAL HEADER                                                      */}

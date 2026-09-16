@@ -5,6 +5,26 @@ import Image from 'next/image';
 import { ArrowRight, Building2, MapPin, LayoutGrid } from 'lucide-react';
 
 export const ProductSection: React.FC = () => {
+  const [isInView, setIsInView] = React.useState(false);
+  const sectionRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToHeroForm = () => {
     const formElement = document.getElementById('hero-lead-form');
     if (formElement) {
@@ -18,6 +38,7 @@ export const ProductSection: React.FC = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="projeto"
       className="relative w-full min-h-[90svh] lg:min-h-[100svh] flex items-center py-20 lg:py-28 overflow-hidden bg-[#F5F2EB] select-none border-t border-[#24231F]/8"
     >
@@ -53,7 +74,11 @@ export const ProductSection: React.FC = () => {
 
       {/* 04. EDITORIAL CONTENT BLOCK (MAX 530PX ANCHORED ON SOLID OPAQUE ZONE) */}
       <div className="relative z-10 w-full container-master">
-        <div className="max-w-[530px] flex flex-col justify-center space-y-5 lg:space-y-6">
+        <div
+          className={`max-w-[530px] flex flex-col justify-center space-y-5 lg:space-y-6 transition-all duration-700 ease-luxury gpu-accel ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
           
           {/* LOGO OXFORD COVE & OVERLINE TAG */}
           <div className="flex flex-col space-y-2">

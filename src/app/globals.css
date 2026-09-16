@@ -192,30 +192,58 @@ body {
   }
 }
 
-/* EDITORIAL CHAPTER TRANSITIONS */
-@keyframes chapterFade {
+/* EDITORIAL CHAPTER & LUXURY REVEAL TRANSITIONS */
+@keyframes luxuryFadeUp {
   0% {
     opacity: 0;
-    transform: translateY(6px);
-    filter: blur(4px);
+    transform: translateY(18px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0px);
   }
 }
 
-@keyframes contentFade {
+@keyframes luxuryFadeScale {
   0% {
     opacity: 0;
-    transform: translateY(10px);
-    filter: blur(3px);
+    transform: scale(0.96) translateY(12px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px);
+    transform: scale(1) translateY(0);
   }
 }
 
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-fade-up {
+  animation: luxuryFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-scale {
+  animation: luxuryFadeScale 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float-slow {
+  animation: subtleFloat 4s ease-in-out infinite;
+}
+
+/* HARDWARE ACCELERATION & MOBILE TAP OPTIMIZATION */
+.gpu-accel {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}

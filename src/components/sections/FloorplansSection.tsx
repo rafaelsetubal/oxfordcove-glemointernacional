@@ -314,6 +314,25 @@ export const FloorplansSection: React.FC = () => {
   // GalleryViewer state
   const [viewerItems, setViewerItems] = useState<GalleryViewerItem[]>([]);
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.10 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const { openLeadDrawer } = useLeadDrawer();
   const { formatPrice, currency, disclaimer } = useCurrency();
@@ -398,10 +417,15 @@ export const FloorplansSection: React.FC = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="plantas"
       className="relative w-full bg-[#FAF9F6] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/10 select-none overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-14">
+      <div
+        className={`max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-14 transition-all duration-700 ease-luxury gpu-accel ${
+          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+      >
         
         {/* ========================================================================= */}
         {/* 01. SECTION HEADER                                                        */}

@@ -235,6 +235,25 @@ export const AmenitiesSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('TODOS');
   const [fullscreenIndex, setFullscreenIndex] = useState<number | null>(null);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isInView, setIsInView] = useState<boolean>(false);
+  const sectionRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // Filtered items for display and navigation
   const filteredItems = useMemo(() => {
@@ -260,10 +279,15 @@ export const AmenitiesSection: React.FC = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="amenities"
       className="relative w-full bg-[#F4F1EA] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/8 select-none"
     >
-      <div className="container-master px-4 sm:px-6 lg:px-8">
+      <div
+        className={`container-master px-4 sm:px-6 lg:px-8 transition-all duration-700 ease-luxury gpu-accel ${
+          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+      >
         
         {/* ========================================================================= */}
         {/* 01. EDITORIAL HEADER                                                      */}
