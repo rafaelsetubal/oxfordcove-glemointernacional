@@ -1,0 +1,209 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { BrandLogo } from '@/components/ui/BrandLogo';
+
+interface HeroNavigationProps {
+  onCtaClick?: () => void;
+  activeSection?: string;
+}
+
+export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, activeSection }) => {
+  const scrollToHeroForm = () => {
+    if (onCtaClick) {
+      onCtaClick();
+      return;
+    }
+    const formElement = document.getElementById('hero-lead-form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+      const firstInput = formElement.querySelector('input') as HTMLInputElement | null;
+      if (firstInput) firstInput.focus();
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleCta = scrollToHeroForm;
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Trigger scrolled state when leaving the top of Hero
+      setIsScrolled(window.scrollY > 60);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { label: 'O PROJETO', href: '#projeto' },
+    { label: 'EXPERIÊNCIA', href: '#experiencia' },
+    { label: 'AMENITIES', href: '#amenities' },
+    { label: 'PLANTAS', href: '#plantas' },
+    { label: 'LOCALIZAÇÃO', href: '#localizacao' },
+    { label: 'INVESTIMENTO', href: '#investimento' },
+  ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      const yOffset = -70;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <>
+      {/* 01. TOP GRADIENT PROTECTION OVER HERO (Active when at the top: 90px) */}
+      <div
+        className={`fixed top-0 left-0 w-full h-[90px] pointer-events-none z-40 transition-opacity duration-base ease-luxury ${
+          isScrolled ? 'opacity-0' : 'opacity-100'
+        }`}
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(10, 10, 10, 0.50) 0%, rgba(10, 10, 10, 0) 100%)',
+        }}
+      />
+
+      {/* 02. FIXED HEADER (Fixed across the entire landing page) */}
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-base ease-luxury ${
+          isScrolled
+            ? 'h-[68px] md:h-[72px] bg-[rgba(18,16,14,0.85)] backdrop-blur-[12px] border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)]'
+            : 'h-[80px] md:h-[92px] bg-transparent border-b border-transparent'
+        }`}
+      >
+        <div className="container-master h-full flex items-center justify-between">
+          {/* BRAND LOGO (Always crisp White on both Hero and Scrolled Dark Header) */}
+          <div className="flex items-center">
+            <BrandLogo
+              variant="white"
+              size="sm"
+              showSubtitle={true}
+              href="/"
+            />
+          </div>
+
+          {/* DESKTOP MENU */}
+          <nav className="hidden xl:flex items-center gap-6 lg:gap-7">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.replace('#', '');
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`font-body text-[11px] font-medium tracking-[0.18em] uppercase transition-colors duration-fast relative py-1.5 cursor-pointer ${
+                    isScrolled
+                      ? isActive
+                        ? 'text-champagne font-semibold'
+                        : 'text-[#EDE8DF]/85 hover:text-[#FAF9F6]'
+                      : isActive
+                      ? 'text-white font-semibold'
+                      : 'text-white/90 hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span
+                      className={`absolute bottom-0 left-0 w-full h-px ${
+                        isScrolled ? 'bg-champagne' : 'bg-white'
+                      }`}
+                    />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* CTA IN HEADER (Fades in smoothly when scrolled past Hero) */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleCta}
+              className={`hidden lg:inline-flex items-center justify-center gap-2 h-[42px] px-5 rounded-pill font-body text-[10.5px] font-semibold tracking-[0.14em] uppercase transition-all duration-base ease-luxury active:scale-[0.98] group cursor-pointer ${
+                isScrolled
+                  ? 'opacity-100 translate-y-0 pointer-events-auto bg-[#28372D] text-[#FAF9F6] hover:bg-[#1D3027] border border-white/10 shadow-sm'
+                  : 'opacity-0 -translate-y-2 pointer-events-none'
+              }`}
+            >
+              <span>QUERO MINHA PRIORIDADE</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />
+            </button>
+
+            {/* MOBILE HAMBURGER BUTTON */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="xl:hidden p-2 text-white transition-colors cursor-pointer"
+              aria-label="Menu"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6 stroke-[1.5]" />
+              ) : (
+                <Menu className="w-6 h-6 stroke-[1.5]" />
+              )}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* MOBILE DRAWER OVERLAY */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-[#171815]/95 backdrop-blur-2xl xl:hidden pt-24 pb-10 px-6 flex flex-col justify-between animate-fadeIn text-warm-white">
+          <div className="flex justify-between items-center pb-4 border-b border-white/10">
+            <BrandLogo variant="white" size="sm" showSubtitle={true} href="/" />
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 text-white cursor-pointer"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6 stroke-[1.5]" />
+            </button>
+          </div>
+
+          <nav className="flex flex-col gap-4 divide-y divide-white/10">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="font-display text-2xl font-normal text-white hover:text-champagne transition-colors pt-3.5 first:pt-0 cursor-pointer"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex flex-col gap-4 pt-6 border-t border-white/10 mt-6">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                handleCta();
+              }}
+              className="w-full h-12 rounded-sm bg-olive text-warm-white font-body text-xs uppercase font-semibold tracking-btn flex items-center justify-center gap-2 hover:bg-forest transition-colors"
+            >
+              <span>QUERO MINHA PRIORIDADE</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+            <span className="font-body text-center text-[11px] text-white/70">
+              EOI DE AED 50.000 · 100% REEMBOLSÁVEL
+            </span>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
