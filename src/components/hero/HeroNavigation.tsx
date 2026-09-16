@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 interface HeroNavigationProps {
   onCtaClick?: () => void;
@@ -128,8 +129,10 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             })}
           </nav>
 
-          {/* CTA IN HEADER */}
+          {/* CURRENCY TOGGLE & CTA IN HEADER */}
           <div className="flex items-center gap-2 sm:gap-3">
+            <CurrencyToggle variant="dark" />
+
             <button
               type="button"
               onClick={handleCta}
@@ -170,6 +173,13 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             >
               <X className="w-6 h-6 stroke-[1.5]" />
             </button>
+          </div>
+
+          <div className="flex items-center justify-between py-3.5 border-b border-white/10">
+            <span className="font-technical text-[10.5px] uppercase tracking-wider text-champagne font-semibold">
+              MOEDA / CURRENCY:
+            </span>
+            <CurrencyToggle variant="dark" />
           </div>
 
           <nav className="flex flex-col gap-4 divide-y divide-white/10 my-auto">

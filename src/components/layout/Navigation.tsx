@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react';
 import { PrimaryButton } from '@/components/ui/Button';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencyToggle } from '@/components/ui/CurrencyToggle';
 
 interface NavigationProps {
   onCtaClick?: () => void;
@@ -90,7 +91,9 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
           </nav>
 
           {/* DESKTOP CTA & MOBILE HAMBURGER */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <CurrencyToggle variant={isScrolled ? 'light' : 'dark'} />
+
             <div className="hidden sm:block">
               <PrimaryButton
                 size="sm"
@@ -105,7 +108,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 text-charcoal hover:text-forest focus:outline-none transition-colors"
+              className="xl:hidden p-2 text-charcoal hover:text-forest focus:outline-none transition-colors cursor-pointer"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -122,6 +125,13 @@ export const Navigation: React.FC<NavigationProps> = ({ onCtaClick, activeSectio
       {/* MOBILE MENU OVERLAY */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-30 bg-[rgba(250,249,246,0.98)] backdrop-blur-xl xl:hidden pt-28 pb-10 px-6 flex flex-col justify-between animate-fadeIn">
+          <div className="flex items-center justify-between py-3 border-b border-charcoal/10">
+            <span className="font-technical text-[10.5px] uppercase tracking-wider text-[#806B54] font-semibold">
+              MOEDA:
+            </span>
+            <CurrencyToggle variant="light" />
+          </div>
+
           <nav className="flex flex-col gap-5 divide-y divide-charcoal/[0.08] my-auto">
             {navLinks.map((link) => (
               <Link

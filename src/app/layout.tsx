@@ -31,7 +31,6 @@ export const metadata: Metadata = {
 
 import { LeadDrawerProvider } from '@/components/form/PersistentLeadDrawer';
 import { CurrencyProvider } from '@/context/CurrencyContext';
-import { FloatingCurrencyWidget } from '@/components/ui/FloatingCurrencyWidget';
 
 export default function RootLayout({
   children,
@@ -44,7 +43,6 @@ export default function RootLayout({
         <CurrencyProvider>
           <LeadDrawerProvider>
             {children}
-            <FloatingCurrencyWidget />
           </LeadDrawerProvider>
         </CurrencyProvider>
       </body>
