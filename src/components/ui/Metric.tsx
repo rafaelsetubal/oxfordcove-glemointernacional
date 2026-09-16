@@ -68,13 +68,13 @@ export const Metric: React.FC<MetricProps> = ({
 
   return (
     <div className={`flex flex-col ${sizeClasses.gap} ${themeClasses.wrapper} ${className}`}>
-      <div className="flex items-baseline gap-2 font-display leading-[0.95] tracking-tight">
+      <div className="flex items-baseline gap-2 font-body font-bold leading-[0.95] tracking-tight">
         {prefix && (
           <span className={`text-sm md:text-base font-normal tracking-normal ${themeClasses.prefix}`}>
             {prefix}
           </span>
         )}
-        <span className={`font-normal ${sizeClasses.valueText} ${themeClasses.value}`}>
+        <span className={`font-bold ${sizeClasses.valueText} ${themeClasses.value}`}>
           {value}
         </span>
         {suffix && (

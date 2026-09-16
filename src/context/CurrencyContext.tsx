@@ -35,7 +35,7 @@ interface CurrencyContextType {
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
 export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currency, setCurrencyState] = useState<Currency>('AED');
+  const [currency, setCurrencyState] = useState<Currency>('USD');
   const [rates, setRates] = useState<ExchangeRates>(FALLBACK_RATES);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 

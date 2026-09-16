@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { ArrowRight, ShieldCheck, Sparkles, Bell } from 'lucide-react';
 import { useLeadDrawer } from '@/components/form/PersistentLeadDrawer';
+import { useCurrency } from '@/context/CurrencyContext';
 
 interface TimelineStep {
   number: string;
@@ -71,6 +72,7 @@ const TIMELINE_STEPS: TimelineStep[] = [
 
 export const PaymentPlanSection: React.FC = () => {
   const { openLeadDrawer } = useLeadDrawer();
+  const { formatPrice, currency, disclaimer } = useCurrency();
   const [isInView, setIsInView] = useState<boolean>(false);
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -229,7 +231,7 @@ export const PaymentPlanSection: React.FC = () => {
                     
                     {/* PERCENTAGE HTML TEXT (+25% LARGER WITH HIGH CONTRAST) */}
                     <span
-                      className={`relative z-10 font-display text-[38px] lg:text-[44px] font-medium leading-none ${step.textColor} ${step.textShadow || ''}`}
+                      className={`relative z-10 font-body text-[32px] lg:text-[36px] font-extrabold leading-none tracking-tight ${step.textColor} ${step.textShadow || ''}`}
                     >
                       {step.percentage}
                     </span>
@@ -283,7 +285,7 @@ export const PaymentPlanSection: React.FC = () => {
                     )}
                     
                     <span
-                      className={`relative z-10 font-display text-[22px] font-medium leading-none ${step.textColor} ${step.textShadow || ''}`}
+                      className={`relative z-10 font-body text-[20px] font-extrabold leading-none tracking-tight ${step.textColor} ${step.textShadow || ''}`}
                     >
                       {step.percentage}
                     </span>
@@ -312,7 +314,7 @@ export const PaymentPlanSection: React.FC = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* 04. EOI PANEL (UNIFIED LUXURY EDITORIAL BLOCK · FIXED AED 50,000)         */}
+        {/* 04. EOI PANEL (UNIFIED LUXURY EDITORIAL BLOCK · DYNAMIC CONVERSION)       */}
         {/* ========================================================================= */}
         <div
           className={`relative w-full rounded-[22px] sm:rounded-[26px] p-6 sm:p-8 lg:p-10 text-[#FAF9F6] overflow-hidden shadow-[0_16px_44px_rgba(29,48,39,0.22)] bg-[#192720] gpu-accel reveal-blur-init ${
@@ -333,17 +335,22 @@ export const PaymentPlanSection: React.FC = () => {
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             
-            {/* LEFT: EOI VALUE & TITLE (FIXED TO EXACT AED 50,000 WITHOUT CONVERSION) */}
+            {/* LEFT: EOI VALUE & TITLE */}
             <div className="lg:col-span-4 lg:pr-6 lg:border-r border-white/15">
               <span className="font-technical text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-champagne block mb-1.5 font-semibold">
                 EXPRESSÃO DE INTERESSE (EOI)
               </span>
-              <div className="font-display text-[36px] sm:text-[44px] lg:text-[48px] font-medium text-white leading-none mb-2 tracking-tight">
-                AED 50,000
+              <div className="font-body text-[30px] sm:text-[36px] lg:text-[40px] font-bold text-white leading-none mb-2 tracking-tight">
+                {formatPrice(50000)}
               </div>
               <div className="space-y-0.5 font-body text-[12.5px] sm:text-[13px] text-[#D1CCC3]">
                 <p className="font-semibold text-white/95">100% Reembolsável</p>
                 <p className="text-[#D1CCC3]/80">Acesso prioritário no pré-lançamento</p>
+                {currency !== 'AED' && (
+                  <p className="text-[10px] sm:text-[10.5px] text-[#B7A489] font-medium pt-1">
+                    {disclaimer}
+                  </p>
+                )}
               </div>
             </div>
 

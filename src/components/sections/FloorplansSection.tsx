@@ -534,7 +534,7 @@ export const FloorplansSection: React.FC = () => {
                       <span className="font-technical text-[10.5px] uppercase tracking-wider text-[#806B54] block">
                         VALOR ESTIMADO
                       </span>
-                      <span className="font-display text-[20px] font-medium text-[#171815]">
+                      <span className="font-body text-[19px] sm:text-[20px] font-bold text-[#171815] tracking-tight">
                         A partir de {formatPrice(activeTypology.basePrice)}
                       </span>
                       {currency !== 'AED' && (
@@ -600,7 +600,7 @@ export const FloorplansSection: React.FC = () => {
                             <span className="font-technical text-[10px] uppercase tracking-wider text-[#806B54] block">
                               UNIDADE
                             </span>
-                            <h4 className="font-display font-medium text-[24px] text-[#171815] leading-none">
+                            <h4 className="font-body font-bold text-[22px] sm:text-[24px] text-[#171815] leading-none tracking-tight">
                               {plan.unit}
                             </h4>
                           </div>

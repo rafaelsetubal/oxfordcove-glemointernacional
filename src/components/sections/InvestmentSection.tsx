@@ -158,7 +158,7 @@ export const InvestmentSection: React.FC = () => {
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="font-display text-[26px] sm:text-[32px] font-normal text-[#171815] leading-none block">
+                    <span className="font-body text-[22px] sm:text-[26px] font-bold text-[#171815] leading-none block tracking-tight">
                       AED 980K
                     </span>
                     <span className="font-technical text-[10px] sm:text-[11px] text-[#806B54] uppercase tracking-wider">
@@ -241,7 +241,7 @@ export const InvestmentSection: React.FC = () => {
                     <span className="font-body text-[10.5px] sm:text-[11.5px] font-normal text-white/80 block">
                       Compra
                     </span>
-                    <span className="font-display text-[15px] sm:text-[17px] font-medium text-white block leading-tight">
+                    <span className="font-body text-[14px] sm:text-[16px] font-bold text-white block leading-tight tracking-tight">
                       AED 420K
                     </span>
                   </div>
@@ -254,7 +254,7 @@ export const InvestmentSection: React.FC = () => {
                     <span className="font-body text-[11px] sm:text-[12px] font-normal text-white/80 block">
                       Revenda
                     </span>
-                    <span className="font-display text-[17px] sm:text-[19px] font-semibold text-white block leading-tight">
+                    <span className="font-body text-[16px] sm:text-[18px] font-bold text-white block leading-tight tracking-tight">
                       AED 980K
                     </span>
                   </div>
@@ -305,7 +305,7 @@ export const InvestmentSection: React.FC = () => {
                         />
 
                         {/* Minimum Value */}
-                        <span className="relative z-10 font-display text-[14px] sm:text-[16px] font-semibold text-white drop-shadow-sm">
+                        <span className="relative z-10 font-body text-[13px] sm:text-[14.5px] font-bold text-white drop-shadow-sm">
                           {item.min}
                         </span>
 
@@ -317,7 +317,7 @@ export const InvestmentSection: React.FC = () => {
                         </div>
 
                         {/* Maximum Value */}
-                        <span className="relative z-10 font-display text-[14px] sm:text-[16px] font-semibold text-[#171815] group-hover:text-white transition-colors duration-300">
+                        <span className="relative z-10 font-body text-[13px] sm:text-[14.5px] font-bold text-[#171815] group-hover:text-white transition-colors duration-300">
                           {item.max}
                         </span>
                       </div>
@@ -352,7 +352,7 @@ export const InvestmentSection: React.FC = () => {
                   </span>
                   
                   {/* +133% HERO NUMBER */}
-                  <div className="font-display text-[60px] sm:text-[76px] lg:text-[84px] font-light leading-[0.92] text-[#FAF9F6] tracking-tight mb-2">
+                  <div className="font-body text-[50px] sm:text-[62px] lg:text-[70px] font-extrabold leading-[0.92] text-[#FAF9F6] tracking-tight mb-2">
                     +133%
                   </div>
                   <span className="font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.22em] uppercase text-[#D1CCC3] block mb-6">
@@ -366,7 +366,7 @@ export const InvestmentSection: React.FC = () => {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="font-display text-[20px] sm:text-[24px] font-normal text-white block leading-none">
+                        <span className="font-body text-[18px] sm:text-[21px] font-bold text-white block leading-none tracking-tight">
                           AED 420K
                         </span>
                         <span className="font-body text-[10px] sm:text-[10.5px] text-[#B5AEA4] uppercase tracking-wider">
@@ -375,7 +375,7 @@ export const InvestmentSection: React.FC = () => {
                       </div>
                       <span className="text-champagne font-light text-lg">→</span>
                       <div className="text-right">
-                        <span className="font-display text-[20px] sm:text-[24px] font-normal text-white block leading-none">
+                        <span className="font-body text-[18px] sm:text-[21px] font-bold text-white block leading-none tracking-tight">
                           AED 980K
                         </span>
                         <span className="font-body text-[10px] sm:text-[10.5px] text-[#B5AEA4] uppercase tracking-wider">
@@ -388,7 +388,7 @@ export const InvestmentSection: React.FC = () => {
 
                 {/* CAPITAL GAIN BOX AT BOTTOM */}
                 <div className="pt-6 border-t border-white/15 mt-6">
-                  <span className="font-display text-[28px] sm:text-[34px] font-normal text-champagne block leading-none mb-1">
+                  <span className="font-body text-[24px] sm:text-[28px] font-bold text-champagne block leading-none mb-1 tracking-tight">
                     AED 560K
                   </span>
                   <span className="font-body text-[11px] sm:text-[11.5px] font-semibold tracking-[0.16em] uppercase text-[#FAF9F6] block">
@@ -408,7 +408,7 @@ export const InvestmentSection: React.FC = () => {
                   </span>
                   
                   {/* ROI STAT FOR STUDIOS */}
-                  <div className="font-display text-[54px] sm:text-[68px] lg:text-[76px] font-light leading-[0.92] text-[#FAF9F6] tracking-tight mb-2">
+                  <div className="font-body text-[46px] sm:text-[58px] lg:text-[64px] font-extrabold leading-[0.92] text-[#FAF9F6] tracking-tight mb-2">
                     18–20%
                   </div>
                   <span className="font-body text-[11.5px] sm:text-[12px] font-semibold tracking-[0.22em] uppercase text-[#D1CCC3] block mb-6">
@@ -476,7 +476,7 @@ export const InvestmentSection: React.FC = () => {
                   01
                 </span>
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-display text-[46px] sm:text-[54px] font-light leading-none text-[#1D3027] tracking-tight">
+                  <span className="font-body text-[38px] sm:text-[46px] font-extrabold leading-none text-[#1D3027] tracking-tight">
                     +133%
                   </span>
                 </div>
@@ -501,7 +501,7 @@ export const InvestmentSection: React.FC = () => {
                   02
                 </span>
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-display text-[30px] sm:text-[36px] font-light leading-none text-[#1D3027] tracking-tight">
+                  <span className="font-body text-[24px] sm:text-[28px] font-bold leading-none text-[#1D3027] tracking-tight">
                     AED 95K–100K
                   </span>
                 </div>
@@ -526,7 +526,7 @@ export const InvestmentSection: React.FC = () => {
                   03
                 </span>
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-display text-[46px] sm:text-[54px] font-light leading-none text-[#1D3027] tracking-wider">
+                  <span className="font-body text-[38px] sm:text-[46px] font-bold leading-none text-[#1D3027] tracking-wider">
                     JVC
                   </span>
                 </div>

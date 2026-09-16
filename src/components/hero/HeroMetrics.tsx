@@ -37,7 +37,7 @@ export const HeroMetrics: React.FC = () => {
                 index !== 0 ? 'sm:border-l sm:border-white/15 sm:pl-3 lg:pl-4' : ''
               }`}
             >
-              <span className="font-display text-[18px] sm:text-[19px] lg:text-[21px] xl:text-[22px] font-semibold leading-tight text-[#FFFFFF] tracking-tight whitespace-nowrap drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+              <span className="font-body text-[17px] sm:text-[18px] lg:text-[20px] font-bold leading-tight text-[#FFFFFF] tracking-tight whitespace-nowrap drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
                 {item.value}
               </span>
               <span className="font-body text-[8px] sm:text-[8.5px] font-semibold uppercase tracking-[0.12em] text-[#C5BFB5] mt-0.5 whitespace-nowrap">
