@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import maplibregl from 'maplibre-gl';
+import { Map } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { DESTINATIONS } from './destinations';
 import { EDITORIAL_MAP_STYLE_URL, applyEditorialPalette } from './MapStyle';
@@ -14,7 +14,7 @@ interface OxfordCoveMapProps {
 
 export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<maplibregl.Map | null>(null);
+  const mapInstanceRef = useRef<Map | null>(null);
 
   const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({});
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -41,7 +41,7 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
     // Initial fixed framing encompassing Greater Dubai (from DWC in south to DXB in north, coast to inland)
     const bounds: [number, number, number, number] = [55.10, 24.86, 55.40, 25.28]; // [sw.lng, sw.lat, ne.lng, ne.lat]
 
-    const map = new maplibregl.Map({
+    const map = new Map({
       container: mapContainerRef.current,
       style: EDITORIAL_MAP_STYLE_URL,
       bounds: bounds,
