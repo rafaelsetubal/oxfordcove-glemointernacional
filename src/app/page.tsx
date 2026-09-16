@@ -4,6 +4,7 @@ import { ProductSection } from '@/components/sections/ArchitectureSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { AmenitiesSection } from '@/components/sections/AmenitiesSection';
 import { FloorplansSection } from '@/components/sections/FloorplansSection';
+import { PaymentPlanSection } from '@/components/sections/PaymentPlanSection';
 import { LocationSection } from '@/components/sections/LocationSection';
 import { InvestmentSection } from '@/components/sections/InvestmentSection';
 
@@ -28,10 +29,13 @@ export default function Home() {
       {/* SEÇÃO 05: PLANTAS & UNIDADES */}
       <FloorplansSection />
 
-      {/* SEÇÃO 06: LOCALIZAÇÃO */}
+      {/* SEÇÃO 06: PLANO DE PAGAMENTO */}
+      <PaymentPlanSection />
+
+      {/* SEÇÃO 07: LOCALIZAÇÃO */}
       <LocationSection />
 
-      {/* SEÇÃO 07: INVESTIMENTO */}
+      {/* SEÇÃO 08: INVESTIMENTO */}
       <InvestmentSection />
     </main>
   );
