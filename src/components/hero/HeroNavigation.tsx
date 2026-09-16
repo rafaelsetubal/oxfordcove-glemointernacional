@@ -126,19 +126,18 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
             })}
           </nav>
 
-          {/* CTA IN HEADER (Fades in smoothly when scrolled past Hero) */}
+          {/* CTA IN HEADER (ALWAYS VISIBLE IN RADIANT CHAMPAGNE GOLD SHIMMER) */}
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleCta}
-              className={`hidden lg:inline-flex items-center justify-center gap-2 h-[42px] px-5 rounded-pill font-body text-[10.5px] font-semibold tracking-[0.14em] uppercase transition-all duration-base ease-luxury active:scale-[0.98] group cursor-pointer ${
-                isScrolled
-                  ? 'opacity-100 translate-y-0 pointer-events-auto bg-[#28372D] text-[#FAF9F6] hover:bg-[#1D3027] border border-white/10 shadow-sm'
-                  : 'opacity-0 -translate-y-2 pointer-events-none'
-              }`}
+              className="relative hidden lg:inline-flex items-center justify-center gap-2 h-[42px] px-5 rounded-full bg-gradient-to-r from-[#F7F3EB] via-[#EFE7D8] to-[#E5D7B7] hover:from-[#FFFFFF] hover:via-[#F7F3EB] hover:to-[#EDE1C8] text-[#171815] font-body text-[10.5px] font-bold tracking-[0.14em] uppercase transition-all duration-base ease-luxury shadow-[0_2px_18px_rgba(223,200,154,0.38)] hover:shadow-[0_4px_24px_rgba(223,200,154,0.58)] hover:scale-[1.02] active:scale-[0.98] border border-[#D8C7A5]/60 overflow-hidden group cursor-pointer animate-pulse-gold"
             >
-              <span>QUERO MINHA PRIORIDADE</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[1.5]" />
+              {/* SHIMMER EFFECT OVERLAY */}
+              <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/75 to-transparent pointer-events-none" />
+              
+              <span className="relative z-10 font-bold">QUERO MINHA PRIORIDADE</span>
+              <ArrowRight className="relative z-10 w-3.5 h-3.5 transition-transform duration-base ease-luxury group-hover:translate-x-1 stroke-[2]" />
             </button>
 
             {/* MOBILE HAMBURGER BUTTON */}
