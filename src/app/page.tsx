@@ -14,7 +14,7 @@ import { Footer } from '@/components/layout/Footer';
 export default function Home() {
   return (
     <main className="min-h-screen bg-ivory text-charcoal">
-      {/* TESTE DE PRELOADER CINEMATOGRÁFICO (REVERSÍVEL / NÃO COMMITADO) */}
+      {/* PRELOADER CINEMATOGRÁFICO */}
       <CinematicPreloader />
 
       {/* SEÇÃO 01: HERO OFICIAL */}

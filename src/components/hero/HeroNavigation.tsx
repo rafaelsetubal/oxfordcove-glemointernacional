@@ -31,16 +31,54 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
 
   const handleCta = scrollToHeroForm;
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let lastY = window.scrollY;
+    let scrollTimeout: NodeJS.Timeout | null = null;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > 60);
+
+      // Always show when near the very top of the page
+      if (currentY < 80) {
+        setIsNavbarVisible(true);
+        lastY = currentY;
+        return;
+      }
+
+      // Hide navbar when actively scrolling down or up to maximize reading immersion
+      if (Math.abs(currentY - lastY) > 8) {
+        setIsNavbarVisible(false);
+      }
+
+      // Debounce: reveal navbar smoothly after user pauses scrolling (or reading)
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsNavbarVisible(true);
+      }, 500);
+
+      lastY = currentY;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Reveal navbar if mouse approaches top of window
+      if (e.clientY < 70) {
+        setIsNavbarVisible(true);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
   }, []);
 
   const navLinks = [
@@ -70,7 +108,7 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
       {/* 01. TOP GRADIENT PROTECTION OVER HERO */}
       <div
         className={`fixed top-0 left-0 w-full h-[90px] pointer-events-none z-40 transition-opacity duration-base ease-luxury ${
-          isScrolled ? 'opacity-0' : 'opacity-100'
+          isScrolled || !isNavbarVisible ? 'opacity-0' : 'opacity-100'
         }`}
         style={{
           background:
@@ -78,9 +116,11 @@ export const HeroNavigation: React.FC<HeroNavigationProps> = ({ onCtaClick, acti
         }}
       />
 
-      {/* 02. FIXED HEADER */}
+      {/* 02. FIXED HEADER (SMART AUTO-HIDE ON SCROLL FOR EDITORIAL IMMERSION) */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-base ease-luxury ${
+        className={`fixed top-0 left-0 w-full z-50 transform transition-all duration-500 ease-luxury ${
+          isNavbarVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+        } ${
           isScrolled
             ? 'h-[68px] md:h-[72px] bg-[rgba(18,16,14,0.85)] backdrop-blur-[12px] border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.25)]'
             : 'h-[80px] md:h-[92px] bg-transparent border-b border-transparent'
