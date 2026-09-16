@@ -82,16 +82,18 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     { value: 'avaliando', label: 'Ainda estou avaliando' },
   ];
 
+  const isFinalCta = mode === 'final-cta';
+
   const content = (
-    <div className="flex flex-col text-[#2C241F] select-none w-full">
+    <div className={`flex flex-col select-none w-full ${isFinalCta ? 'text-[#FAF8F5]' : 'text-[#2C241F]'}`}>
       {/* 01. INSTITUTIONAL SIGNATURE: GLEMO INTERNATIONAL */}
-      <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-[#2C241F]/10">
-        <GlemoLogo variant="color" width={90} showLabel={true} />
+      <div className={`flex items-center justify-between pb-2 mb-2.5 border-b ${isFinalCta ? 'border-white/15' : 'border-[#2C241F]/10'}`}>
+        <GlemoLogo variant={isFinalCta ? 'white' : 'color'} width={90} showLabel={true} />
         {onClose && (
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-[#2C241F]/60 hover:text-[#2C241F] transition-colors rounded-full hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-olive cursor-pointer"
+            className={`p-1.5 transition-colors rounded-full hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-olive cursor-pointer ${isFinalCta ? 'text-white/70 hover:text-white' : 'text-[#2C241F]/60 hover:text-[#2C241F]'}`}
             aria-label="Fechar formulário"
           >
             <X className="w-4 h-4 stroke-[1.5]" />
@@ -101,47 +103,47 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 
       {/* 02. EDITORIAL HEADER */}
       <div>
-        <span className="font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[#705B44] block">
+        <span className={`font-body text-[9.5px] font-semibold uppercase tracking-[0.22em] block ${isFinalCta ? 'text-[#D4C7B5]' : 'text-[#705B44]'}`}>
           {subtitle}
         </span>
-        <h2 className="font-display font-normal text-[26px] sm:text-[28px] leading-[0.94] text-[#2C241F] mt-0.5">
+        <h2 className={`font-display font-normal text-[26px] sm:text-[28px] leading-[0.94] mt-0.5 ${isFinalCta ? 'text-[#FAF8F5]' : 'text-[#2C241F]'}`}>
           {title}
         </h2>
       </div>
 
       {/* 03. EOI SUPPORTING LINE */}
-      <div className="mt-1.5 mb-2.5 pb-2 border-b border-[#2C241F]/10">
-        <span className="font-body text-[9px] font-semibold uppercase tracking-[0.08em] text-[#2C241F]/80 block">
-          EOI DE {formatPrice(50000)} · <span className="text-[#1D3027] font-bold">100% REEMBOLSÁVEL</span>
+      <div className={`mt-1.5 mb-2.5 pb-2 border-b ${isFinalCta ? 'border-white/15' : 'border-[#2C241F]/10'}`}>
+        <span className={`font-body text-[9px] font-semibold uppercase tracking-[0.08em] block ${isFinalCta ? 'text-[#FAF8F5]/85' : 'text-[#2C241F]/80'}`}>
+          EOI DE {formatPrice(50000)} · <span className={isFinalCta ? 'text-champagne font-bold' : 'text-[#1D3027] font-bold'}>100% REEMBOLSÁVEL</span>
         </span>
       </div>
 
       {submitted ? (
-        <div className="py-6 text-center flex flex-col items-center justify-center animate-fadeIn">
-          <div className="w-10 h-10 rounded-full bg-olive/15 text-olive flex items-center justify-center mb-2.5">
+        <div className={`py-6 text-center flex flex-col items-center justify-center animate-fadeIn ${isFinalCta ? 'bg-white/[0.04] rounded-2xl border border-white/10 p-6' : ''}`}>
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2.5 ${isFinalCta ? 'bg-white/10 text-champagne' : 'bg-olive/15 text-olive'}`}>
             <CheckCircle2 className="w-5 h-5 stroke-[1.5]" />
           </div>
-          <h4 className="font-display text-xl text-[#2C241F] mb-1">
+          <h4 className={`font-display text-xl mb-1 ${isFinalCta ? 'text-[#FAF8F5]' : 'text-[#2C241F]'}`}>
             Prioridade Registrada
           </h4>
-          <p className="font-body text-[11.5px] text-[#2C241F]/80 max-w-[240px] leading-relaxed mb-4">
-            Um Private Advisor da IMAN Developers & GlemO entrará em contato via WhatsApp.
+          <p className={`font-body text-[11.5px] max-w-[240px] leading-relaxed mb-4 ${isFinalCta ? 'text-[#D1CCC3]' : 'text-[#2C241F]/80'}`}>
+            Um Private Advisor da IMAN Developers & glemO international entrará em contato via WhatsApp.
           </p>
           <button
             type="button"
             onClick={() => setSubmitted(false)}
-            className="font-body text-[11.5px] text-olive underline font-semibold hover:text-forest cursor-pointer"
+            className={`font-body text-[11.5px] underline font-semibold cursor-pointer ${isFinalCta ? 'text-champagne hover:text-white' : 'text-olive hover:text-forest'}`}
           >
             Registrar outro interesse
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-2.5">
+        <form onSubmit={handleSubmit} noValidate className={`flex flex-col ${isFinalCta ? 'gap-3.5' : 'gap-2.5'}`}>
           {/* NOME COMPLETO */}
           <div className="flex flex-col">
             <label
               htmlFor={nameId}
-              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5"
+              className={`font-body text-[9.5px] font-semibold tracking-wide uppercase mb-0.5 ${isFinalCta ? 'text-[#FAF8F5]/80' : 'text-[#2C241F]/80'}`}
             >
               Nome completo
             </label>
@@ -158,12 +160,18 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 setFormData({ ...formData, name: e.target.value });
                 if (errors.name) setErrors({ ...errors, name: '' });
               }}
-              className={`w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
-                errors.name ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
-              }`}
+              className={
+                isFinalCta
+                  ? `w-full h-[44px] sm:h-[46px] px-0 bg-transparent border-0 border-b border-[#FAF8F5]/30 focus:border-[#B7A489] text-[#FAF8F5] placeholder:text-[#FAF8F5]/40 font-body text-[13px] font-medium transition-colors focus:outline-none ${
+                      errors.name ? 'border-red-400' : ''
+                    }`
+                  : `w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
+                      errors.name ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
+                    }`
+              }
             />
             {errors.name && (
-              <span id={`${nameId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5 px-2">
+              <span id={`${nameId}-error`} className={`flex items-center gap-1 font-body text-[9.5px] font-medium pt-0.5 ${isFinalCta ? 'text-red-300' : 'text-red-700 px-2'}`}>
                 <AlertCircle className="w-2.5 h-2.5 shrink-0" /> {errors.name}
               </span>
             )}
@@ -173,7 +181,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor={phoneId}
-              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5 px-1"
+              className={`font-body text-[9.5px] font-semibold tracking-wide uppercase mb-0.5 ${isFinalCta ? 'text-[#FAF8F5]/80' : 'text-[#2C241F]/80 px-1'}`}
             >
               WhatsApp
             </label>
@@ -190,12 +198,18 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 setFormData({ ...formData, phone: e.target.value });
                 if (errors.phone) setErrors({ ...errors, phone: '' });
               }}
-              className={`w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
-                errors.phone ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
-              }`}
+              className={
+                isFinalCta
+                  ? `w-full h-[44px] sm:h-[46px] px-0 bg-transparent border-0 border-b border-[#FAF8F5]/30 focus:border-[#B7A489] text-[#FAF8F5] placeholder:text-[#FAF8F5]/40 font-body text-[13px] font-medium transition-colors focus:outline-none ${
+                      errors.phone ? 'border-red-400' : ''
+                    }`
+                  : `w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
+                      errors.phone ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
+                    }`
+              }
             />
             {errors.phone && (
-              <span id={`${phoneId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5 px-2">
+              <span id={`${phoneId}-error`} className={`flex items-center gap-1 font-body text-[9.5px] font-medium pt-0.5 ${isFinalCta ? 'text-red-300' : 'text-red-700 px-2'}`}>
                 <AlertCircle className="w-2.5 h-2.5 shrink-0" /> {errors.phone}
               </span>
             )}
@@ -205,7 +219,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor={emailId}
-              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5 px-1"
+              className={`font-body text-[9.5px] font-semibold tracking-wide uppercase mb-0.5 ${isFinalCta ? 'text-[#FAF8F5]/80' : 'text-[#2C241F]/80 px-1'}`}
             >
               E-mail
             </label>
@@ -222,12 +236,18 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 setFormData({ ...formData, email: e.target.value });
                 if (errors.email) setErrors({ ...errors, email: '' });
               }}
-              className={`w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
-                errors.email ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
-              }`}
+              className={
+                isFinalCta
+                  ? `w-full h-[44px] sm:h-[46px] px-0 bg-transparent border-0 border-b border-[#FAF8F5]/30 focus:border-[#B7A489] text-[#FAF8F5] placeholder:text-[#FAF8F5]/40 font-body text-[13px] font-medium transition-colors focus:outline-none ${
+                      errors.email ? 'border-red-400' : ''
+                    }`
+                  : `w-full h-[42px] sm:h-[44px] px-4 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] placeholder:text-[#2C241F]/40 font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white ${
+                      errors.email ? 'border-red-600/80 ring-1 ring-red-600/30' : ''
+                    }`
+              }
             />
             {errors.email && (
-              <span id={`${emailId}-error`} className="flex items-center gap-1 font-body text-[9.5px] text-red-700 font-medium pt-0.5 px-2">
+              <span id={`${emailId}-error`} className={`flex items-center gap-1 font-body text-[9.5px] font-medium pt-0.5 ${isFinalCta ? 'text-red-300' : 'text-red-700 px-2'}`}>
                 <AlertCircle className="w-2.5 h-2.5 shrink-0" /> {errors.email}
               </span>
             )}
@@ -237,7 +257,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor={interestId}
-              className="font-body text-[9.5px] font-semibold tracking-wide uppercase text-[#2C241F]/80 mb-0.5 px-1"
+              className={`font-body text-[9.5px] font-semibold tracking-wide uppercase mb-0.5 ${isFinalCta ? 'text-[#FAF8F5]/80' : 'text-[#2C241F]/80 px-1'}`}
             >
               Tenho interesse em...
             </label>
@@ -246,15 +266,19 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 id={interestId}
                 value={formData.interest}
                 onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                className="w-full h-[42px] sm:h-[44px] px-4 pr-9 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white appearance-none cursor-pointer"
+                className={
+                  isFinalCta
+                    ? 'w-full h-[44px] sm:h-[46px] px-0 pr-8 bg-transparent border-0 border-b border-[#FAF8F5]/30 focus:border-[#B7A489] text-[#FAF8F5] font-body text-[13px] font-medium transition-colors focus:outline-none appearance-none cursor-pointer'
+                    : 'w-full h-[42px] sm:h-[44px] px-4 pr-9 rounded-full bg-white/90 border border-[#2C241F]/15 text-[#2C241F] font-body text-[12.5px] font-medium transition-all duration-fast focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive focus:bg-white appearance-none cursor-pointer'
+                }
               >
                 {interestOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value} className="bg-[#FAF9F6] text-[#2C241F]">
+                  <option key={opt.value} value={opt.value} className={isFinalCta ? 'bg-[#14221A] text-[#FAF8F5]' : 'bg-[#FAF9F6] text-[#2C241F]'}>
                     {opt.label}
                   </option>
                 ))}
               </select>
-              <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C241F]/60">
+              <div className={`absolute top-1/2 -translate-y-1/2 pointer-events-none ${isFinalCta ? 'right-0 text-[#FAF8F5]/60' : 'right-3.5 text-[#2C241F]/60'}`}>
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -262,17 +286,22 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             </div>
           </div>
 
-          {/* EARTHY GREEN CTA BUTTON WITH REFINED LIGHT SHIMMER EFFECT */}
+          {/* CTA BUTTON */}
           <button
             type="submit"
             disabled={loading}
-            className="relative w-full h-[48px] sm:h-[50px] mt-2 rounded-full bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all duration-base ease-luxury shadow-[0_4px_18px_rgba(40,55,45,0.28)] hover:shadow-[0_6px_26px_rgba(29,48,39,0.40)] hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#28372D] overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed group cursor-pointer border border-[#28372D]/40"
+            className={
+              isFinalCta
+                ? 'relative w-full h-[50px] sm:h-[52px] mt-3 rounded-full bg-[#FAF9F6] hover:bg-white text-[#14221A] font-body text-[11px] sm:text-[11.5px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] disabled:opacity-75 disabled:cursor-not-allowed group cursor-pointer'
+                : 'relative w-full h-[48px] sm:h-[50px] mt-2 rounded-full bg-[#28372D] hover:bg-[#1D3027] text-[#FAF9F6] font-body text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all duration-base ease-luxury shadow-[0_4px_18px_rgba(40,55,45,0.28)] hover:shadow-[0_6px_26px_rgba(29,48,39,0.40)] hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#28372D] overflow-hidden disabled:opacity-75 disabled:cursor-not-allowed group cursor-pointer border border-[#28372D]/40'
+            }
           >
-            {/* SUBTLE LIGHT SHIMMER SWEEP ACROSS EARTHY GREEN */}
-            <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+            {!isFinalCta && (
+              <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+            )}
             
             {loading ? (
-              <Loader2 className="w-4 h-4 animate-spin text-[#FAF9F6]" />
+              <Loader2 className={`w-4 h-4 animate-spin ${isFinalCta ? 'text-[#14221A]' : 'text-[#FAF9F6]'}`} />
             ) : (
               <>
                 <span className="relative z-10 font-bold tracking-[0.12em]">GARANTIR MINHA PRIORIDADE NA TABELA</span>
@@ -282,8 +311,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           </button>
 
           {/* MICROCOPY WITH LOCK */}
-          <div className="flex items-start justify-center gap-1.5 pt-0.5 text-center text-[#2C241F]/65">
-            <Lock className="w-2.5 h-2.5 text-[#2C241F]/55 shrink-0 mt-0.5 stroke-[1.5]" />
+          <div className={`flex items-start justify-center gap-1.5 pt-0.5 text-center ${isFinalCta ? 'text-[#FAF8F5]/65' : 'text-[#2C241F]/65'}`}>
+            <Lock className={`w-2.5 h-2.5 shrink-0 mt-0.5 stroke-[1.5] ${isFinalCta ? 'text-[#FAF8F5]/55' : 'text-[#2C241F]/55'}`} />
             <span className="font-body text-[8.5px] leading-[1.3] max-w-[250px]">
               Seus dados estão seguros e serão usados apenas para contato sobre o empreendimento.
             </span>
@@ -318,7 +347,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   if (mode === 'final-cta') {
     return (
       <div
-        className={`w-full max-w-[440px] sm:max-w-[460px] rounded-[26px] sm:rounded-[30px] p-6 sm:p-8 bg-[#FAF9F6] border border-[#24231F]/10 shadow-[0_30px_80px_rgba(0,0,0,0.28),0_15px_35px_rgba(0,0,0,0.18)] transition-all ${className}`}
+        className={`w-full max-w-[440px] sm:max-w-[460px] mx-auto bg-transparent border-0 p-0 transition-all ${className}`}
       >
         {content}
       </div>
