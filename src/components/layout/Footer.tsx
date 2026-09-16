@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -7,16 +7,16 @@ export const Footer: React.FC = () => {
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | null>(null);
 
   return (
-    <footer className="w-full bg-[#FAF9F6] text-[#24231F] border-t border-[#24231F]/10 py-10 sm:py-12 select-none">
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
+    <footer className="w-full bg-[#FAF9F6] text-[#24231F] border-t border-[#24231F]/10 py-9 sm:py-11 select-none">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
         
         {/* ========================================================================= */}
-        {/* ROW 01: BRAND SIGNATURE (3 BALANCED LOGOS IN A CLEAN HORIZONTAL ROW)      */}
+        {/* ROW 01: BRAND SIGNATURE (3 ENLARGED, BALANCED LOGOS IN A LUXURY ROW)      */}
         {/* ========================================================================= */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8 pb-8 sm:pb-9">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-7 sm:gap-10 pb-7 sm:pb-8">
           
-          {/* LOGO 1: OXFORD COVE (SLIGHTLY MORE PROMINENT) */}
-          <div className="relative h-7 sm:h-8 w-44 sm:w-48">
+          {/* LOGO 1: OXFORD COVE (PROMINENT SIGNATURE) */}
+          <div className="relative h-8 sm:h-9 w-[160px] sm:w-[185px]">
             <Image
               src="/images/brand/logo-bronze.png"
               alt="Oxford Cove"
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* LOGO 2: IMAN DEVELOPERS */}
-          <div className="relative h-6 sm:h-7 w-36 sm:w-40">
+          <div className="relative h-7 sm:h-8 w-[135px] sm:w-[155px]">
             <Image
               src="/images/brand/imandevelopers-charcoal.png"
               alt="IMAN Developers"
@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* LOGO 3: GLEMO INTERNATIONAL */}
-          <div className="relative h-6 sm:h-7 w-32 sm:w-36">
+          <div className="relative h-7 sm:h-8 w-[140px] sm:w-[160px]">
             <Image
               src="/images/brand/glemo-color.png"
               alt="glemO international"
@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
         {/* ========================================================================= */}
         {/* ROW 02: LOCATION & LEGAL LINKS (COMPACT COMPOSITION)                      */}
         {/* ========================================================================= */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left font-body text-[12px] sm:text-[12.5px] text-[#5A544C] mb-5">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left font-body text-[12px] sm:text-[12.5px] text-[#5A544C] mb-4">
           <div>
             Jumeirah Village Circle · District 11 · Dubai, UAE
           </div>

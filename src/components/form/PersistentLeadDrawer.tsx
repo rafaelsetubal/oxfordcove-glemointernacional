@@ -24,6 +24,7 @@ export const useLeadDrawer = () => useContext(LeadDrawerContext);
 export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showFloatingCta, setShowFloatingCta] = useState(false);
+  const [isFinalSectionVisible, setIsFinalSectionVisible] = useState(false);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const { formatPrice } = useCurrency();
@@ -47,6 +48,31 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Detect when Final CTA or Footer enters the viewport (~15-20% threshold)
+  useEffect(() => {
+    const handleIntersection: IntersectionObserverCallback = (entries) => {
+      let isVisible = false;
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.12) {
+          isVisible = true;
+        }
+      });
+      setIsFinalSectionVisible(isVisible);
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: [0, 0.12, 0.25, 0.5],
+    });
+
+    const finalCta = document.getElementById('final-cta');
+    const footer = document.querySelector('footer');
+
+    if (finalCta) observer.observe(finalCta);
+    if (footer) observer.observe(footer);
+
+    return () => observer.disconnect();
   }, []);
 
   // Close on Escape key
@@ -73,21 +99,30 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     };
   }, [isOpen]);
 
+  const shouldShowFloatingCta = showFloatingCta && !isFinalSectionVisible && !isOpen;
+  const shouldShowCurrencyToggle = !isFinalSectionVisible;
+
   return (
     <LeadDrawerContext.Provider value={{ openLeadDrawer, closeLeadDrawer, isDrawerOpen: isOpen }}>
       {children}
 
       {/* 01. DESKTOP FLOATING CONTROLS (BOTTOM-RIGHT - ABOVE CONVERSION CTA) */}
       <div className="hidden xl:flex fixed bottom-8 right-8 z-40 flex-col items-end gap-2.5 pointer-events-none">
-        {/* DESKTOP FLOATING CURRENCY TOGGLE (ALWAYS VISIBLE & CONVENIENT) */}
-        <div className="pointer-events-auto shadow-[0_8px_24px_rgba(0,0,0,0.25)] rounded-full">
+        {/* DESKTOP FLOATING CURRENCY TOGGLE (FADES OUT IN FINAL CTA / FOOTER) */}
+        <div
+          className={`transition-all duration-base ease-luxury shadow-[0_8px_24px_rgba(0,0,0,0.25)] rounded-full ${
+            shouldShowCurrencyToggle
+              ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+              : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
+          }`}
+        >
           <CurrencyToggle variant="dark" />
         </div>
 
-        {/* DESKTOP FLOATING CTA (ONLY WHEN SCROLLED PAST HERO) */}
+        {/* DESKTOP FLOATING CTA (ONLY WHEN SCROLLED PAST HERO AND NOT IN FINAL CTA / FOOTER) */}
         <div
           className={`transition-all duration-base ease-luxury ${
-            showFloatingCta && !isOpen
+            shouldShowFloatingCta
               ? 'opacity-100 translate-y-0 pointer-events-auto scale-100'
               : 'opacity-0 translate-y-6 pointer-events-none scale-95'
           }`}
@@ -104,11 +139,11 @@ export const LeadDrawerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         </div>
       </div>
 
-      {/* 02. MOBILE FIXED BOTTOM BAR (Only when scrolled past Hero) */}
+      {/* 02. MOBILE FIXED BOTTOM BAR (Only when scrolled past Hero & not in Final CTA/Footer) */}
       <div
         style={{ paddingBottom: 'max(14px, env(safe-area-inset-bottom, 14px))' }}
         className={`xl:hidden fixed bottom-0 left-0 w-full z-40 bg-[#28372D] text-[#FAF9F6] px-5 pt-3 flex items-center justify-between shadow-[0_-8px_30px_rgba(23,24,21,0.18)] transition-all duration-base ease-luxury ${
-          showFloatingCta && !isOpen
+          shouldShowFloatingCta
             ? 'translate-y-0 opacity-100 pointer-events-auto'
             : 'translate-y-full opacity-0 pointer-events-none'
         }`}
