@@ -24,14 +24,14 @@ export const CustomMarkers: React.FC<CustomMarkersProps> = ({ positions }) => {
       case 'se':
         return 'translate-x-2 translate-y-1';
       case 'n':
-        return '-translate-x-1/2 -translate-y-full -mt-3';
+        return '-translate-x-1/2 -translate-y-full -mt-2.5';
       case 's':
-        return '-translate-x-1/2 translate-y-3';
+        return '-translate-x-1/2 translate-y-2.5';
       case 'w':
-        return '-translate-x-full -translate-y-1/2 -ml-3';
+        return '-translate-x-full -translate-y-1/2 -ml-2.5';
       case 'e':
       default:
-        return 'translate-x-3 -translate-y-1/2';
+        return 'translate-x-2.5 -translate-y-1/2';
     }
   };
 
@@ -51,7 +51,7 @@ export const CustomMarkers: React.FC<CustomMarkersProps> = ({ positions }) => {
           }}
         >
           {/* Main Pin Asset */}
-          <div className="relative w-[52px] sm:w-[62px] h-[52px] sm:h-[62px] drop-shadow-[0_10px_20px_rgba(20,25,22,0.30)]">
+          <div className="relative w-[44px] sm:w-[52px] h-[44px] sm:h-[52px] drop-shadow-[0_8px_16px_rgba(20,25,22,0.25)]">
             <Image
               src="/images/location/oxford-cove-pin.png"
               alt="Oxford Cove — JVC District 11"
@@ -62,16 +62,16 @@ export const CustomMarkers: React.FC<CustomMarkersProps> = ({ positions }) => {
           </div>
 
           {/* Location Badge */}
-          <div className="mt-1 px-3 py-1 rounded-full bg-[#1D3027] text-[#FAF9F6] border border-[#FAF9F6]/30 shadow-md flex items-center gap-1.5 whitespace-nowrap">
+          <div className="mt-0.5 px-2.5 py-0.5 rounded-full bg-[#1D3027] text-[#FAF9F6] border border-[#FAF9F6]/30 shadow-sm flex items-center gap-1 whitespace-nowrap">
             <span className="w-1.5 h-1.5 rounded-full bg-champagne animate-pulse" />
-            <span className="font-technical text-[9.5px] sm:text-[10.5px] font-bold tracking-[0.14em] uppercase">
+            <span className="font-technical text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.14em] uppercase">
               OXFORD COVE · DISTRICT 11
             </span>
           </div>
         </div>
       )}
 
-      {/* 02. DESTINATION MARKERS (DOT + FROSTED PILL BADGE) */}
+      {/* 02. DESTINATION MARKERS (DOT + COMPACT FROSTED PILL BADGE) */}
       {destinationList.map((dest) => {
         const pos = positions[dest.id];
         if (!pos) return null;
@@ -92,19 +92,19 @@ export const CustomMarkers: React.FC<CustomMarkersProps> = ({ positions }) => {
             }}
           >
             {/* Center Anchor Dot */}
-            <div className="relative flex items-center justify-center w-4 h-4 shrink-0 z-10">
-              <span className="w-3 h-3 rounded-full bg-[#1D3027] ring-2 ring-white shadow-md" />
+            <div className="relative flex items-center justify-center w-3.5 h-3.5 shrink-0 z-10">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#1D3027] ring-1.5 ring-white shadow-sm" />
               <span className="absolute w-1 h-1 rounded-full bg-[#E5D7B7]" />
             </div>
 
             {/* Frosted Glass Floating Badge */}
             <div
-              className={`absolute ${offsetClass} px-3 py-1.5 rounded-full bg-[#FAF9F6]/95 backdrop-blur-md border border-[#24231F]/15 shadow-[0_6px_16px_rgba(20,25,22,0.12)] flex items-center gap-2 whitespace-nowrap`}
+              className={`absolute ${offsetClass} px-2.5 py-1 rounded-full bg-[#FAF9F6]/95 backdrop-blur-md border border-[#24231F]/15 shadow-[0_4px_12px_rgba(20,25,22,0.10)] flex items-center gap-1.5 whitespace-nowrap`}
             >
-              <span className="font-body text-[11.5px] sm:text-[12.5px] font-bold tracking-[0.04em] text-[#171815]">
+              <span className="font-body text-[10.5px] sm:text-[11.5px] font-bold tracking-[0.03em] text-[#171815]">
                 {dest.name}
               </span>
-              <span className="font-technical text-[10px] sm:text-[10.5px] font-semibold text-[#806B54] bg-[#806B54]/10 px-2 py-0.5 rounded-full uppercase">
+              <span className="font-technical text-[9px] sm:text-[9.5px] font-bold text-[#806B54] bg-[#806B54]/10 px-1.5 py-0.5 rounded-full uppercase">
                 {dest.time}
               </span>
             </div>
