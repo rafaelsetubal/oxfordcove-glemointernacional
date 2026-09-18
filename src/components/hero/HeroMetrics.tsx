@@ -17,36 +17,42 @@ export const HeroMetrics: React.FC = () => {
   ];
 
   return (
-    <div className="mt-3 w-full max-w-[560px]">
-      {/* BARRA HORIZONTAL DE VIDRO FOSCO ÚNICA */}
+    <div className="mt-3 w-full max-w-[480px]">
+      {/* BARRA DE VIDRO FOSCO EM 2 LINHAS */}
       <div
-        className="rounded-[10px] shadow-[0_8px_32px_rgba(0,0,0,0.30)] w-full"
+        className="rounded-[12px] shadow-[0_8px_32px_rgba(0,0,0,0.30)] w-full"
         style={{
-          background: 'rgba(20, 18, 16, 0.60)',
+          background: 'rgba(20, 18, 16, 0.65)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           border: '1px solid rgba(255, 255, 255, 0.14)',
-          padding: '14px 18px',
+          padding: '16px 20px',
         }}
       >
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-2 lg:gap-3 items-center">
-          {metrics.map((item, index) => (
-            <div
-              key={item.label}
-              className={`flex flex-col min-w-0 ${
-                index !== 0 ? 'sm:border-l sm:border-white/15 sm:pl-3 lg:pl-4' : ''
-              }`}
-            >
-              <span className="font-body text-[17px] sm:text-[18px] lg:text-[20px] font-bold leading-tight text-[#FFFFFF] tracking-tight whitespace-nowrap drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
-                {item.value}
-              </span>
-              <span className="font-body text-[8px] sm:text-[8.5px] font-semibold uppercase tracking-[0.12em] text-[#C5BFB5] mt-0.5 whitespace-nowrap">
-                {item.label}
-              </span>
-            </div>
-          ))}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-3.5 items-center">
+          {metrics.map((item, index) => {
+            const isRightCol = index % 2 === 1;
+            const isBottomRow = index >= 2;
+
+            return (
+              <div
+                key={item.label}
+                className={`flex flex-col min-w-0 ${
+                  isRightCol ? 'border-l border-white/15 pl-5 sm:pl-6' : 'pr-2'
+                } ${isBottomRow ? 'border-t border-white/10 pt-3' : ''}`}
+              >
+                <span className="font-body text-[19px] sm:text-[21px] font-bold leading-tight text-[#FFFFFF] tracking-tight whitespace-nowrap drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+                  {item.value}
+                </span>
+                <span className="font-body text-[10px] sm:text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#C5BFB5] mt-1 whitespace-nowrap">
+                  {item.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 };
+
