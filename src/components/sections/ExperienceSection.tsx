@@ -43,7 +43,7 @@ export const ExperienceSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="experiencia"
-      className="relative w-full min-h-[75vh] lg:min-h-[85vh] flex items-center justify-center py-20 lg:py-28 overflow-hidden select-none bg-[#F5F2EB] border-t border-[#24231F]/8"
+      className="defer-render relative w-full min-h-[75vh] lg:min-h-[85vh] flex items-center justify-center py-20 lg:py-28 overflow-hidden select-none bg-[#F5F2EB] border-t border-[#24231F]/8"
     >
       {/* 01. FULL-BLEED REAL WEBP BACKGROUND (OPTIMIZED) */}
       <div className="absolute inset-0 z-0">

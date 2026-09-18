@@ -425,7 +425,7 @@ export const FloorplansSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="plantas"
-      className="relative w-full bg-[#FAF9F6] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/10 select-none overflow-hidden"
+      className="defer-render relative w-full bg-[#FAF9F6] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/10 select-none overflow-hidden"
     >
       <div
         className={`max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-14 gpu-accel reveal-blur-init ${

@@ -243,6 +243,7 @@ body {
   opacity: 1 !important;
   transform: translateY(0) scale(1) !important;
   filter: blur(0px) !important;
+  will-change: auto;
 }
 
 .animate-hero-blur {
@@ -262,8 +263,46 @@ body {
 .gpu-accel {
   transform: translateZ(0);
   backface-visibility: hidden;
-  perspective: 1000px;
-  will-change: transform, opacity, filter;
+}
+
+/* Skip layout and paint work for sections that are still far below the fold. */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
+/* Blur transitions and persistent compositor hints are expensive on mobile GPUs. */
+@media (max-width: 1023px) {
+  .reveal-blur-init {
+    transform: translateY(18px);
+    filter: none;
+    transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: auto;
+  }
+
+  .reveal-blur-visible {
+    filter: none !important;
+  }
+
+  .gpu-accel {
+    transform: none;
+    backface-visibility: visible;
+  }
+}
+
+/* Small labels and figures stay legible and consistently use Manrope. */
+[class*="text-[8px]"],
+[class*="text-[8.5px]"],
+[class*="text-[9px]"],
+[class*="text-[9.5px]"],
+[class*="text-[10px]"],
+[class*="text-[10.5px]"],
+[class*="text-[11px]"],
+[class*="text-[11.5px]"],
+.text-meta {
+  font-family: var(--font-manrope), sans-serif !important;
+  font-size: 12px !important;
 }
 
 * {

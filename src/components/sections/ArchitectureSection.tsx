@@ -40,7 +40,7 @@ export const ProductSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="projeto"
-      className="relative w-full min-h-[90svh] lg:min-h-[100svh] flex items-center py-20 lg:py-28 overflow-hidden bg-[#F5F2EB] select-none border-t border-[#24231F]/8"
+      className="defer-render relative w-full min-h-[90svh] lg:min-h-[100svh] flex items-center py-20 lg:py-28 overflow-hidden bg-[#F5F2EB] select-none border-t border-[#24231F]/8"
     >
       {/* 01. FULL-BLEED BACKGROUND IMAGE (DESKTOP FULL BLEED / MOBILE LOWERED FOR FACADE HIGHLIGHT) */}
       <div className="absolute inset-x-0 bottom-0 top-[220px] sm:top-[250px] md:top-0 md:inset-0 z-0 overflow-hidden">
@@ -202,5 +202,4 @@ export const ProductSection: React.FC = () => {
 
 export const DubaiMarketSection = ProductSection;
 export const ArchitectureSection = ProductSection;
-
 

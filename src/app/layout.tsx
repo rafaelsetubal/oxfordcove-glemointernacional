@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Manrope, DM_Mono } from 'next/font/google';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/site';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -25,10 +26,9 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://oxfordcove.vercel.app'),
-  title: 'Oxford Cove by IMAN | glemO internacional',
-  description:
-    'Invista no Oxford Cove em Dubai com a glemO internacional. Empreendimento residencial boutique em JVC com condições exclusivas de pré-lançamento e alto potencial de valorização.',
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   keywords: [
     'Oxford Cove',
     'IMAN Developers',
@@ -41,17 +41,24 @@ export const metadata: Metadata = {
     'Pré-lançamento Dubai',
   ],
   authors: [{ name: 'glemO internacional' }],
+  alternates: {
+    canonical: '/',
+  },
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
-    title: 'Oxford Cove by IMAN | glemO internacional',
+    title: SITE_TITLE,
     description:
       'Acesso prioritário a um dos projetos boutique de maior potencial de valorização em JVC, Dubai. Condições exclusivas de pré-lançamento.',
-    url: 'https://oxfordcove.vercel.app',
-    siteName: 'Oxford Cove — glemO internacional',
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: 'pt_BR',
     type: 'website',
     images: [
       {
-        url: '/images/hero/hero-lifestyle.webp',
+        url: '/images/og/oxford-cove-og.jpg',
         width: 1200,
         height: 630,
         alt: 'Oxford Cove by IMAN Developers — glemO internacional',
@@ -63,12 +70,15 @@ export const metadata: Metadata = {
     title: 'Oxford Cove by IMAN | glemO internacional',
     description:
       'Acesso prioritário ao pré-lançamento exclusivo do Oxford Cove em JVC, Dubai.',
-    images: ['/images/hero/hero-lifestyle.webp'],
+    images: ['/images/og/oxford-cove-og.jpg'],
   },
   robots: {
     index: true,
     follow: true,
   },
+  verification: process.env.BING_SITE_VERIFICATION
+    ? { other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } }
+    : undefined,
 };
 
 import { LeadDrawerProvider } from '@/components/form/PersistentLeadDrawer';
@@ -83,6 +93,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${cormorant.variable} ${manrope.variable} ${dmMono.variable}`}>
       <body className="bg-ivory text-charcoal font-body antialiased selection:bg-olive selection:text-warm-white">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-md focus:bg-[#171815] focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-white focus:shadow-xl"
+        >
+          Pular para o conteúdo principal
+        </a>
         <SmoothScrollProvider>
           <CurrencyProvider>
             <LeadDrawerProvider>

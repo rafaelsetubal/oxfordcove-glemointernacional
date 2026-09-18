@@ -1,13 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+type GsapContext = { revert: () => void };
 
 const OxfordCoveMap = dynamic(
   () => import('./OxfordCoveMap').then((mod) => mod.OxfordCoveMap),
@@ -26,24 +22,32 @@ const OxfordCoveMap = dynamic(
 export const LocationSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stickyContainerRef = useRef<HTMLDivElement>(null);
-  const animationCtxRef = useRef<gsap.Context | null>(null);
+  const animationCtxRef = useRef<GsapContext | null>(null);
+  const animationInitializedRef = useRef(false);
+  const retryTimerRef = useRef<number | null>(null);
   const [shouldMountMap, setShouldMountMap] = useState<boolean>(false);
 
-  const initScrollAnimation = () => {
+  const initScrollAnimation = useCallback(async () => {
+    if (animationInitializedRef.current) return;
     if (!sectionRef.current || !stickyContainerRef.current) return;
 
     // Check if markers exist in DOM before attaching GSAP ScrollTrigger
     const markerOxford = sectionRef.current.querySelector('#marker-oxford-cove');
     if (!markerOxford) {
       // Retry in 100ms if React has not finished painting DOM
-      setTimeout(initScrollAnimation, 100);
+      retryTimerRef.current = window.setTimeout(() => void initScrollAnimation(), 100);
       return;
     }
 
-    if (animationCtxRef.current) {
-      animationCtxRef.current.revert();
-      animationCtxRef.current = null;
-    }
+    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+      import('gsap'),
+      import('gsap/dist/ScrollTrigger'),
+    ]);
+
+    if (!sectionRef.current || !stickyContainerRef.current || animationInitializedRef.current) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+    animationInitializedRef.current = true;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -229,7 +233,7 @@ export const LocationSection: React.FC = () => {
 
       ScrollTrigger.refresh();
     }, sectionRef);
-  };
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -250,9 +254,13 @@ export const LocationSection: React.FC = () => {
 
   useEffect(() => {
     return () => {
+      if (retryTimerRef.current !== null) {
+        window.clearTimeout(retryTimerRef.current);
+      }
       if (animationCtxRef.current) {
         animationCtxRef.current.revert();
       }
+      animationInitializedRef.current = false;
     };
   }, []);
 
@@ -271,7 +279,7 @@ export const LocationSection: React.FC = () => {
         className="w-full h-screen h-[100dvh] overflow-hidden bg-[#FAF9F6]"
       >
         {shouldMountMap ? (
-          <OxfordCoveMap onMapReady={() => initScrollAnimation()} />
+          <OxfordCoveMap onMapReady={initScrollAnimation} />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center bg-[#FAF9F6] text-[#806B54]">
             <span className="font-technical text-[11px] font-semibold tracking-widest uppercase">

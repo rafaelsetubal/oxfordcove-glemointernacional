@@ -29,12 +29,12 @@ export const FinalCtaSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="final-cta"
-      className="relative w-full min-h-[100svh] flex items-center justify-center py-16 sm:py-20 lg:py-24 overflow-hidden select-none bg-[#14221A]"
+      className="defer-render relative w-full min-h-[100svh] flex items-center justify-center py-16 sm:py-20 lg:py-24 overflow-hidden select-none bg-[#14221A]"
     >
       {/* 01. FULL-BLEED ARCHITECTURAL PHOTOGRAPHY (PROTAGONIST, CRISP & VISIBLE) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/final-cta/final-cta-balcony.png"
+          src="/images/final-cta/final-cta-balcony.webp"
           alt="Oxford Cove by IMAN Developers — Arquitetura e Terraços"
           fill
           priority={false}

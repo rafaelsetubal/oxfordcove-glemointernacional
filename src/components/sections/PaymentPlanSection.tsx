@@ -97,7 +97,7 @@ export const PaymentPlanSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="payment-plan"
-      className="relative w-full bg-[#FAF8F5] text-[#24231F] py-14 sm:py-16 lg:py-20 select-none overflow-hidden border-t border-[#24231F]/10"
+      className="defer-render relative w-full bg-[#FAF8F5] text-[#24231F] py-14 sm:py-16 lg:py-20 select-none overflow-hidden border-t border-[#24231F]/10"
     >
       {/* ========================================================================= */}
       {/* 01. SUBTLE BACKGROUND LAYERS (DISCRETE MATERIALITY, NEVER DISTRACTING)    */}

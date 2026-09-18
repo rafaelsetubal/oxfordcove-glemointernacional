@@ -1,13 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Lenis from 'lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
@@ -20,30 +13,50 @@ export const SmoothScrollProvider: React.FC<{ children: React.ReactNode }> = ({ 
       return;
     }
 
-    // Ultra-smooth, lightweight luxury inertia scroll for Desktop
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-      infinite: false,
-    });
+    let cancelled = false;
+    let dispose: (() => void) | undefined;
 
-    // Synchronize Lenis with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    const initializeDesktopScroll = async () => {
+      const [{ default: Lenis }, { gsap }, { ScrollTrigger }] = await Promise.all([
+        import('lenis'),
+        import('gsap'),
+        import('gsap/dist/ScrollTrigger'),
+      ]);
 
-    const updateLenis = (time: number) => {
-      lenis.raf(time * 1000);
+      if (cancelled) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const lenis = new Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.9,
+        infinite: false,
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+
+      const updateLenis = (time: number) => {
+        lenis.raf(time * 1000);
+      };
+
+      gsap.ticker.add(updateLenis);
+      gsap.ticker.lagSmoothing(0);
+
+      dispose = () => {
+        gsap.ticker.remove(updateLenis);
+        lenis.destroy();
+      };
     };
 
-    gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(0);
+    void initializeDesktopScroll();
 
     return () => {
-      gsap.ticker.remove(updateLenis);
-      lenis.destroy();
+      cancelled = true;
+      dispose?.();
     };
   }, []);
 

@@ -16,6 +16,9 @@ interface OxfordCoveMapProps {
 export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<Map | null>(null);
+  const positionsRef = useRef<Record<string, { x: number; y: number }>>({});
+  const mapReadyNotifiedRef = useRef(false);
+  const animationFrameRef = useRef<number | null>(null);
 
   const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({});
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -40,6 +43,16 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
       });
 
       if (allValid && Object.keys(newPositions).length === DESTINATIONS.length) {
+        const previousPositions = positionsRef.current;
+        const hasChanged = DESTINATIONS.some((dest) => {
+          const previous = previousPositions[dest.id];
+          const next = newPositions[dest.id];
+          return !previous || previous.x !== next.x || previous.y !== next.y;
+        });
+
+        if (!hasChanged) return;
+
+        positionsRef.current = newPositions;
         setPositions(newPositions);
         setIsLoaded(true);
       }
@@ -84,6 +97,14 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
 
       mapInstanceRef.current = map;
 
+      const schedulePositionUpdate = () => {
+        if (animationFrameRef.current !== null) return;
+        animationFrameRef.current = window.requestAnimationFrame(() => {
+          animationFrameRef.current = null;
+          updateScreenPositions();
+        });
+      };
+
       map.on('error', (e) => {
         console.error('MapLibre error:', e);
         // Only set error if critical style or rendering failure
@@ -93,21 +114,21 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
       });
 
       map.on('load', () => {
-        updateScreenPositions();
+        schedulePositionUpdate();
       });
 
       map.on('render', () => {
-        updateScreenPositions();
+        schedulePositionUpdate();
       });
 
       map.on('idle', () => {
-        updateScreenPositions();
+        schedulePositionUpdate();
       });
 
       const handleResize = () => {
         if (mapInstanceRef.current) {
           mapInstanceRef.current.resize();
-          updateScreenPositions();
+          schedulePositionUpdate();
         }
       };
 
@@ -115,6 +136,10 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
 
       return () => {
         window.removeEventListener('resize', handleResize);
+        if (animationFrameRef.current !== null) {
+          window.cancelAnimationFrame(animationFrameRef.current);
+          animationFrameRef.current = null;
+        }
         map.remove();
         mapInstanceRef.current = null;
       };
@@ -126,11 +151,14 @@ export const OxfordCoveMap: React.FC<OxfordCoveMapProps> = ({ onMapReady }) => {
 
   // Notify parent once markers and connection lines are mounted in the DOM
   useEffect(() => {
-    if (isLoaded && Object.keys(positions).length >= DESTINATIONS.length) {
+    if (
+      isLoaded &&
+      !mapReadyNotifiedRef.current &&
+      Object.keys(positions).length >= DESTINATIONS.length
+    ) {
+      mapReadyNotifiedRef.current = true;
       const timer = setTimeout(() => {
-        if (onMapReady) {
-          onMapReady();
-        }
+        onMapReady?.();
       }, 60);
       return () => clearTimeout(timer);
     }

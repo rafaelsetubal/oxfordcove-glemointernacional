@@ -287,7 +287,7 @@ export const AmenitiesSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="amenities"
-      className="relative w-full bg-[#F4F1EA] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/8 select-none"
+      className="defer-render relative w-full bg-[#F4F1EA] text-[#24231F] py-20 lg:py-28 border-t border-[#24231F]/8 select-none"
     >
       <div
         className={`container-master px-4 sm:px-6 lg:px-8 gpu-accel reveal-blur-init ${
